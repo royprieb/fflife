@@ -121,6 +121,8 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     # Installed apps
     'south',
+    # Handrolled apps
+    'blog',
 )
 
 # A sample logging configuration. The only tangible logging
