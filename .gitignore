@@ -1,1 +1,6 @@
+# directories to ignore
 fflife-env/
+
+# files to ignore
+db_fflife
+local_settings.py
