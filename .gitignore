@@ -1,6 +1,11 @@
 # directories to ignore
 fflife-env/
+tmp/
 
 # files to ignore
 db_fflife
 local_settings.py
+
+# ignore certain wildcards
+*~
+*.swp
