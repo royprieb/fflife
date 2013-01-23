@@ -1,6 +1,7 @@
 # directories to ignore
 fflife-env/
 tmp/
+media/
 
 # files to ignore
 db_fflife
