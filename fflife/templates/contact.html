@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="grid_12 aboutcontent">
+<h1>Contact</h1>
+<div class="aboutbody">
+{{content.body|safe}}
+</div>
+
+<form id="contact" class="fullpageform" method="post" action="/contact/">
+{% csrf_token %}
+{{form.as_p}}
+<input class="submit" type="submit" value="submit"/>
+</form>
+
+</div>
+<div class="clear">&nbsp;</div>
+
+{% endblock %}

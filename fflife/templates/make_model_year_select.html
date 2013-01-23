@@ -1,0 +1,36 @@
+<!-- make_model_year_select.html -->
+<form id="filter" method='post' action='/filter/' accept-charset="utf-8">{% csrf_token %}
+    <label>Car Make:</label>
+    <select name="make" id="make">
+        <option value="0">Select Make</option>
+        {% for make in make_list %}
+             <option value="{{make.pk}}">{{ make.name }}</option>
+        {% endfor %}
+    </select>
+    <label>Car Model:</label>
+    <select name="model" id="model">
+        <option value="0">Select Model</option>
+        {% for model in model_list %}
+             <option value="{{model.pk}}">{{ model.name }}</option>
+        {% endfor %}
+    </select>
+    <label>Start Year:</label><input type="text" name="startyear" id="startyear">
+    <label>End Year:</label><input type="text" name="endyear" id="endyear">
+    <input id="filter_submit" type="submit" class="submit" value="Submit">
+</form>
+<script>
+    $(document).ready(function(){
+        $("select#make").change(function(){
+            var url = "/make/" + $(this).val() + "/all_json_models/";
+            $.getJSON(url, function(models){
+            var options = '<option value="0">Select Model</option>';
+            for (var i = 0; i < models.length; i++){
+                options += '<option value="' + models[i].pk + '">' + models[i].fields['name']+'</option>';
+            }
+            $("select#model").html(options);
+            $("select#model option:first").attr('selected','selected');
+            });
+        });
+
+    });     
+</script>

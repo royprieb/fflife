@@ -1,0 +1,9 @@
+{{ object.name }}
+{{ object.make }}
+{{ object.model }}
+{{ object.year }}
+{{ object.journal.title }}
+{{ object.journal.owner.username }}
+{% for tag in object.tags.all %}
+{{ tag.name }}
+{% endfor %}

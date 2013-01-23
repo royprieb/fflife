@@ -1,0 +1,67 @@
+{% extends "journal.html" %}
+
+{% block content_window %}
+
+<div class="grid_9">
+<div id="Events">
+
+<h1>Your Updates</h2>
+<p>Check here for messages and activity on your favorite cars.</p>
+
+<ul>
+{% for event in events %}
+{% if event.type == 'welcome' %}
+<li class='{{event.type}}'>
+<h5>{{event.title}}</h5>
+<p class='pub_date'>{{event.pub_date}}</p>
+<p>{{event.description}} </p>
+</li>
+{% endif %}
+
+{% if event.type == 'car'  %}
+<li class='{{event.type}}'>
+<h5>{{event.title}}</h5>
+<p class='pub_date'>{{event.pub_date}}</p>
+<p>{{event.description}} </p>
+<a href='{{event.next}}'>Visit Car</a>
+</li>
+{% endif %}
+
+{% if event.type == 'message' %}
+<li class='{{event.type}}'>
+<h5>{{event.title}}</h5>
+<p class='pub_date'>{{event.pub_date}}</p>
+<p>{{event.description}} </p>
+<a href='{{event.next}}'>Respond</a>
+</li>
+{% endif %}
+
+{% if event.type == 'vote' %}
+<li class='{{event.type}}'>
+<h5>{{event.title}}</h5>
+<p class='pub_date'>{{event.pub_date}}</p>
+</li>
+{% endif %}
+
+{% if event.type == 'like' %}
+<li class='{{event.type}}'>
+<h5>{{event.title}}</h5>
+<p class='pub_date'>{{event.pub_date}}</p>
+</li>
+{% endif %}
+
+{% if event.type == 'follow' %}
+<li class='{{event.type} {% if event.viewed == False %}new{% endif %}'>
+<h5>{{event.title}}</h5>
+<p class='pub_date'>{{event.pub_date}}</p>
+</li>
+{% endif %}
+
+{% endfor %}
+</ul>
+
+</div>
+</div>
+<div class="clear">&nbsp;</div> 
+
+{% endblock %}

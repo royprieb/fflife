@@ -1,0 +1,68 @@
+{% extends "carview.html" %}
+
+{% block posts %}
+<div class="journalpost">
+
+<a class="postnav" href="/journal/car/{{car.pk}}/view/">Back To Car</a>
+<a class="postnav" href="/journal/car/{{post.car.pk}}/post/{{post.pk}}/like/?next={{next}}">Like Post</a>
+<a class="postnav" href="/journal/car/{{car.pk}}/post/{{post.pk}}/edit/">Edit Post</a>
+<a class="postnav" href="/journal/post/{{post.pk}}/delete/">Delete Post</a>
+{% if prev_p %}<a class="postnav" href="/journal/car/{{post.car.pk}}/post/{{prev_p.pk}}/view/"><< Previous</a>{% endif %}
+{% if next_p %}<a class="postnav" href="/journal/car/{{post.car.pk}}/post/{{next_p.pk}}/view/">Next >></a>{% endif %}
+
+<h1>{{ post.title }}</h1>
+<p>Published on {{ post.pub_date }} by {{ post.car.journal.owner.username }} | <b>Likes: {{ likecount }}</b></p>
+
+<div id="tags">
+{% if tags %}
+<ul>
+{% for tag in tags %}
+<li>{{tag}}</li>
+{% endfor %}
+</ul>
+{% else %}
+No tags
+{% endif %}
+</div>
+
+<div class="journalpostcontent">
+{{ post.body|safe }}
+</div>
+
+<div id="commentlist">
+{% load comments %}
+<h3>Comments</h3>
+{% get_comment_list for post as comments %}
+<ul>
+{% if comments %}
+    {% for comment in comments %}
+    <li>{{comment.submit_date}} | {{comment.user_name}} | <a href="/comments/delete/{{comment.pk}}/?next={{next}}">delete</a><br/>{{comment.comment}}</li>
+    {% endfor %}
+{% else %}
+    <li><p>No comments yet.</p></li>
+{% endif %}
+</ul>
+</div>
+
+<div id="commentform">
+<h3>Submit A Comment</h3>
+{% if user.is_authenticated %}
+    {% get_comment_form for post as form %}
+    <form action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    <p>{{ form.comment }}</p>
+    <p>{{ form.honeypot }}</p>
+    <p>{{ form.content_type }}</p>
+    <p>{{ form.object_pk }}</p>
+    <p>{{ form.timestamp }}</p>
+    <p>{{ form.security_hash }}</p>
+    <input type="hidden" name ="next" value="{{next}}" />
+    <input type="submit" value="Add comment" id="id_submit" />
+    </form>
+{% else %}
+    <p>Please login to leave a comment.</p>
+{% endif %}
+</div>
+
+</div>
+{% endblock %}

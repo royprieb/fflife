@@ -1,0 +1,33 @@
+{% extends "journal.html" %}
+
+{% block content_window %}
+
+<div class="grid_8 journalsettings">
+<p class="instructions">Provide Your Car Vitals</h1>
+<form id="newcar" class="journalform" action="/journal/car/new/" method="post"> {% csrf_token %}
+{{ form.as_p }}
+<input class="submit" type="submit" value="Submit">
+<a class="cancel" href='/journal/view/'>Cancel</a>
+</form>
+
+</div>
+<div class="clear">&nbsp;</div>
+
+<script>
+    $(document).ready(function(){
+        $("select#id_make").change(function(){
+            var url = "/make/" + $(this).val() + "/all_json_models/";
+            $.getJSON(url, function(models){
+            var options = '<option value="0">---------</option>';
+            for (var i = 0; i < models.length; i++){
+                options += '<option value="' + models[i].pk + '">' + models[i].fields['name']+'</option>';
+            }
+            $("select#id_model").html(options);
+            $("select#id_model option:first").attr('selected','selected');
+            });
+        });
+
+    });     
+</script>
+
+{% endblock %} 

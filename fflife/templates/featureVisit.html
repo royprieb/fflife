@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="grid_8 featurecontent">
+<h1>{{feature_post.title}}</h1>
+<p>{{feature_post.pub_date}}</p>
+<div id="tags">
+<ul>
+{% for tag in tags %}
+<li>{{tag}}</li>
+{% endfor %}
+</ul>
+</div>
+<img src='{{ STATIC_URL }}media/{{feature_post.original_image}}'/>
+<div>{{feature_post.body|safe}}</div>
+
+{% load comments %}
+<div id="commentlist">
+<h3>Comments</h3>
+{% get_comment_list for feature_post as comments %}
+<ul>
+{% if comments %}
+    {% for comment in comments %}
+    <li>
+    {{comment.submit_date}} by <b>{{comment.user_name}}</b><br/>
+    <span class="comment">{{comment.comment}}</span>
+    </li>
+    {% endfor %}
+{% else %}
+    <li><p>No comments yet.</p></li>
+{% endif %}
+</ul>
+</div>
+
+<div id="commentform">
+<h3>Submit A Comment</h3>
+{% if user.is_authenticated %}
+    {% get_comment_form for feature_post as form %}
+    <form action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    <p>{{ form.comment }}</p>
+    <p>{{ form.honeypot }}</p>
+    <p>{{ form.content_type }}</p>
+    <p>{{ form.object_pk }}</p>
+    <p>{{ form.timestamp }}</p>
+    <p>{{ form.security_hash }}</p>
+    <input type="hidden" name ="next" value="{{next}}" />
+    <input type="submit" value="Add comment" id="id_submit" />
+    </form>
+{% else %}
+    <p>Please login to leave a comment.</p>
+{% endif %}
+</div>
+
+</div>
+
+<div class="grid_4 featureindex">
+<h3>More Feature Articles</h3>
+{% if recent_features %}
+<ul>
+{% for article in recent_features %}
+<li><a href="/visit/feature/{{article.pk}}/">{{ article.title }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No articles available.</p>
+{% endif %}
+</div>
+
+</div>
+<div class="clear">&nbsp;</div>
+{% endblock %}

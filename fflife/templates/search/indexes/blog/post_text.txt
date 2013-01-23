@@ -1,0 +1,11 @@
+{{ object.car.journal.title }}
+{{ object.car.journal.owner.username}}
+{{ object.pub_date }}
+{{ object.title }}
+{{ object.car.name }}
+{{ object.car.make }}
+{{ object.car.model }}
+{{ object.car.year }}
+{% for tag in object.tags.all %}
+{{ tag.name }}
+{% endfor %}

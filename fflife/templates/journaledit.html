@@ -1,0 +1,13 @@
+{% extends "journal.html" %}
+
+{% block content_window  %}
+<div class="grid_8 journalsettings">
+<form id="editjournal" class="journalform" action="/journal/{{ journalId }}/edit/" method="post">{% csrf_token %}
+<p class="instructions">Update Journal Settings</p>
+{{ form.as_p }}
+<input class="submit" type="submit" value="Submit">
+<a class="cancel" id="edit" href="/journal/view">Cancel</a>
+</form>
+</div>
+<div class="clear">&nbsp;</div>
+{% endblock %}

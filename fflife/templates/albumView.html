@@ -1,0 +1,28 @@
+{% extends "carview.html" %}
+
+{% block album %}
+<a id="addphoto" class="rounded-corners" href="/journal/car/{{car.pk}}/album/{{album.pk}}/add/">+ Add Photo</a>
+
+{% if photos %}
+<a id="editalbum" href="/journal/car/{{car.pk}}/album/{{album.pk}}/edit/">Edit Album</a>
+<ul>
+{% for photo in photos %}
+<li>
+<a class="lightbox" href='{{ STATIC_URL }}media/{{photo.display_image.url}}' title='{{photo.caption}}'><img src='{{ STATIC_URL }}media/{{ photo.thumb_image.url }}' alt='{{photo.caption}}'/></a>
+</li>
+{% endfor %}
+</ul>
+
+{% endif %}
+
+<script type="text/javascript">
+     $(function(){
+         $('a.lightbox').lightBox({
+             getCaption: function(jQueryObject){
+                 return '<h5>'+jQueryObject.attr('title')+'</h5><a href="'+jQueryObject.attr('href')+'">Download file</a>';
+             }
+         }); // select all links with lightbox class
+     });
+</script>
+
+{% endblock %}

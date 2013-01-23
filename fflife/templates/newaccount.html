@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="grid_12 fullpageform">
+<h1>Create Your Account</h1>
+<form id="newaccount" class="fullpageform" enctype="multipart/form-data" action="/account/new/" method="post">{% csrf_token %}
+{{form.as_p}}
+<input class="submit" type="submit" value="Submit">
+<a class="cancel" href="{{next}}">cancel</a>
+</form>
+</div>
+
+<div class="clear">&nbsp;</div>
+{% endblock %}

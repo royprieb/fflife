@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="grid_12">
+<h1>Welcome to the FastFreshLife!</h1>
+
+<a class="setup rounded-corners" href='/journal/view'>Go To Journal</a>
+<span class="setup"> or </span>
+<a class="setup rounded-corners" href='{{ next }}'>Return To Previous</a>
+
+</div>
+
+<div class="clear">&nbsp;</div>
+{% endblock %}

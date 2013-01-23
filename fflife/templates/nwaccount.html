@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="grid_12 fullpageform">
+<h1>Create Your Account</h1>
+<form id="newaccount" class="fullpageform" enctype="multipart/form-data" action="/account/new/" method="post">{% csrf_token %}
+{{form.as_p}}
+
+<!--<p>
+<label for="id_username">Username:</label>
+{{form.username}}
+{{form.username.errors}}
+</p>
+<p>
+<label for="id_email">Email:</label>
+{{form.email}}
+{{form.email.errors}}
+</p>
+<p>
+<label for="id_photo">Profile Photo:</label>
+{{form.photo}}
+{{form.photo.errors}}
+</p>
+<p>
+<label for="id_motto">Motto:</label>
+{{form.motto}}
+{{form.motto.errors}}
+</p>
+<p>
+<label for="id_city">City:</label>
+{{form.city}}
+{{form.city.errors}}
+</p>
+<p>
+<label for="id_state">State:</label>
+{{form.state}}
+{{form.city.errors}}
+</p>
+<p>
+<label for="id_country">Country:</label>
+{{form.country}}
+{{form.country.errors}}
+</p>
+<p>
+<label for="id_captcha">Captcha:</label>
+{{form.captcha}}
+{{form.captcha.errors}}
+</p>
+<p>
+{{form.next}}
+</p>-->
+
+<input class="submit" type="submit" value="Submit">
+<a class="cancel" href="{{next}}">cancel</a>
+{{form.errors}}
+</form>
+</div>
+
+<div class="clear">&nbsp;</div>
+{% endblock %}

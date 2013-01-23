@@ -1,0 +1,21 @@
+{% extends "carview.html" %}
+
+{% block album %}
+
+{% if photos %}
+<p class="instructions">Click photo to <b class="red"> delete</b> it from the gallery.<a id="canceledit" href="/journal/car/{{car.pk}}/album/{{album.pk}}/view/">Go back to gallery view.</a></p>
+<ul>
+{% for photo in photos %}
+<li>
+<a  href='/journal/photo/{{photo.pk}}/delete/'><img class="editphoto" src='{{ STATIC_URL }}media/{{ photo.thumb_image.url }}' alt='{{photo.caption}}'/></a>
+</li>
+{% endfor %}
+</ul>
+
+{% else %}
+
+<a id="addphoto" class="rounded-corners" href="/journal/car/{{car.pk}}/album/{{album.pk}}/add/">+ Add Photo</a>
+
+{% endif %}
+
+{% endblock %}

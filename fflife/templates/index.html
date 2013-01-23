@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="grid_12" id="msgbar">
+{% if user.is_authenticated %}
+<p>Welcome, <b>{{ user.username }}</b>! Good to see you again.
+{% if newEventCount > 0 %}
+{% if newEventCount > 1 %}
+You have <a href='/journal/view/'>{{newEventCount}}</a> new events!
+{% else %}
+You have <a href='/journal/view/'>{{newEventCount}}</a> new event!
+{% endif %}
+{% endif %}
+</p>
+{% else %}
+<p>Welcome to <b>FastFreshLife</b>! Home of the fastest, freshest, and most boss rides.</p>
+{% endif %}
+</div>
+<div class="clear">&nbsp;</div>
+
+<div class="grid_6" id="hero">
+{% if hero_photo %}
+<img src='{{ STATIC_URL }}media/{{ hero_photo.display_image.url }}' />
+{% else %}
+<p>No hero photo yet</p>
+{% endif %}
+</div>
+
+<div class="grid_6" id="featuredarticles">
+    <h2>Featured Articles</h2>
+    {% if featured_posts %}
+        {% for featured_post in featured_posts %}
+        <div class="grid_2 alpha">
+        <img src='{{ STATIC_URL }}media/{{ featured_post.display_image.url }}' />
+        </div>
+
+        <div class="grid_4 omega">
+        <h3><a href="/visit/feature/{{featured_post.pk}}">{{ featured_post.title }}</a></h3>
+        <p>{{ featured_post.pub_date}}</p>
+        <p>{{ featured_post.body|safe|striptags|truncatewords:5}}</p>
+        </div>
+
+        <div class="clear">&nbsp;</div>
+    {% endfor %}
+    {% else %}
+        <p>No featured posts available.</p>
+    {% endif %}
+</div>
+<div class="clear">&nbsp;</div>
+
+<div class="grid_6" id="recentposts">
+    <h2>Recent Owner Posts</h2>
+    {% if recent_posts %}
+        {% for recent_post in recent_posts %}
+        <div class="grid_1 alpha">
+        {% if recent_post.car.journal.owner.get_profile.original_image %}
+        <img src='{{ STATIC_URL }}media/{{ recent_post.car.journal.owner.get_profile.display_image }}'/>
+        {% else %}
+        <img src="/static/images/default.png" />
+        {% endif %}
+        </div>
+
+        <div class="grid_5 omega">
+        <h3><a href="/visit/car/{{ recent_post.car.pk }}/post/{{ recent_post.pk }}/">{{ recent_post.title }}</a></h3>
+        <p>By {{ recent_post.car.journal.owner.username }} | {{ recent_post.pub_date }} </p>
+        <p>{{ recent_post.body|safe|striptags|truncatewords:10 }} </p>
+        </div>
+
+        <div class="clear">&nbsp;</div>
+        {% endfor %}
+    {% else %}
+        <p>No recent posts available.</p>
+    {% endif %}
+
+</div>
+
+<div class="grid_6" id="featuredcars">
+    <h2>Featured Cars</h2>
+    <ul>
+    {% for featured_photo in featured_photos %}
+    <li>
+        <a href='/visit/car/{{ featured_photo.photo.album.car.pk}}/?sort=newest'>
+        <img src='{{ STATIC_URL }}media/{{ featured_photo.photo.thumb_image.url }}'/>
+        </a>
+    </li>
+    {% endfor  %}
+    </ul>
+</div>
+<div class="clear">&nbsp;</div>
+
+
+<div class="grid_4 top5">
+     <h2>Most Fast</h2>
+     <ol>
+     {% for car in fastList %}
+     <li><p><a href="/visit/car/{{car.pk}}/?sort=newest">"{{car.name}}" (Votes: {{car.num_votes}})</a><br/> {{car.year}} {{car.make}} {{car.model}} </p></li>
+     {% endfor %}
+     </ol>
+</div>
+
+<div class="grid_4 top5">
+     <h2>Most Fresh</h2>
+     <ol>
+     {% for car in freshList %}
+     <li><p><a href="/visit/car/{{car.pk}}/?sort=newest">"{{car.name}}" (Votes: {{car.num_votes}})</a><br/> {{car.year}} {{car.make}} {{car.model}} </p></li>
+     {% endfor %}
+     </ol>
+</div>
+
+<div class="grid_4 top5">
+      <h2>Most Boss</h2>
+      <ol>
+      {% for car in bossList %}
+      <li><p><a href="/visit/car/{{car.pk}}/?sort=newest">"{{car.name}}" (Votes: {{car.num_votes}})</a><br/> {{car.year}} {{car.make}} {{car.model}} </p></li>
+      {% endfor %}
+      </ol>
+</div>
+
+<div class="clear">&nbsp;</div>
+
+
+{% endblock %}

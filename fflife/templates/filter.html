@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="grid_12 fullpageform">
+
+<div id="filter" class="grid_12 alpha omega">
+<!--<h3>Search all cars by:</h3>
+<form id="filter" method='post' action='/filter/'>{% csrf_token %}
+{{form.as_p}}
+<input class="submit" type='submit' value='Submit'/>
+</form>-->
+
+<h3>Search all cars by:</h3>
+{% load blog_extras %}
+{% make_model_year_select %}
+
+</div>
+<div class="clear">&nbsp;</div>
+
+{% if results %}
+<div class="results">
+<h3>Results</h3>
+{% for result in results %}
+<p class="car"><a class="car" href="/visit/car/{{result.pk}}/">"{{result.name}}", {{result.year}} {{result.make}} {{result.model}}</a> owned by {{result.journal.owner.username}}. Total votes: {{result.num_votes}}.</p>
+{% endfor %}
+</div>
+{% endif %}
+
+</div>
+<div class="clear">&nbsp;</div>
+{% endblock %}

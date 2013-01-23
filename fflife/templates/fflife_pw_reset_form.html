@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="grid_12">
+<h1>Password Reset</h1>
+{% block content %}
+
+<form id="resetpw" class="fullpageform" action="" method="post"> {% csrf_token %}
+ {{ form.email.errors }}
+<p class="instructions">Forgotten your password? Enter your e-mail address below, and we'll e-mail instructions for setting a new one.</p>
+<p><label for="id_email">E-mail:</label> {{ form.email }} <input class="submit" type="submit" value="Submit" /></p>
+</form>
+{% endblock %}
+</div>
+<div class="clear">&nbsp;</div>
+{% endblock %}

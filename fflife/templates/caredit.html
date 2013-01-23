@@ -1,0 +1,15 @@
+{% extends "carview.html" %}
+
+{% block posts %}
+
+<form id="editcar" class="journalform" action="/journal/car/{{car.pk}}/edit/" method="post">{% csrf_token %}
+<a class="editcancel" href="/journal/car/{{ car.pk }}/view/">Cancel</a>
+<p class="instructions">Edit your car vitals below</p>
+{{ form.as_p }}
+
+<input class="submit" type="submit" value="submit">
+<a class="delete" href="/journal/car/{{ car.pk }}/delete">Delete</a>
+</form>
+
+{% endblock %}
+

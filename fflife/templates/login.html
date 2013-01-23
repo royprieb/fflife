@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="grid_12 fullpageform">
+<h1>Login</h1>
+<form id="login" class="fullpageform" action="/login/" method="post" >{% csrf_token %}
+{{ form.as_p }}
+<input class="submit" type="submit" value="login">
+<p><a class="newpw" href="/account/password/reset/">Forgot My Password</a></p>
+<p><a class="newaccount" href="/account/new/?next={{ next }}">Create New Account</a></p>
+</form>
+</div>
+
+<div class="clear">&nbsp;</div>
+
+{% endblock %} 

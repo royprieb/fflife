@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="grid_3" id="leftnav">
+
+<!-- Owner -->
+<div class="grid_3 alpha omega">
+<div id="owner" class="rounded-corners">
+<div class="grid_3 alpha omega">
+{% if journal.owner.get_profile.original_image %}
+<img src='{{ STATIC_URL}}media/{{journal.owner.get_profile.display_image.url }}' />
+{% else %}
+<img src='/static/images/default.png'/>
+{% endif %}
+<h2>{{journal.owner.username}}</h2>
+<p class="address">
+{% if journal.owner.get_profile.city %}{{journal.owner.get_profile.city}}{% endif %}
+{% if journal.owner.get_profile.state and journal.owner.get_profile.city %}
+, {{journal.owner.get_profile.state}}</p>
+{% elif journal.owner.get_profile.state %}
+{{journal.owner.get_profile.state}}</p>
+{% endif %}
+{% if journal.owner.get_profile.country %}
+<p class="address"> {{journal.owner.get_profile.country }}</p>
+{% endif %}
+</div>
+<div class="clear">&nbsp;</div>
+{% if journal.owner.get_profile.motto %}
+<p>"{{journal.owner.get_profile.motto}}"</p>
+{% endif %}
+<a class="message" href="/message/{{journal.owner.pk}}/">Send Message</a>
+</div>
+
+</div>
+<div class="clear">&nbsp;</div>
+
+<!-- Garage -->
+<div class="grid_3 alpha omega" id="garage">
+<h2>Owner's Garage</h2>
+{% if cars %}
+<ul id="garagelist">
+{% for car in cars %}
+<li id='car/{{car.pk}}'><a href="/visit/car/{{car.pk}}/?sort=newest">{{car.year}} {{car.make}} {{car.model}}</a></li>
+{% endfor %} 
+</ul>
+{% else %}
+<p>No cars in this garage.</p>
+{% endif %}
+</div>
+<div class="clear">&nbsp;</div>
+
+</div>
+
+{% block content_window %}
+{% endblock %}
+
+{% endblock %}

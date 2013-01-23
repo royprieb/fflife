@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="grid_12 fullpageform">
+<h1>Your Account Settings</h1>
+<p class="instructions">Change your account settings below:</p>
+<form id="editaccount" class="fullpageform" enctype="multipart/form-data" action="/account/edit/" method="post"> {% csrf_token %}
+{{ form.as_p }}
+<input class="submit" type="submit" value="Submit">
+<p><a class="resetpw" href="/account/password/change">Change Password</a></p>
+<p><a class="red deleteacct" href="/account/delete">Delete Account</a></p>
+</form>
+
+</div>
+
+<div class="clear">&nbsp;</div>
+{% endblock %}

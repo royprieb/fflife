@@ -1,0 +1,91 @@
+{% extends "carview.html" %}
+
+{% block mod %}
+<a id="addmod" class="rounded-corners" href="/journal/car/{{car.pk}}/mod/add">+ Add Mod</a>
+
+{% if mods %}
+<ul>
+<li class="modHeader">Engine</li>
+{% for mod in mods %}
+    {% if mod.modType.category == "Engine" %}
+    <li class="{{mod.modType.category}}">
+         <span>{{ mod.brand }} | {{ mod.part }}</span>
+         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+    </li>
+    {% endif %}
+{% endfor %}
+
+<li class="modHeader">Interior</li>
+{% for mod in mods %}
+    {% if mod.modType.category == "Interior" %}
+    <li class="{{mod.modType.category}}">
+         <span>{{ mod.brand }} | {{ mod.part }}</span>
+         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+    </li>
+    {% endif %}
+{% endfor %}
+
+<li class="modHeader">Exterior</li>
+{% for mod in mods %}
+    {% if mod.modType.category == "Exterior" %}
+    <li class="{{mod.modType.category}}">
+         <span>{{ mod.brand }} | {{ mod.part }}</span>
+         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+    </li>
+    {% endif %}
+{% endfor %}
+
+<li class="modHeader">Suspension</li>
+{% for mod in mods %}
+    {% if mod.modType.category == 'Suspension' %}
+    <li class="{{mod.modType.category}}">
+         <span>{{ mod.brand }} | {{ mod.part }}</span>
+         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+    </li>
+    {% endif %}
+{% endfor %}
+
+<li class="modHeader">Wheels</li>
+{% for mod in mods %}
+    {% if mod.modType.category == 'Wheels' %}
+    <li class="{{mod.modType.category}}">
+         <span>{{ mod.brand }} | {{ mod.part }}</span>
+         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+    </li>
+    {% endif %}
+{% endfor %}
+
+<li class="modHeader">Audio</li>
+{% for mod in mods %}
+    {% if mod.modType.category == 'Audio' %}
+    <li class="{{mod.modType.category}}">
+         <span>{{ mod.brand }} | {{ mod.part }}</span>
+         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+    </li>
+    {% endif %}
+{% endfor %}
+
+<li class="modHeader">Tires</li>
+{% for mod in mods %}
+    {% if mod.modType.category == "Tires" %}
+    <li class="{{mod.modType.category}}">
+         <span>{{ mod.brand }} | {{ mod.part }}</span>
+         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+    </li>
+    {% endif %}
+{% endfor %}
+
+<li class="modHeader">Other</li>
+{% for mod in mods %}
+    {% if mod.modType.category == 'Other' %}
+    <li class="{{mod.modType.category}}">
+         <span>{{ mod.brand }} | {{ mod.part }}</span>
+         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+    </li>
+    {% endif %}
+{% endfor %}
+
+</ul>
+{% endif %}
+
+{% endblock %}

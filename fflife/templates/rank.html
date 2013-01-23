@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="grid_12 rank">
+<h1>Tops In All Categories</h1>
+
+<div class="grid_4 alpha">
+<h2>Most Fast</h2>
+<ol>
+{% for car in fastList %}
+<li><p><a href="/visit/car/{{car.pk}}">"{{car.name}}" (Votes: {{car.num_votes}})</a><br/> {{car.year}} {{car.make}} {{car.model}} </p></li>
+{% endfor %}
+</ol>
+</div>
+
+<div class="grid_4">
+<h2>Most Fresh</h2>
+<ol>
+{% for car in freshList %}
+<li><p><a href="/visit/car/{{car.pk}}">"{{car.name}}" (Votes: {{car.num_votes}})</a><br/> {{car.year}} {{car.make}} {{car.model}} </p></li>
+{% endfor %}
+</ol>
+</div>
+
+<div class="grid_4 omega">
+<h2>Most Boss</h2>
+<ol>
+{% for car in bossList %}
+<li><p><a href="/visit/car/{{car.pk}}">"{{car.name}}" (Votes: {{car.num_votes}})</a><br/> {{car.year}} {{car.make}} {{car.model}}</p></li>
+{% endfor %}
+</ol>
+</div>
+
+<div class="clear">&nbsp;</div>
+
+</div>
+<div class="clear">&nbsp;</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="grid_12 fullpageform">
+<h1>Password Change</h1>
+<p class="instructions">Please enter your old password, for security's sake, and then enter your new password twice so we can verify you typed it in correctly.</p>
+<form id="pwchange" class="fullpageform" method="post" action="/account/change/password/"> {% csrf_token %}
+{{ form.as_p }}
+<input class="submit" type="submit" value="Submit">
+</form>
+
+</div>
+
+<div class="clear">&nbsp;</div>
+{% endblock %}

@@ -1,0 +1,210 @@
+{% extends "journal.html" %}
+
+{% block content_window %}
+<div class="grid_9">
+
+{% if cars %}
+<div class="tabs">
+    <div class="tab">
+        <input type="radio" id="tab-1" name="tab-group-1" {{posts_tab}}>
+        <label for="tab-1">Posts</label>
+
+        <div class="content">
+            {% block posts %}
+            <h1>{{car.name|upper}}</h1>
+            <div id="vitals">
+            {% block car_vitals %}
+            <p>Make: <b>{{car.make}}</b> | Model: <b>{{car.model}}</b> | Year: <b>{{car.year}}</b> | <a  href='/journal/car/{{car.pk}}/edit/'>Edit</a></p> 
+
+            <div id="tags">
+                {% if tags %}
+                <ul>
+                {% for tag in tags %}
+                <li>{{tag}}</li>
+                {% endfor %}
+                </ul>
+                {% else %}
+                No tags
+                {% endif %}
+            </div>
+
+            {% endblock %}
+            </div>
+
+            <div id="votes">
+            <ul>
+            <li>
+                <a href="/visit/car/{{car.id}}/vote/fast/?next={{next}}" >+</a>
+                Fast: {{fastvotecount}}
+            </li>
+            <li>
+                <a href="/visit/car/{{car.id}}/vote/fresh/?next={{next}}">+</a>
+                Fresh: {{freshvotecount}}
+            </li>
+            <li>
+                <a href="/visit/car/{{car.id}}/vote/boss/?next={{next}}">+</a>
+                Boss: {{bossvotecount}}
+            </li>
+            </ul>
+            </div>
+
+            <div id="posts">
+            <h2>Recent Posts</h2>
+            <a id="createpost" class="rounded-corners" href='/journal/car/{{car.pk}}/post/new/'>+ Create Post</a>{% if posts %}<span><a class="sortposts" href="/journal/car/{{car.pk}}/view/?sort=oldest">Oldest</a><a class="sortposts" href="/journal/car/{{car.pk}}/view/?sort=newest">Newest</a></span>{% endif %}
+            {% if posts %}
+            <ul>
+            {% for post in posts %}
+            <li class="post">
+                <h3><a href="/journal/car/{{car.pk}}//post/{{post.pk}}/view">{{post.title}}</a></h3>
+                <p>{{post.body|safe|striptags|truncatewords:10}}</p>
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+
+            </div>
+            {% endblock%}
+        </div>
+    </div>
+
+    <div class="tab">
+        <input type="radio" id="tab-2" name="tab-group-1" {{mods_tab}}>
+        <label for="tab-2">Mod List</label>
+
+        <div id="mod" class="content">
+            <h1>Modifications</h1>
+            {% block mod %}
+            <a id="addmod" class="rounded-corners" href="/journal/car/{{car.pk}}/mod/add">+ Add Mod</a>
+
+            {% if mods %}
+            <ul>
+
+            <li class="modHeader">Engine</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == "Engine" %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Interior</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == "Interior" %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Exterior</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == "Exterior" %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Suspension</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == 'Suspension' %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Wheels</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == 'Wheels' %}
+            <li class="{{mod.modType.category}}"> 
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Audio</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == 'Audio' %}
+            <li class="{{mod.modType.category}}"> 
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Tires</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == "Tires" %}
+            <li class="{{mod.modType.category}}"> 
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Other</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == 'Other' %}
+            <li class="{{mod.modType.category}}"> 
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            </ul>
+            {% endif %}
+        
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="tab">
+        <input type="radio" id="tab-3" name="tab-group-1" {{album_tab}}>
+        <label for="tab-3">Photo Gallery</label>
+
+        <div id="gallery" class="content">
+        <h1>Photo Gallery</h1>
+        {% block album %}
+        <a id="addphoto" class="rounded-corners" href="/journal/car/{{car.pk}}/album/{{album.pk}}/add/">+ Add Photo</a>
+            {% if photos %}
+            <a id="editalbum" href="/journal/car/{{car.pk}}/album/{{album.pk}}/edit/">Edit Album</a>
+
+            <ul>
+            {% for photo in photos %}
+            <li>
+            <a class="lightbox" href='{{ STATIC_URL }}media/{{photo.display_image.url}}' title='{{photo.caption}}'><img alt='{{photo.caption}}' src='{{ STATIC_URL }}media/{{ photo.thumb_image.url }}'/></a>
+            {% endfor %}
+            </ul>
+
+            {% endif %}
+
+            <script type="text/javascript">
+            $(function(){
+                 $('a.lightbox').lightBox({
+                     getCaption: function(jQueryObject){
+                         return '<h5>'+jQueryObject.attr('title')+'</h5><a href="'+jQueryObject.attr('href')+'">Download file</a>';
+                     }
+                 }); // select all links with lightbox class
+            });
+            </script>
+        {% endblock %}
+        </div>
+    </div>
+</div>
+{% else %}
+<h1>Your journal is ready!</h1>
+<p>Time to add a car. <a href="/journal/car/new/">Click here</a></p>
+{% endif %}
+
+</div>
+<div class="clear">&nbsp;</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'searchbase.html' %}
+
+{% block body %}
+<!--<div class="grid_12 fullpageform">
+<div class="grid_12 alpha omega" id="search">
+<form id="search" class="fullpageform" method="get" action=".">
+{{ form.as_p}}
+<input class="submit" type="submit" value="Submit">
+</form>
+</div>
+<div class="clear">&nbsp;</div>-->
+
+    {% if query %}
+    <div class="results grid_12">
+        <h3>Search Results</h3>
+        {% for result in page.object_list %}
+            {% ifequal result.model_name 'car' %}
+            <p class="car"><a class="car" href="/visit/car/{{ result.object.pk}}/">"{{ result.object.name }}", {{result.object.year}} {{ result.object.make}} {{result.object.model}}</a> owned by {{result.object.journal.owner.username}}</a></p>
+            {% endifequal %}
+            {% ifequal result.model_name 'post' %}
+            <p class="post"><a class="post" href="/visit/car/{{ result.object.car.pk }}/post/{{ result.object.pk }}">"{{ result.object.title }}"</a> published on {{result.object.pub_date}} by {{result.object.car.journal.owner.username}}</p>
+            {% endifequal %}
+            {% ifequal result.model_name 'mod' %}
+            <p class="car"><a class="car" href="/visit/car/{{ result.object.car.pk}}/">"{{ result.object.car.name }}," {{ result.object.car.make}} {{result.object.car.model}} {{result.object.car.year}},</a> owned by {{result.object.car.journal.owner.username}}</p>
+            {% endifequal %}
+        {% empty %}
+             <p>No results found.</p>
+        {% endfor %}
+
+        {% if page.has_previous or page.has_next %}
+        <div>
+        {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}|
+        {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+        </div>
+        {% endif %}
+     </div>
+
+     {% else %}
+         {# Show some examples queryies to run, maybe query syntax #}
+     {% endif %}
+
+</div>
+<div class="clear">&nbsp;</div>
+{% endblock %}

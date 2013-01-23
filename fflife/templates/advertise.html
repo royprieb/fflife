@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="grid_12 aboutcontent">
+<h1>Advertise</h1>
+<div class="aboutbody">
+{{content.body|safe}}
+</div>
+<form id="advertise" class="fullpageform" method="post" action="/advertise/">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" class="submit" value="submit"/>
+</form>
+
+</div>
+
+<div class="clear">&nbsp;</div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "carview.html" %}
+
+{% block album %}
+<form id="addalbum" class="journalform" enctype="multipart/form-data" action="/journal/car/{{car.id}}/album/{{album.id}}/add/" method="post">{% csrf_token %}
+<p class="instructions">Add your photo below:</p>
+{{form.as_p}}
+<input class="submit" type="submit" value="submit">
+<a class="cancel" href="/journal/car/{{car.id}}/album/{{album.id}}/view/">Cancel</a>
+</form>
+{% endblock %}

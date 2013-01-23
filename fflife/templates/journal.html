@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="grid_3" id="leftnav">
+
+<!-- Owner -->
+<div class="grid_3 alpha omega">
+<div id="owner" class="rounded-corners">
+<div class="grid_3 alpha omega">
+{% if user.get_profile.original_image  %}
+<img src='{{ STATIC_URL}}media/{{user.get_profile.display_image.url }}' />
+{% else %}
+<img src="/static/images/default.png" />
+{% endif %}
+<h2>{{user.username}}</h2>
+<p class="address">
+{% if user.get_profile.city %}{{user.get_profile.city}}{% endif %}
+{% if user.get_profile.state and user.get_profile.city %}
+, {{user.get_profile.state}}</p>
+{% elif user.get_profile.state %}
+{{user.get_profile.state}}</p>
+{% endif %}
+{% if user.get_profile.country %}
+<p class="address"> {{user.get_profile.country }}</p>
+{% endif %}
+</div>
+<div class="clear">&nbsp;</div>
+{% if user.get_profile.motto %}
+<p>"{{user.get_profile.motto}}"</p>
+{% endif %}
+
+</div>
+</div>
+<div class="clear">&nbsp;</div>
+
+<!-- Garage -->
+<div class="grid_3 alpha omega" id="garage">
+<h2>Your Garage</h2>
+
+{% if cars %}
+<ul id="garagelist">
+{% for car in cars %}
+<li id='car/{{car.pk}}'><a href="/journal/car/{{car.pk}}/view">{{car.year}} {{car.make}} {{car.model}}</a></li>
+{% endfor %}
+<li id="car/new"><a href="/journal/car/new">Add New Car</a></li>
+{% else %}
+<li id="car/new"><a href="/journal/car/new">Add New Car</a></li>
+</ul>
+{% endif %}
+</div>
+<div class="clear">&nbsp;</div>
+
+</div>
+
+{% block content_window %}
+{% endblock %}
+
+{% endblock %}

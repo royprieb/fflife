@@ -1,0 +1,200 @@
+{% extends "visit.html" %}
+
+{% block content_window %}
+<div class="grid_9">
+
+<div class="tabs">
+    <div class="tab">
+        <input type="radio" id="tab-1" name="tab-group-1" checked>
+        <label for="tab-1">Posts</label>
+
+        <div class="content">
+            {% block posts %}
+            <h1>{{car.name|upper}}</h1>
+            <div id="vitals">
+            <p>Make: <b>{{car.make}}</b> | Model: <b>{{car.model}}</b> | Year: <b>{{car.year}}</b></p>
+            </div>
+
+             <div id="tags">
+             {% if tags %}
+                <ul>
+                {% for tag in tags %}
+                <li>{{tag}}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                No tags
+            {% endif %}
+            </div>
+
+            <div id="votes">
+            <ul>
+            <li>
+                <a href="/visit/car/{{car.id}}/vote/fast/?next={{next}}" >+</a>
+                Fast: {{fastvotecount}}
+            </li>
+            <li>
+                <a href="/visit/car/{{car.id}}/vote/fresh/?next={{next}}">+</a>
+                Fresh: {{freshvotecount}}
+            </li>
+            <li>
+                <a href="/visit/car/{{car.id}}/vote/boss/?next={{next}}">+</a>
+                Boss: {{bossvotecount}}
+            </li> 
+            <li>
+                {% if followStatus %}
+                <a id="stopfollow" href="/visit/car/{{car.id}}/stopfollow">Stop Follow</a>
+                {% else %}
+                <a href="/visit/car/{{car.id}}/follow">Follow Car</a>
+                {% endif %}
+            </li>
+            
+            </ul>
+            </div>
+
+            <div id="posts">
+            <h2>Most Recent Posts</h2>
+            {% if posts %}
+            <span><a class="sortposts" href="/visit/car/{{car.pk}}/?sort=oldest">Oldest</a><a class="sortposts" href="/visit/car/{{car.pk}}/?sort=newest">Newest</a></span>
+            <ul>
+            {% for post in posts %}
+            <li class="post">
+                <h3><a href="/visit/car/{{car.pk}}/post/{{post.pk}}">{{post.title}}</a></h3>
+                <p>{{post.body|safe|striptags|truncatewords:10}}</p>
+            </li>
+            {% endfor %}
+            </ul>
+            {% else %}
+            <p>No posts are available.</p>
+            {% endif %}
+            </div>
+
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="tab">
+        <input type="radio" id="tab-2" name="tab-group-1">
+        <label for="tab-2">Mod List</label>
+
+        <div id="mod" class="content">
+            <h1>Modifications</h1>
+            {% if mods %}
+
+            <ul>
+
+            <li class="modHeader">Engine</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == "Engine" %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Interior</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == "Interior" %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Exterior</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == "Exterior" %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Suspension</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == 'Suspension' %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Wheels</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == 'Wheels' %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Audio</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == 'Audio' %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Tires</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == "Tires" %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="modHeader">Other</li>
+            {% for mod in mods %}
+            {% if mod.modType.category == 'Other' %}
+            <li class="{{mod.modType.category}}">
+                <span>{{ mod.brand }} | {{ mod.part }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            </ul>
+
+            {% else %}
+                 <p>No modifications recorded.</p>
+            {% endif %}
+        </div>
+    </div> 
+
+    <div class="tab">
+        <input type="radio" id="tab-3" name="tab-group-1">
+        <label for="tab-3">Gallery</label>
+
+        <div id="gallery" class="content">
+        <h1>Photo Gallery</h1>
+            {% if photos %}
+            <ul>
+            {% for photo in photos %}
+            <li>
+            <a class="lightbox" href='{{ STATIC_URL }}media/{{photo.display_image.url}}' title='{{photo.caption}}'><img alt='{{photo.caption}}' src='{{ STATIC_URL }}media/{{ photo.thumb_image.url }}'/></a>
+            </li>
+            {% endfor %}
+            </ul>
+
+            {% else %}
+                   <p>No photos available.</p>
+            {% endif %}
+
+            <script type="text/javascript">
+            $(function(){
+                 $('a.lightbox').lightBox({
+                     getCaption: function(jQueryObject){
+                         return '<h5>'+jQueryObject.attr('title')+'</h5><a href="'+jQueryObject.attr('href')+'">Download file</a>';
+                     }
+                 }); // select all links with lightbox class
+            });
+            </script>
+
+        </div>
+    </div>
+
+</div>
+<div class="clear">&nbsp;</div>
+{% endblock %}
