@@ -1,0 +1,77 @@
+#owner {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color:#333333;
+}
+div#owner p.address{
+    font-size: 10px;
+}
+#leftnav h1{
+   display: block;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   color: #333333;
+   font-size: 30px;
+   text-align: left;
+}
+#leftnav p{
+   font-size: 14px;
+   margin: 0px;
+}
+a#edit{
+   display: block;
+   font-size: 10px;
+   text-align: right;
+}
+div#owner p{
+   color: #CCCCCC;
+}
+a.message {
+   color: #FFF;
+   display: block;
+   font-size: 10px;
+   text-align: right;
+   margin-top: 10px;
+}
+#leftnav img{
+    float: left;  
+    margin-right: 10px;
+    border: 1px solid #FFFFFF;
+}
+#leftnav h2{
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+}
+#leftnav div{
+    margin-bottom: 5px;
+}
+div#garage h2{
+    color: #000;
+}
+div#garage ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+div#garage li{
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    padding: 5px;
+    margin: 0px;
+    border: 1px solid #FFF;
+    background-color: #666666;
+}
+div#garage li:hover{
+    background-color: #333333;
+}
+div#garage li.isSelected{
+    background-color: #FF0000;
+}
+div#garage a{
+    color: #FFFFFF;
+    text-decoration: none;
+}

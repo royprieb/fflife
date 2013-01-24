@@ -1,0 +1,201 @@
+div.fullpageform h1{
+    margin-left: 5px;
+}
+form.fullpageform{
+    position: relative;
+}
+form.fullpageform p{
+    margin-bottom: 5px;
+}
+ul.errorlist{
+    list-style-type: none;
+    color: #FF0000;
+}
+form.fullpageform input{
+    padding: 3px;
+    border: 1px solid #666666;
+    font-size: 14px;
+}
+form.fullpageform label{
+    float: left;
+    text-align: right;
+    margin-right: 0.5em;
+    display: block;
+    font-size: 16px;
+}
+.submit{
+    background-color: #333;
+    border: 2px outset #d7b9c9;
+    width: 5em;
+    color: #FFF;
+}
+.submit:hover{
+    background-color: #FF0000;
+}
+.cancel{
+    color: #FF0000;
+    width: 5em;
+    font-size: 10px;
+}
+div#filter{
+    background-color: #FFFFCC;
+    margin-top:1px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+div#filter h3{
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 5px;
+    margin-bottom: 3px;
+}
+form#filter{
+    margin-left: 10px;
+}
+form#filter p{
+    display:inline;
+}
+form#filter label{
+    width: 5em;
+    font-weight: bold;
+}
+form#filter input{
+    display: inline;
+    margin-left: 0.5em;
+    width: 7em;
+}
+form#filter .submit{
+    width: 5em;
+    margin-left: 0.25em;
+}
+/* div#search{
+    background-color: #FFFFCC;
+    margin-top:1px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+form#search p{
+    display: inline;
+}
+form#search label{
+    width: 5em;
+    font-weight: bold;
+}
+form#search input{
+    display: inline;
+    margin-left: 0.5em;
+    width: 30em;
+}
+form#search .submit{
+   width: 5em;
+   margin-left: 0.25em;
+}
+*/
+div.results h3{
+   margin-left: 5px;
+   font-size: 24px;
+}
+p.car{
+   display: block;
+   padding: 5px;
+   font-weight: bold;
+   background-color:#F5F5F5;
+   margin-bottom: 2px;
+   border: 1px #FFF solid;
+   font-size: 14px;
+}
+p.car:hover{
+   border: 1px #333 solid;
+}
+a.car{
+   text-decoration: none;
+   font-size: 18px;
+}
+p.post{
+   display: block;
+   padding: 5px;
+   font-weight: bold;
+   background-color:#F0FFFF;
+   margin-bottom: 2px;
+   border: 1px #FFF solid;
+   font-size: 14px;
+}
+p.post:hover{
+   border: 1px #7FFFD4 solid;
+}
+a.post{
+   text-decoration: none;
+   font-size: 18px;
+}
+form#newaccount label{
+    width: 10em;
+}
+form#newaccount .submit{
+    margin-left: 12.1em;
+}
+form#newaccount .cancel{
+    margin-left: 6em;
+}
+form#editaccount label{
+    width: 10em;
+}
+form#editaccount .submit{
+    margin-left: 12.1em;
+    margin-bottom: 20px;
+}
+form#editaccount .resetpw{
+    margin-left: 12.1em;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+form#editaccount .deleteacct{
+    margin-left: 13.1em;
+}
+form#login label{
+    width: 10em;
+}
+form#login .submit{
+    margin-left: 12.1em;
+    margin-bottom: 15px;
+}
+form#login .newaccount{
+    margin-left: 12.1em;
+    font-size: 14px;
+    color: #FF0000;
+}
+form#login .newpw{
+    margin-left: 12.1em;
+    font-size: 14px;
+}
+form#pwchange label{
+    width: 16em;
+}
+form#pwchange .submit{
+    margin-left: 19em;
+}
+form#resetpw label{
+    width: 7em;
+}
+form#newpassword label{
+    width: 10em;
+}
+.instructions{
+    color: #666666;
+    display: block;
+    padding-bottom: 10px;
+    margin-left: 5px;
+}
+form#contact label{
+    width: 10em;
+}
+form#contact .submit{
+    margin-left: 12.1em;
+}
+form#advertise label{
+    width: 10em;
+}
+form#advertise .submit{
+    margin-left: 12.1em;
+}

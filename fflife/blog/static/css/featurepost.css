@@ -1,0 +1,105 @@
+.featurecontent{
+}
+.featurecontent h1{
+   margin: 5px;
+   margin-top: 10px;
+   padding-bottom: 3px;
+   text-transform: capitalize;
+}
+.featurecontent p{
+   margin: 0px;
+   margin-left: 5px;
+}
+div#tags{
+   border-top: #CCC dotted 1px;
+   border-bottom: #CCC dotted 1px;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   padding-left:5px;
+   margin-bottom: 10px;
+   margin-top: 10px;
+}
+div#tags ul{
+   list-style-type: none;
+   margin: 0px;
+}
+div#tags li{
+   padding: 3px 5px;
+   display: inline;
+   background-color: #CCCCCC;
+   border: #666666 solid 1px;
+   margin: 1px;
+   color: #666666;
+}
+.featurecontent img{
+   width: 600px;
+   margin-left: 10px;
+}
+div#commentlist{
+   border-top: dotted #CCC 1px;
+   border-bottom: dotted #CCC 1px;
+   padding-top: 10px;
+   padding-bottom: 10px;
+}
+#commentlist ul{
+   list-style-type: none;
+   margin: 0px;
+}
+#commentlist li{
+   display: block;
+   padding: 5px 15px;
+   background-color: #FFFFCC;
+   margin: 0px;
+   margin-bottom: 3px;
+   color: #666666;
+}
+.comment{
+   font-size: 14px;
+   color: #000000;
+}
+div#commentform{
+   padding-top: 10px;
+   padding-bottom: 10px;
+}
+#id_comment{
+   background-color: #F5F5F5;
+   width: 500px;
+   height: 100px;
+   font-size: 14px;
+   color: #000;
+   padding: 5px 15px;
+}
+#id_submit{
+   background-color: #333;
+   border: 2px outset #d7b9c9;
+   width: 12em;
+   color: #FFF;
+   margin-left: 0.5em;
+}
+#id_submit:hover{
+   background-color: #FF0000;
+}
+#id_honeypot{
+   display: none;
+}
+.featureindex{
+   background-color: #CCC;
+   margin-top: 5px;
+   min-height: 400px;
+}
+.featureindex h3{
+   color: #666666;
+   margin: 5px;
+   margin-bottom: 10px;
+   padding-bottom: 3px;
+   padding-left: 5px;
+   border-bottom: #666666 1px solid;
+   display: block;
+}
+.featureindex a{
+   text-decoration: none
+}
+.featureindex li{
+   margin-bottom: 5px;
+}
+

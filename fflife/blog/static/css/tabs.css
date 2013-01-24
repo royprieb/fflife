@@ -1,0 +1,49 @@
+.content h1{
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+.content h3{
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.tabs {
+  position: relative;
+  min-height: 1200px; 
+  clear: both;
+  margin: 20px 0;
+}
+.tab {
+  float: left;
+}
+.tab label {
+  background: #eee;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-left: -1px;
+  position: relative;
+  left: 1px;
+  font-size: 18px;
+}
+.tab [type=radio] {
+  display: none;
+}
+.content {
+  position: absolute;
+  top: 33px;
+  left: 0;
+  background: white;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  min-height: 1120px;
+  overflow: scroll;
+}
+[type=radio]:checked ~ label {
+  background: white;
+  border-bottom: 1px solid white;
+  z-index: 2;
+}
+[type=radio]:checked ~ label ~ .content {
+  z-index: 1;
+}

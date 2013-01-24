@@ -1,0 +1,18 @@
+a.postnav{
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #666666;
+    margin-right: 1px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #FFF;
+}
+div.journalpost h1{
+    margin: 5px;
+    margin-top: 10px;
+    padding-bottom: 3px;
+    text-transform: capitalize;
+}
+div.journalpost p{
+    margin-left: 5px;
+}

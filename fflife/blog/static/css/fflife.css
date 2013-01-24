@@ -1,0 +1,346 @@
+form#searchform {
+    padding-top: 6px;
+}
+form#searchform .submit{
+    display: inline;
+}
+form#searchform p{
+    display: inline;
+}
+form#searchform label{
+    display: None;
+}
+form#searchform input{
+    padding: 2px;
+    font-size: 14px;
+}
+#msgbar p{
+    font-size: 14px;
+    display: block;
+    text-align: center;
+    padding: 4px;
+    margin-top: 1px;
+}
+#featuredarticles h2{
+    display: block
+    padding-bottom: 3px;
+    border-bottom: solid #ccc 1px;
+    margin-bottom: 6px;
+    font-size: 18px;
+}    
+#featuredarticles h3{
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+#featuredarticles img{
+    border: 1px #CCC solid;
+}
+#featuredarticles p{
+    margin: 0px;
+    margin-bottom: 2px;
+}
+#featuredarticles div{
+    margin-bottom: 3px;
+}
+#recentposts h2{
+    display: block;
+    padding-bottom: 3px;
+    border-bottom: #CCC solid 1px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+#recentposts img{
+    border: 1px #CCC solid;
+}
+#recentposts h3{
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+#recentposts p{
+    font-size: 12px;
+    margin: 0px;
+}
+#recentposts div{
+    margin-bottom: 3px;
+}
+#featuredcars h2{
+    display: block;
+    padding-bottom: 3px;
+    border-bottom: 1px #CCC solid;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+#featuredcars ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;    
+}
+#featuredcars li{
+   display: inline;
+   margin: 0px;
+   padding: 0px;
+}
+#featuredcars img{
+   border-top: 2px #FFF solid;
+   border-bottom: 2px #FFF solid;
+}
+div.top5 h2{
+    background-color: #eee;
+    display: block;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    border-bottom: 1px #CCC solid;
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+div.top5 a{
+   color: #FF0000;
+   text-decoration: none;
+   font-weight: bold;
+}
+div.top5 li{
+   font-size: 14px;
+}
+
+div#vitals a{
+}
+div#vitals p{
+    margin-bottom: 10px;
+}
+div#posts h2{
+    margin-bottom: 20px;
+    color: #333;
+}
+a.sortposts{
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #666666;
+    margin-right: 3px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #FFF;    
+}
+a#createpost{
+    padding: 10px 15px;;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    font-size: 14px;
+    color: #333333;
+    text-decoration: none;
+    margin-right: 10px;
+}
+a#createpost:hover{
+    background-color: #fff;
+    color: #000;
+}
+div#posts ul{
+    margin-top: 30px;
+}
+li.post{
+    display:block;
+    margin:0px;
+    margin-bottom: 10px; 
+    padding: 10px;
+    background-color:#eee;
+}
+li.post a{
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+}
+li.post p{
+    font-size: 14px;
+}
+div#mod{
+}
+div#mod h1{
+    margin-bottom: 20px;
+}
+a#addmod{
+    padding: 10px 15px;;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    font-size: 14px;
+    color: #333333;
+    text-decoration: none;
+}
+a#addmod:hover{
+    background-color: #fff;
+    color: #000;
+}
+div#mod ul{
+    list-style-type: none;
+    margin: 0px;
+    margin-top: 30px;
+}
+div#mod li.modHeader{
+    border-bottom: #333333 dotted 1px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+div#mod li{
+    padding: 5px;
+    margin: 0px;
+    margin-bottom: 3px;
+    display: block;
+}
+div#mod span{
+}
+span#editmod{
+    margin-left: 20px;
+    font-size: 10px;
+}
+div#mod li.Engine{
+    background-color: #eee;
+}
+div#mod li.Interior{
+    background-color:#FFFFCC;
+}
+div#mod li.Exterior{
+    background-color:#FFCCCC;
+}
+div#mod li.Suspension{
+    background-color:#FFCCFF;
+}
+div#mod li.Wheels{
+    background-color:#FF99CC;
+}
+div#mod li.Audio{
+    background-color:#CCFFCC;
+}
+div#mod li.Tires{
+    background-color:#CCFFFF;
+}
+div#mod li.Other{
+    background-color:#FFCC99;
+}
+div#mod p{
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+div#gallery h1{
+    margin-bottom: 20px;
+}
+div#gallery p{
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+a#addphoto{
+    padding: 10px 15px;;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    font-size: 14px;
+    color: #333333;
+    text-decoration: none;
+}
+a#addphoto:hover{
+    background-color: #fff;
+    color: #000;
+}
+div#gallery ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 30px;
+}
+div#gallery li{
+    display: inline;
+}
+div#gallery img{
+    border: 1px #333 solid;
+    margin: 0px;
+    margin-bottom: 30px;
+}
+div#gallery img:hover{
+    border: 1px #ccc solid;
+}
+#editalbum{
+    margin-left: 20px;
+}
+#canceledit{
+}
+div#gallery img.editphoto:hover{
+    border: 1px #FF0000 solid;
+}
+div.journalsettings p{
+    margin-top: 10px;
+}
+div.journalsettings{
+    padding-top: 10px;
+}
+a.setup{
+    background-color: #eee;
+    border: 1px #666 solid;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+}
+a.setup:hover{
+    background-color: #666;
+    color: #FFF;
+}
+span.setup{
+    left-margin: 30px;
+    right-margin: 30px;
+    font-size: 20px;
+}
+div#Events{
+    min-height: 1200px;
+    padding: 5px;
+    overflow: scroll;
+}
+div#Events h1{
+    padding-left: 5px;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+    border-bottom: 1px #333 dotted;
+}
+div#Events ul{
+    list-style-type: None;
+    margin: 0px;
+    margin-top: 10px;
+}
+div#Events li{
+    margin:0px;
+    margin-bottom: 3px;
+    border: 1px dotted #666;
+    padding: 5px 10px;
+}
+div#Events li.welcome{
+    background-color:#CCFFFF;
+}
+div#Events li.car{
+    background-color: #CCCCFF;
+}
+div#Events li.message{
+    background-color: #eee;
+}
+div#Events li.vote{
+    background-color: #FFCCFF;
+}
+div#Events li.like{
+    background-color: #FF99FF;
+} 
+div#Events li.follow{
+    background-color: #FFFF99;
+}
+div#Events h5{
+    margin:0px;
+    margin-bottom: 3px;
+}
+div#Events p{
+    margin: 0px;
+}
+div#Events p.pub_date{
+    margin:0px;
+    margin-bottom: 5px;
+    font-size: 10px;
+}
+div#Events a{
+   font-size: 10px;
+   margin-top: 5px;
+}
+

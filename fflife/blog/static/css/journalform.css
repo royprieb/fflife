@@ -1,0 +1,175 @@
+form.journalform{
+    position: relative;
+}
+form.journalform p{
+    margin-bottom: 5px;
+}
+form.journalform input{
+    padding: 3px;
+    border: 1px #666666 solid;
+    font-size: 14px;
+}
+form.journalform label{
+    float: left;
+    text-align: right;
+    margin-right: 0.5em;
+    display: block;
+    font-size: 16px;
+}
+.submit{
+    background-color: #333;
+    border: 2px outset #d7b9c9;
+    width: 5em;
+    color: #FFF;
+}
+.submit:hover{
+    background-color: #FF0000;
+}
+a.cancel{
+    color: #FF0000;
+    width: 5em;
+    font-size: 10px;
+}
+a.delete{
+    margin: 0px;
+    display: block;
+    text-align: right;
+    font-size: 10px;
+}
+form#newcar label{
+    width: 10em;
+}
+form#newcar .submit{
+    margin-left: 12.1em;
+}
+form#newcar .cancel{
+    margin-left: 6em;
+}
+form#editcar label{
+    width: 10em;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+}
+form#editcar select{
+    height: 25px;
+    font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+form#editcar .submit{
+    margin-left: 12.1em;
+}
+form#editcar .editcancel{
+    display: block;
+    text-align: right;
+    font-size: 10px;
+}
+form#editcar .delete{
+    display: block;
+    text-align: right;
+    font-size: 10px;
+    color: #FF0000;
+}
+form#newpost label{
+    width: 3em;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+}
+form#newpost .submit{
+    margin-left: 27em;
+}
+form#newpost .cancel{
+    display: inline;
+    margin-left: 6em;
+}
+form#editpost label{
+    width: 3em;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+}
+form#editpost .submit{
+    margin-left: 27em;
+}
+form#editpost .cancel{
+    display: inline;
+    margin-left: 6em;
+}
+form#addmod label{
+    width: 6em;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+}
+form#addmod .submit{
+    margin-left: 7.5em;
+}
+form#addmod .cancel{
+    display: inline;
+    margin-left: 4em;
+}
+form#addmod select{
+    height: 25px;
+    font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+form#editmod label{
+    width: 6em;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+}
+form#editmod .submit{
+    margin-left: 7.5em;
+}
+form#editmod .cancel{
+    display: inline;
+    margin-left: 4em;
+}
+form#editmod select{
+    height: 25px;
+    font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+form#addalbum label{
+    width: 4em;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+}
+form#addalbum .submit{
+    margin-left: 5.2em;
+}
+form#addalbum .cancel{
+    display: inline;
+    margin-left: 6em;
+}
+form#editjournal label{
+    width: 6em;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+}
+form#editjournal .submit{
+    margin-left: 7.5em;
+    text-align: center;
+}
+form#editjournal .cancel{
+    display: inline;
+    margin-left: 6em;
+}
+
+form#messageform label{
+    width: 6em;
+}
+form#messageform .submit{
+    margin-left: 7.5em;
+}
+form#messageform .cancel{
+    display:inline;
+    margin-left: 6em;
+}

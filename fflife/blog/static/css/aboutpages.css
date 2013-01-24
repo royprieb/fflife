@@ -1,0 +1,15 @@
+.red{
+   color: #FF0000;
+}
+div.aboutcontent{
+   margin: 10px 20px;
+}
+div.aboutcontent h1{
+   margin-bottom: 5px;
+   font-size: 26px;
+   color: #333333;
+}
+div.aboutbody{
+   margin-right: 20px;
+   padding-right: 20px;
+}

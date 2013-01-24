@@ -1,0 +1,18 @@
+div.rank h2{
+    background-color: #eee;
+    display: block;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    border-bottom: 1px #CCC solid;
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+div.rank a{
+   color: #FF0000;
+   text-decoration: none;
+   font-weight: bold;
+}
+div.rank li{
+   font-size: 14px;
+}
