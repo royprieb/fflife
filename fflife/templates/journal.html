@@ -7,7 +7,7 @@
 <div id="owner" class="rounded-corners">
 <div class="grid_3 alpha omega">
 {% if user.get_profile.original_image  %}
-<img src='{{ STATIC_URL}}media/{{user.get_profile.display_image.url }}' />
+<img src='{{ user.get_profile.display_image.url }}' />
 {% else %}
 <img src="/static/images/default.png" />
 {% endif %}

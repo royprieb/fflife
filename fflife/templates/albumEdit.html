@@ -7,7 +7,7 @@
 <ul>
 {% for photo in photos %}
 <li>
-<a  href='/journal/photo/{{photo.pk}}/delete/'><img class="editphoto" src='{{ STATIC_URL }}media/{{ photo.thumb_image.url }}' alt='{{photo.caption}}'/></a>
+<a  href='/journal/photo/{{photo.pk}}/delete/'><img class="editphoto" src='{{ photo.thumb_image.url }}' alt='{{photo.caption}}'/></a>
 </li>
 {% endfor %}
 </ul>

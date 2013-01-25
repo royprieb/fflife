@@ -55,7 +55,7 @@
             <ul>
             {% for post in posts %}
             <li class="post">
-                <h3><a href="/journal/car/{{car.pk}}//post/{{post.pk}}/view">{{post.title}}</a></h3>
+                <h3><a href="/journal/car/{{car.pk}}/post/{{post.pk}}/view">{{post.title}}</a></h3>
                 <p>{{post.body|safe|striptags|truncatewords:10}}</p>
             </li>
             {% endfor %}
@@ -180,7 +180,7 @@
             <ul>
             {% for photo in photos %}
             <li>
-            <a class="lightbox" href='{{ STATIC_URL }}media/{{photo.display_image.url}}' title='{{photo.caption}}'><img alt='{{photo.caption}}' src='{{ STATIC_URL }}media/{{ photo.thumb_image.url }}'/></a>
+            <a class="lightbox" href='{{photo.display_image.url}}' title='{{photo.caption}}'><img alt='{{photo.caption}}' src='{{ photo.thumb_image.url }}'/></a>
             {% endfor %}
             </ul>
 
