@@ -11,7 +11,7 @@
 {% endfor %}
 </ul>
 </div>
-<img src='{{ STATIC_URL }}media/{{feature_post.original_image}}'/>
+<img src='/media/{{feature_post.original_image}}'/>
 <div>{{feature_post.body|safe}}</div>
 
 {% load comments %}
@@ -67,6 +67,5 @@
 {% endif %}
 </div>
 
-</div>
 <div class="clear">&nbsp;</div>
 {% endblock %}
