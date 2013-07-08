@@ -1,16 +1,29 @@
-{% extends "nosearchbase.html" %}
+{% extends "base-carbon.html" %}
 
 {% block body %}
-<div class="grid_12">
-<h1>Password Reset</h1>
-{% block content %}
+<body>
+<div class="container-fluid">
 
-<form id="resetpw" class="fullpageform" action="" method="post"> {% csrf_token %}
- {{ form.email.errors }}
-<p class="instructions">Forgotten your password? Enter your e-mail address below, and we'll e-mail instructions for setting a new one.</p>
-<p><label for="id_email">E-mail:</label> {{ form.email }} <input class="submit" type="submit" value="Submit" /></p>
-</form>
-{% endblock %}
+{% include "navbar.html" %}
+
+<div class="row-fluid">
+ <div class="span8 static-left-col">
+ <h1>Reset Password</h1>
+ </div>
+ <div class="span4 static-right-col">
+ <form id="resetpw" class="fullpageform" action="" method="post">
+  {% csrf_token %}
+  {{ form.email.errors }}
+  <p class="instructions">Forgotten your password? Enter your e-mail address below, and we'll e-mail instructions for setting a new one.</p>
+  <p><label for="id_email">E-mail:</label> {{ form.email }}</p><p><input class="btn btn-primary submit" type="submit" value="Submit" /></p>
+ </form>
+ </div>    
 </div>
-<div class="clear">&nbsp;</div>
+
+
+</div>
+
+{% include "jscript.html" %}
+
+</body>
 {% endblock %}

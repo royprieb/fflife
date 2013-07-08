@@ -1,74 +1,634 @@
+form.signin{
+     background-color: #CCC;
+     padding: 15px;
+     width: 225px;
+}
+a.signup{
+     width: 217px;
+}
+div.static-left-col{
+     padding-left: 30px;
+     padding-top: 100px;
+}
+div.static-right-col{
+     padding-right: 30px;
+     padding-top: 100px;
+}
+div.static-left-col h1{
+     color: #FFF;
+}
+div.static-right-col p{
+     color: #FFF;
+}
+label.warning{
+     color: #FFF;
+}
+label.error{
+     color: #FFF;     
+}
+div.static{
+     color: #FFF;
+     margin-top: 50px;
+}
+div.branding img{
+     width: 40%;
+     margin-left: 5%;
+     margin-top: 20px;
+     margin-bottom: 20px;
+}
+div.usernav{
+     background-color: #666;
+     border-bottom: #FFF solid 1px;
+}
+div.usernav ul{
+     list-style-type: none;
+     padding: 0px;
+     margin: 0px;
+     margin-left: 4%;
+}
+div.usernav li{
+    float: left;
+    padding: 10px 15px;
+    margin: 0px;
+    font-size: 18px;
+}
+div.usernav a{
+    color: #FFF;
+    text-decoration: none;
+}
+#usernavbar li.isSelected{
+    background-color: #FF0000;
+}
+div.usernav li:hover{
+    background-color: #333333;
+}
+form#navSearch{
+     padding: 0px;
+     padding-right: 40px;
+     padding-top: 4px;
+     margin: 0px;
+}
+div.profile{
+     min-height: 150px;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     padding: 5px;
+     background-color: #F8F8F8;
+}
+div.profile img{
+     float:left;
+     height: 100px;
+     margin-right: 10px;
+     border: #CCC 1px solid;
+}
+div.profile h3{
+     margin: 0px;
+     margin-bottom: 5px;
+     padding-left: 5px;
+     padding-top: 1px;
+     padding-bottom: 1px;
+     border-bottom: #FFF 1px solid;
+}
+div.profile p{
+     color: #000;
+     margin-top: 5px;
+     margin-bottom: 5px;
+}
+div.profile address{
+     margin-top:5px;
+     margin-bottom:5px;
+}
+div.garage{
+     margin-top: 10px;
+     margin-bottom: 10px;
+     margin-left: 10px;
+}
+div.garage h3{
+    display: block;
+}
+div.garage ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+div.garage li{
+    font-size: 18px;
+    text-align: center;
+    display: block;
+    padding: 10px;
+    margin: 0px;
+    border: 1px solid #CCC;
+    color: #FFF;
+    background-color: #666666;
+}
+div.garage li.nocars{
+    font-size: 16px;
+    text-align: left;
+    border: none;
+    color: #000;
+    background-color: #FFF;
+    padding: 0px;
+}
+div.garage li.nocars:hover{
+     background-color: #FFF;
+}
+div.garage li:hover{
+    background-color: #333333;
+}
+div.garage li.isSelected{
+    background-color: #FF0000;
+}
+div.garage a{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+div.groups, div.follows{
+     margin-top: 10px;
+     margin-bottom: 10px;
+     margin-left: 10px;
+}
+div.groups h3, div.follows h3{
+     display:block;
+}
+div.groups ul, div.follows ul{
+     list-style-type: none;
+     margin: 0px;
+     padding: 0px; 
+}
+div.groups li, div.follows li{
+     display: inline;
+     font-size: 16px;
+     margin-right: 5px;
+     padding-right: 5px;
+}
+div.updates{
+     padding-right: 5px;
+}
+div.updates ul{
+     list-style-type: none;
+     margin: 0px;
+     padding: 0px;     
+}
+div.updates li{
+     padding: 10px;
+     margin-bottom: 5px;
+     border-top: #CCC solid 1px;
+}
+div.updates h5{
+     font-size: 18px;
+}
+div.updates p{
+     margin-top:5px;
+     color: #000;
+     font-size: 16px;
+}
+div.carform{
+     width: 50%;
+}
+div.cars{
+     padding-left: 5px;
+}
+div.cars h3{
+     display: block;
+     color: #000;
+     padding: 3px;
+     margin-bottom: 2px;
+}
+div.cars h3:hover{
+     color: #666;
+}
+div.cars a{
+     text-decoration: none;
+}
+div.cars a:hover{
+     background-color: #F8F8F8;
+}
+div.cars img{
+     border: 2px #666 solid;
+}
+div.cars ul{
+     list-style-type: none;
+     margin: 0px;
+     padding: 0px;          
+}
+div.cars li{
+     margin-bottom: 15px;
+     margin-right: 10px;
+     width: 705px;
+}
+div.postform{
+     padding: 10px;
+}
+input.postButton{
+     margin-top: 20px;     
+}
+a.deletePost{
+     margin: 0px;
+}
+div.tabs{
+     margin-top: 10px;
+}
+ul.maintab{
+     margin-bottom: 0px;
+     padding-bottom: 0px;
+}
+ul.maintab a{
+     color: #666;
+     font-size: 18px;
+     padding-left: 20px;
+     padding-right: 20px;
+     padding-top: 14px;
+     padding-bottom: 14px;
+}
+div.tab-content{
+     border-left: 1px #CCC solid;
+     border-right: 1px #CCC solid;
+     border-bottom: 1px #CCC solid;
+     padding-left:10px;
+     padding-right: 10px;
+     padding-bottom: 10px;
+     margin-bottom: 10px;
+}
+div#carContent h3{
+     margin-bottom: 5px;     
+}
+div#carContent p{
+     font-size: 16px;
+}
+div#carContent ul.tags{
+     list-style-type: none;
+     margin: 0px;
+     margin-button: 10px;
+     padding: 0px;
+}
+div#carContent ul.tags li{
+     display: inline;
+     margin-right: 5px;
+     padding: 3px;
+     padding-left: 10px;
+     padding-right: 10px;
+     background-color: #666;
+     color: #FFF;
+}
+div#carContent .edit {
+     margin-right: 10px;
+}
+div#carContent img{
+     margin-top: 10px;
+     border: 1px #000 solid;
+}
+div#postsContent{
+}
+div#postsContent h3{
+     margin-bottom: 5px;
+}
+div#postsContent p{
+     font-size: 16px;
+}
+div#postsContent ul.tags{
+     list-style-type: none;
+     margin: 0px;
+     margin-button: 10px;
+     padding: 0px;
+}
+div#postsContent ul.tags li{
+     display: inline;
+     margin-right: 5px;
+     padding: 3px;
+     padding-left: 10px;
+     padding-right: 10px;
+     background-color: #666;
+     color: #FFF;
+}
+div.post img{
+     max-width: 680px;
+     max-height: 400px;
+     border: 1px #000 solid;
+}
+div.post ul.tags{
+     margin-bottom: 10px;
+}
+div.post{
+     margin-top: 10px;
+     padding-top: 10px;
+     padding-bottom: 10px;
+     border-top: 1px #CCC solid;
+     border-bottom: 1px #F8F8F8 solid;
+}
+div.body{
+     padding-top: 10px;
+}
+div.postform form{
+     width: 680px;
+}
+div.postform input{
+     margin-bottom: 10px;
+}
+div.postform a{
+     margin-top: 10px;
+}
+ul#gallery{
+     list-style-type: none;
+     margin: 0px 20px;
+     padding: 0px;
+}
+ul#gallery li{
+     display: inline;
+}
+ul#gallery img{
+     border: 1px #333 solid;
+     margin: 0px;
+     margin-bottom: 5px;
+}
+ul#gallery img:hover{
+     border: 1px #ccc solid;
+}
+ul#gallery_edit{
+     list-style-type: none;
+     margin: 0px 20px;
+     padding: 0px;
+}
+ul#gallery_edit li{
+     display: inline;
+}
+ul#gallery_edit img{
+     border: 1px #CCC solid;
+     margin: 0px;
+     margin-bottom: 5px;
+}
+ul#gallery_edit img:hover{
+     border: 1px #FF0000 solid;
+}
+div#exploreform{
+     border-bottom: 1px #CCC solid;
+}
+table#topblogslist tr, table#topblogslist th{
+     padding: 0px;
+}
+table#topblogslist a{
+     margin-top: 15px;
+     margin-bottom: 15px;
+}
+table#topblogslist img{
+     width: 100px;
+     height: auto;
+     border: 1px #CCC solid;
+     margin: 0px;
+     margin-top: 15px;
+     margin-bottom: 15px;
+}
+th.blogdetails h3, th.blogdetails p{
+     text-align: left;
+     margin: 0px;
+}
+th.blogdetails p{
+    font-weight: normal;
+    color: #666;
+}
+table#recentpostslist tr, table#recentpostslist th{
+     padding: 0px;
+}
+table#recentpostslist a{
+     color: #000;
+     display: block;
+     text-align: left;
+     padding-bottom: 15px;
+     padding-top: 5px;
+     padding-left: 10px;
+     margin-bottom: 10px;
+     margin-top: 5px;
+     border-bottom: #F8F8F8 solid 1px;
+}
+table#recentpostslist a:hover{
+     color: #000;
+     text-decoration: none;
+     background-color: #F8F8F8;
+}
+table#recentpostslist h3, table#recentpostslist p {
+     text-align: left;
+     margin: 0px;    
+}
+table#recentpostslist p{
+     font-weight: normal;
+     color: #666;
+}
+.results a{
+     font-size: 18px;
+     font-weight: bold;
+}
+.results p{
+     font-size: 18px;
+}
 .rounded-corners {
      -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     -khtml-border-radius: 20px;
     border-radius: 20px;
 }
-.white {
-    background-color: #FFF;
-}
-body{
-    background-color: #000;
-    background-image: url(http://fastfreshlife.royprieb.webfactional.com/static/images/wsCarbonFiber.jpeg);
-}
-#bodyblock{
-    min-height: 800px;
-}
-#logo img{
-    width: 400px;
-}
-#loginnav {
-    text-align: right;
-}
-#loginnav a{
-    padding: 10px;
-    font-size: 16px;
-    text-decoration: none;
-    color: #333333;
-}
-#navbar{
-    background-color: #666666;
-}
-#navbar ul{
-    list-style-type: none;
-    padding: 0px;
-    margin: 0px;
-}
-#navbar li{
-    float: left;
-    padding: 5px 20px;
-    margin: 0px;
-}
-#navbar li:hover{
-    background-color: #333333;
-}
-#navbar li.isSelected{
-    background-color: #FF0000;
-}
-#navbar a{
-    font-size: 20px;
-    text-decoration: none;
-    color: #FFF;
-}
-#footer{
-    border-top: solid #000 1px;
-    margin-top: 5px;
+ul#mostmemberslist, ul#mostrecentlist{
+    list-style: none;
+    margin-top: 10px;
     padding-top: 10px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    border-top: 1px solid #F8F8F8;
 }
-#footer ul{
-    list-style-type: none;
-    padding: 0px;
+ul#mostmemberslist li, ul#mostrecentlist li{
+     margin-bottom: 10px;
+     padding-bottom: 10px;
+     border-bottom: 1px solid #F8F8F8;
+}
+ul#mostmemberslist a, ul#mostrecentlist a{
+     text-decoration: none;
+}
+ul#mostmemberslist p, ul#mostrecentlist p{
+     font-size: 16px;
+}
+div.groupProfile{
+     min-height: 150px;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     background-color: #F8F8F8;
+     padding: 5px;
+}
+a.groupTitle{
+     color: #000;
+}
+a.groupTitle:hover{
+     text-decoration: none;
+}
+div.groupProfile h3{
+     margin: 0px;
+     margin-bottom: 5px;
+     padding-left: 5px;
+     padding-top: 1px;
+     padding-bottom: 1px;
+}
+div.groupProfile p{
+     color: #666;
+     margin-top: 5px;
+     margin-bottom: 5px;
+}
+div.groupProfile p.description{
+     color: #000;
+     font-size: 16px;
+     margin-top: 10px;
+     padding-bottom: 10px;
+     margin-bottom: 10px;
+     border-bottom: #FFF 1px solid;
+}
+div.groupProfile a.cta{
+     margin-top: 10px;
+     margin-bottom:10px;
+}
+div.rules{
+     padding: 5px;
+}
+div.rules p{
+     margin-top: 20px;
+     margin-bottom: 20px;
+     color: #666;
+}
+div.topicform{
+     padding:10px;
+     margin-bottom: 10px;
+     border-bottom: 1px solid #F8F8F8;
+}
+div.topics{
+}
+div.topics ul{
+     list-style: none;
+}
+div.topics li{
+     margin-bottom: 15px;
+     display: block;
+     padding-bottom: 15px;
+     border-bottom: 1px solid #F8F8F8;
+}
+div.topics img{
+     border: 1px solid #CCC;
+     float: left;
+}
+div.topic_body{
+     padding-left: 15px;
+     float:left;
+     width: 520px;
+}
+div.topic_body p{
+     border-bottom: #666 solid 1px;
+     padding: 3px 5px;
+}
+div.topic_body h5{
+     font-size: 16px;
+     line-height: 22px;
+}
+div.topic{
+     padding: 10px;
+     margin-bottom: 10px;
+     border-bottom: 1px solid #F8F8F8;
+}
+div.topic img{
+     border: 1px solid #CCC;
+     float: left;
+}
+div.topic h5{
+     font-size: 16px;
+     line-height: 22px;
+}
+div.responses ul{
+     display: block;
+     list-style: none;
+}
+div.responses li{
+     padding: 10px;
+     margin-bottom: 10px;
+     border-bottom: 1px solid #F8F8F8;     
+}
+div.responses h5{
+     font-size: 16px;
+     line-height: 22px;
+     color: #666;     
+}
+ul#videos {
+    list-style: none;
     margin: 0px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0px;
 }
-#footer li{
+ul#videos li{
     float: left;
-    margin: 1px;
-    padding: 5px 20px;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
-#footer a{
-    font-size: 16px;
-    text-decoration: none;
-    color: #333333;
+ul#boardphotos {
+    list-style: none;
+    margin: 0px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0px;     
+}
+ul#boardphotos li{
+    float: left;
+    margin-left: 5px;
+}
+ul#boardphotos p{
+     margin-top: 3px;
+     margin-right: 5px;
+}
+a.likeBoardPhoto{
+     color: #000;
+}
+a.likeBoardPhoto:hover{
+     text-decoration: none;
+}
+#boardNavbar {
+    border-bottom: 1px solid #F8F8F8;
+    margin-bottom: 5px;
+}
+#boardNavbar h3{
+     float:left;
+     margin-right: 20px;
+}
+#boardNavbar a{
+     float:left;
+     margin-top: 15px;
+}
+#boardNavbar select{
+     margin-top: 15px;
+     margin-right: 10px;
+}
+#boardPhotoNavbar{
+    border-bottom: 1px solid #F8F8F8;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+#boardPhotoNavbar p{
+     font-size: 16px;
+     color: #666;
+     margin-right: 20px;
+}
+#boardPhotoDisplay{
+    border-bottom: 1px solid #F8F8F8;
+    margin-bottom: 10px;
+    margin-top: 10px;     
+}
+div.commentList ul{
+     list-style: none;
+     margin: 0px;
+     padding: 0px;
+}
+div.commentList li{
+     margin-top: 5px;
+     margin-bottom: 5px;
+     display: block;
+     background-color: #F8F8F8;
+     padding: 10px 20px;
+}
+p.commentbody{
+     font-size: 16px;
+}
+p.byline{
+     color: #CCC;
+     margin: 0px;
 }

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+
+{% include "navbar.html" %}
+
+<div class="row">
+    <div id="deleteAlert" class="alert alert-danger hide">
+        <a href="#" id="cancelDelete" class="close">&times;</a>
+        <h3>Warning! Are you Sure You Want To Do This?</h3>
+        <p><strong>You are about to delete this group.</strong> All topics and comments associated with this group will be deleted. Please click confirm to proceed.</p>
+        <a class="btn btn-primary" href="/groups/{{currentGroup.id}}/delete">Yes, Delete This Group</a>
+    </div>
+</div>
+
+<div class="row">
+    <div id="topicDeleteAlert" class="alert alert-warning hide">
+        <a href="#" id="cancelTopicDelete" class="close">&times;</a>
+        <h3>Warning! Are you Sure You Want To Do This?</h3>
+        <p><strong>You are about to delete this topic.</strong> All comments associated with this topic will be deleted. Please click confirm to proceed.</p>
+        <a class="btn btn-primary" href="/groups/{{currentGroup.id}}/topic/{{currentTopic.id}}/delete/">Yes, Delete This Topic</a>
+    </div>
+</div>
+
+<div class="row">
+    <div id="responseDeleteAlert" class="alert alert-info hide">
+        <a href="#" id="cancelResponseDelete" class="close">&times;</a>
+        <h3>Warning! Are you Sure You Want To Do This?</h3>
+        <p><strong>You are about to delete this response.</strong> Please click confirm to proceed.</p>
+        <a id="responseDeleteLink" class="btn btn-primary">Yes, Delete This Response</a>
+    </div>
+</div>
+
+<div class="row">
+    <div id="groupLeaveAlert" class="alert alert-info hide">
+        <a href="#" id="cancelGroupLeave" class="close">&times;</a>
+        <h3>Warning! Are you Sure You Want To Do This?</h3>
+        <p><strong>You are about to leave this group.</strong> All topics and comments you contributed will be deleted. Please click confirm to proceed.</p>
+        <a class="btn btn-primary" href="/groups/{{currentGroup.id}}/leave/">Yes, Leave This Group</a>
+    </div>
+</div>
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div class="row">
+    <div class="span3">
+        {% include "groupprofile.html" %}
+    </div>
+    <div class="span9">
+        <div class="topic">
+            {% if isModerator or isOwner %}
+                <a id="deleteTopic" class="close" href="#">&times;</a>
+            {% endif %}
+            <img src="{{currentTopic.owner.get_profile.display_image.url}}" style="width:100px;height:auto;"/>
+            <div class="topic_body">
+            <p>Posted by <strong><a href="/journal/{{currentTopic.owner.username}}/">{{currentTopic.owner.get_profile.display_name}}</a></strong> on {{currentTopic.pub_date}}</p>
+            <h5>{{currentTopic.body}}</h5>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="topicform">
+            <form id="topicResponseForm" action="/groups/{{currentGroup.id}}/topic/{{currentTopic.id}}/respond/" method="post">
+                {% csrf_token %}
+                {{topicform.body}}
+                <button type="submit" class="btn btn-primary span3 pull-right">Add Your Response</button>
+            </form>
+            <div class="clearfix"></div>
+        </div>
+        <div class="responses">
+            <ul>
+                {% if responses %}
+                {% for r in responses %}
+                <li>
+                    {% if isModerator or isOwner %}
+                        <a class="close deleteResponse" data="/groups/{{currentGroup.id}}/topic/{{currentTopic.id}}/response/{{r.id}}/delete/">&times;</a>                    
+                    {% endif %}
+                    <p>Posted by <a href="/journal/{{r.responder.username}}/">{{r.responder.get_profile.display_name}}</a> on {{r.pub_date}}</p>
+                    <h5>{{r.body}}</h5>
+                </li>
+            {% endfor %}
+            {% else %}
+                <li>
+                    No responses posted.
+                </li>
+            {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+{% endblock %}

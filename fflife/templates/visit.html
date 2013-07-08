@@ -28,7 +28,7 @@
 {% if journal.owner.get_profile.motto %}
 <p>"{{journal.owner.get_profile.motto}}"</p>
 {% endif %}
-<a class="message" href="/message/{{journal.owner.pk}}/">Send Message</a>
+<a class="message" href="/{{journal.owner.username}}/message/{{journal.owner.pk}}/">Send Message</a>
 </div>
 
 </div>
@@ -40,7 +40,7 @@
 {% if cars %}
 <ul id="garagelist">
 {% for car in cars %}
-<li id='car/{{car.pk}}'><a href="/visit/car/{{car.pk}}/?sort=newest">{{car.year}} {{car.make}} {{car.model}}</a></li>
+<li id='car/{{car.pk}}'><a href="/{{journal.owner.username}}/car/{{car.pk}}/?sort=newest">{{car.year}} {{car.make}} {{car.model}}</a></li>
 {% endfor %} 
 </ul>
 {% else %}
@@ -55,3 +55,4 @@
 {% endblock %}
 
 {% endblock %}
+

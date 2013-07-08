@@ -1,19 +1,42 @@
-{% extends "base.html" %}
-{% block body %}
+{% extends "base-carbon.html" %}
 
-<div class="grid_12 aboutcontent">
-<h1>Contact</h1>
-<div class="aboutbody">
-{{content.body|safe}}
+{% block body %}
+<body>
+<div class="container-fluid">
+
+{% include "navbar.html" %}
+
+<div id="#msgAlert" class="alert alert-block alert-success {{msgAlert}}">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+<strong>Thank you!</strong> Your message has been received.
 </div>
 
-<form id="contact" class="fullpageform" method="post" action="/contact/">
+<div class="row-fluid">
+
+<div class="span8 static-left-col">
+<h1>Contact</h1>
+</div>
+
+<div class="span4 static-right-col">
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis tincidunt risus in pulvinar. Vivamus vehicula pretium lacus, eu aliquam est tempus et. Mauris porta sapien lacus, quis interdum tellus fermentum et. 
+</p>
+
+<form class="feedback" method="post" action="/contact/">
 {% csrf_token %}
-{{form.as_p}}
-<input class="submit" type="submit" value="submit"/>
+{{form.sender_email}}
+{{form.msg_title}}
+{{form.msg_body}}<br/>
+<input class="btn btn-primary" type="submit" value="Send"/>
 </form>
 
 </div>
-<div class="clear">&nbsp;</div>
 
+</div>
+
+</div>
+
+{% include "jscript.html" %}
+
+</body>
 {% endblock %}

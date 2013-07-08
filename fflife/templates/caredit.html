@@ -1,15 +1,46 @@
-{% extends "carview.html" %}
+{% extends "base.html" %}
 
-{% block posts %}
+{% block body %}
+<body>
 
-<form id="editcar" class="journalform" action="/journal/car/{{car.pk}}/edit/" method="post">{% csrf_token %}
-<a class="editcancel" href="/journal/car/{{ car.pk }}/view/">Cancel</a>
-<p class="instructions">Edit your car vitals below</p>
-{{ form.as_p }}
+<div class="background">
+<div class="container">
 
-<input class="submit" type="submit" value="submit">
-<a class="delete" href="/journal/car/{{ car.pk }}/delete">Delete</a>
-</form>
+{% include "navbar.html" %}
 
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div class="row-fluid content-block">
+    <div class="span3">
+        {% include "ownerbar.html" %}
+    </div>
+    <div class="span9">
+        <div class="carform">
+        <h1>Edit Car</h1>
+        <form enctype="multipart/form-data" action="/journal/{{owner.username}}/car/{{ car.pk }}/edit/" method="post">
+            {% csrf_token %}
+            {{ form.name }}
+            {{ form.image }}
+            {{ form.make }}
+            {{ form.model }}
+            {{ form.year }}
+            {{ form.tags }}
+            <input class="btn btn-primary" type="submit" value="Submit" />
+            <a class="btn" href='/journal/{{ owner.username }}/car/{{ car.pk }}/'>Cancel</a>
+            <a class="btn btn-danger pull-right" href="/journal/{{owner.username}}/car/{{ car.pk }}/delete/">Delete</a>
+        </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+
+{% include "jscript.html" %}
+
+</body>
 {% endblock %}
-

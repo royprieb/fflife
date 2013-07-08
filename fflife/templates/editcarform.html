@@ -1,0 +1,21 @@
+<div id="editCar" class="modal hide fade">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Edit Car</h3>
+    </div>
+    <div class="modal-body">
+        <form id="editCarForm" action="/journal/{{owner.username}}/car/{{car.id}}/edit/" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ editcarform.name }}
+            {{ editcarform.image }}
+            {{ editcarform.make }}
+            {{ editcarform.model }}
+            {{ editcarform.year }}
+            {{ editcarform.c_tags }}
+    </div>
+    <div class="modal-footer">
+        <a href="/journal/{{owner.username}}/car/{{car.id}}/delete/" class="btn btn-danger">Delete</a>
+        <input type="submit" class="btn btn-primary" value="Submit Changes">
+        </form>
+    </div>
+</div>

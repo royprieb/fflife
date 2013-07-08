@@ -1,7 +1,7 @@
 {% extends "carview.html" %}
 
 {% block mod %}
-<a id="addmod" class="rounded-corners" href="/journal/car/{{car.pk}}/mod/add">+ Add Mod</a>
+<a id="addmod" class="rounded-corners" href="/journal/{{journal.owner.username}}/car/{{car.pk}}/mod/add">+ Add Mod</a>
 
 {% if mods %}
 <ul>
@@ -10,7 +10,7 @@
     {% if mod.modType.category == "Engine" %}
     <li class="{{mod.modType.category}}">
          <span>{{ mod.brand }} | {{ mod.part }}</span>
-         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+         <span id="editmod"><a href="{{mod.get_absolute_url}}edit">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
     </li>
     {% endif %}
 {% endfor %}
@@ -20,7 +20,7 @@
     {% if mod.modType.category == "Interior" %}
     <li class="{{mod.modType.category}}">
          <span>{{ mod.brand }} | {{ mod.part }}</span>
-         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+         <span id="editmod"><a href="{{mod.get_absolute_url}}edit">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
     </li>
     {% endif %}
 {% endfor %}
@@ -30,7 +30,7 @@
     {% if mod.modType.category == "Exterior" %}
     <li class="{{mod.modType.category}}">
          <span>{{ mod.brand }} | {{ mod.part }}</span>
-         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+         <span id="editmod"><a href="{{mod.get_absolute_url}}edit">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
     </li>
     {% endif %}
 {% endfor %}
@@ -40,7 +40,7 @@
     {% if mod.modType.category == 'Suspension' %}
     <li class="{{mod.modType.category}}">
          <span>{{ mod.brand }} | {{ mod.part }}</span>
-         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+         <span id="editmod"><a href="{{mod.get_absolute_url}}edit">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
     </li>
     {% endif %}
 {% endfor %}
@@ -50,7 +50,7 @@
     {% if mod.modType.category == 'Wheels' %}
     <li class="{{mod.modType.category}}">
          <span>{{ mod.brand }} | {{ mod.part }}</span>
-         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+         <span id="editmod"><a href="{{mod.get_absolute_url}}edit">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
     </li>
     {% endif %}
 {% endfor %}
@@ -60,7 +60,7 @@
     {% if mod.modType.category == 'Audio' %}
     <li class="{{mod.modType.category}}">
          <span>{{ mod.brand }} | {{ mod.part }}</span>
-         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+         <span id="editmod"><a href="{{mod.get_absolute_url}}edit">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
     </li>
     {% endif %}
 {% endfor %}
@@ -70,7 +70,7 @@
     {% if mod.modType.category == "Tires" %}
     <li class="{{mod.modType.category}}">
          <span>{{ mod.brand }} | {{ mod.part }}</span>
-         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+         <span id="editmod"><a href="{{mod.get_absolute_url}}edit">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
     </li>
     {% endif %}
 {% endfor %}
@@ -80,7 +80,7 @@
     {% if mod.modType.category == 'Other' %}
     <li class="{{mod.modType.category}}">
          <span>{{ mod.brand }} | {{ mod.part }}</span>
-         <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+         <span id="editmod"><a href="{{mod.get_absolute_url}}edit">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
     </li>
     {% endif %}
 {% endfor %}

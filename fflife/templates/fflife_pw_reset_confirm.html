@@ -1,36 +1,47 @@
-{% extends "nosearchbase.html" %}
+{% extends "base-carbon.html" %}
 
 {% block body %}
-<div class="grid_12">
-<h1>Password Reset</h1>
+<body>
+<div class="container-fluid">
 
-{% block content %}
+{% include "navbar.html" %}
 
-{% if validlink %}
-<p class="instructions">Please enter your new password twice so we can verify you typed it in correctly.</p>
-<form id="newpassword" class="fullpageform" action="" method="post"> {% csrf_token %}
-  <table>
-    <tr>
-      <td>{{ form.new_password1.errors }}<label for="id_new_password1">New password:</label></td>
-      <td>{{ form.new_password1 }}</td>
-    </tr>
-    <tr>
-      <td>{{ form.new_password2.errors }}<label for="id_new_password2">Confirm password:</label></td>
-      <td>{{ form.new_password2 }}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><input class="submit" type="submit" value="Submit" /></td>
-    </tr>
-  </table>
-</form>
-{% else %}
-<h1>Password reset unsuccessful</h1>
-<p class="instructions">The password reset link was invalid, possibly because it has already been used.  Please request a new password reset.</p>
-{% endif %}
-{% endblock %}
+<div class="row-fluid">
+ <div class="span8 static-left-col">
+ <h1>Password Reset</h1>
+ </div>
+ <div class="span4 static-right-col">
+
+  {% if validlink %}
+  <p class="instructions">Please enter your new password twice so we can verify you typed it in correctly.</p>
+  <form id="newpassword" class="fullpageform" action="" method="post"> {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.new_password1.errors }}<p><label for="id_new_password1">New password:</label></p></td>
+        <td>{{ form.new_password1 }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.new_password2.errors }}<p><label for="id_new_password2">Confirm pw:</label></p></td>
+        <td>{{ form.new_password2 }}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input class="submit btn btn-primary" type="submit" value="Submit" /></td>
+      </tr>
+    </table>
+  </form>
+  {% else %}
+  <p>Password reset was unsuccessful.</p>
+  <p class="instructions">The password reset link was invalid, possibly because it has already been used.  Please request a new password reset.</p>
+  {% endif %}
+
+ </div>    
+</div>
+
 
 </div>
-<div class="clear">&nbsp;</div>
 
+{% include "jscript.html" %}
+
+</body>
 {% endblock %}

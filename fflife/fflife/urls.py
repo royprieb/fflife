@@ -9,64 +9,80 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('blog.views',
-    # Base views
+    # static views
     url(r'^$', 'index', name='index'),
-    url(r'^home/$', 'index', name='home'),
-    url(r'^filter/$', 'filter', name='filter'),
-    url(r'^make/(?P<makeId>\d+)/all_json_models/$', 'all_json_models', name='all_json_models'),
-    url(r'^rank/$', 'rank', name='rank'),
-    url(r'^contact/$', 'contact', name='contact'),
     url(r'^about/$', 'about', name='about'),
-    url(r'^advertise/$', 'advertise', name='advertise'),
     url(r'^terms/$', 'terms', name='terms'),
     url(r'^privacy/$', 'privacy', name='privacy'),
-                       
-    # Visit views
-    url(r'^visit/car/(?P<carId>\d+)/$', 'carVisit', name='carVisit'),
-    url(r'^visit/car/(?P<carId>\d+)/post/(?P<postId>\d+)/$', 'postVisit', name='postVisit'),
-    url(r'^visit/car/(?P<carId>\d+)/post/(?P<postId>\d+)/like/$', 'like', name='like'),
-    url(r'^visit/feature/(?P<featureId>\d+)/$', 'featureVisit', name='featureVisit'),
-    url(r'^visit/car/(?P<carId>\d+)/vote/(?P<voteType>\w+)/$', 'vote', name='vote'),
-    url(r'^visit/car/(?P<carId>\d+)/follow/$', 'follow', name='follow'),
-    url(r'^visit/car/(?P<carId>\d+)/stopfollow/$', 'stopFollow', name='stopFollow'),
-    url(r'^message/(?P<ownerId>\d+)/$', 'message', name='message'),
-                       
-    # Account views
+    url(r'^contact/$', 'contact', name='contact'),
+    # account views
     url(r'^account/new/$', 'newAccount', name='newAccount'),
     url(r'^account/edit/$', 'accountEdit', name='accountEdit'),
     url(r'^account/delete/$', 'accountDelete', name='accountDelete'),
     url(r'^logout/$', 'logoutuser', name='logout'),
-    url(r'^login/$', 'loginuser', name='login'),
-                       
-    # Journal views
-    url(r'^journal/view/$', 'journalView', name='journalView'),
-    url(r'^journal/edit/$', 'journalEdit', name='journalEdit'),
-    # Journal views: car
-    url(r'^journal/car/new/$', 'carNew', name='carNew'),
-    url(r'^journal/car/(?P<carId>\d+)/edit/$', 'carEdit', name='carEdit'),
-    url(r'^journal/car/(?P<carId>\d+)/view/$', 'carView', name='carView'),
-    url(r'^journal/car/(?P<carId>\d+)/delete/$', 'carDelete', name='carDelete'),
+    # nonJournal pages
+    url(r'^home/$', 'home', name='home'),
+    url(r'^message/(?P<messageId>\d+)/delete/$', 'messageDelete', name='messageDelete'),
+    url(r'^explore/$', 'explore', name='explore'),
+    url(r'^videos/$', 'videos', name='videos'),
+    # Photoboard views
+    url(r'^photoboard/$', 'photoboard', name='photoboard'),
+    url(r'^photoboard/(?P<boardId>\d+)/upload/$', 'boardUpload', name='boardUpload'),
+    url(r'^boardDetails/(?P<boardId>\d+)/$', 'boardDetails', name='boardDetails'),
+    url(r'^photoboard/(?P<boardId>\d+)/photo/(?P<photoId>\d+)/$', 'boardPhotoView', name='boardPhotoView'),
+    url(r'^photoboard/(?P<boardId>\d+)/photo/(?P<photoId>\d+)/like/$', 'boardPhotoLike', name='boardPhotoLike'),
+    url(r'^photoboard/(?P<boardId>\d+)/photo/(?P<photoId>\d+)/delete/$', 'boardPhotoDelete', name='boardPhotoDelete'),
+    url(r'^photoboard/(?P<boardId>\d+)/photo/(?P<photoId>\d+)/newcomment/$', 'boardPhotoComment', name='boardPhotoComment'),
+    url(r'^photoboard/(?P<boardId>\d+)/photo/(?P<photoId>\d+)/comment/(?P<commentId>\d+)/delete/$', 'boardPhotoCommentDelete', name='boardPhotoCommentDelete'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/$', 'journal', name='journal'),
+    # Group views
+    url(r'^groups/$', 'groups', name='groups'),
+    url(r'^groups/add/$', 'groupAdd', name='groupAdd'),
+    url(r'^groups/(?P<groupId>\d+)/view/$', 'groupView', name='groupView'),
+    url(r'^groups/(?P<groupId>\d+)/delete/$', 'groupDelete', name='groupDelete'),
+    url(r'^groups/(?P<groupId>\d+)/join/$', 'groupJoin', name='groupJoin'),
+    url(r'^groups/(?P<groupId>\d+)/leave/$', 'groupLeave', name='groupLeave'),
+    url(r'^groups/(?P<groupId>\d+)/topic/add$', 'topicAdd', name='topicAdd'),
+    url(r'^groups/(?P<groupId>\d+)/topic/(?P<topicId>\d+)/view/$', 'topicView', name='topicView'),
+    url(r'^groups/(?P<groupId>\d+)/topic/(?P<topicId>\d+)/delete/$', 'topicDelete', name='topicDelete'),
+    url(r'^groups/(?P<groupId>\d+)/topic/(?P<topicId>\d+)/respond/$', 'topicRespond', name='topicRespond'),
+    url(r'^groups/(?P<groupId>\d+)/topic/(?P<topicId>\d+)/response/(?P<responseId>\d+)/delete/$', 'responseDelete', name='responseDelete'),
+    # Journal views: cars
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/add/$', 'carNew', name='carNew'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/$', 'carView', name='carView'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/edit/$', 'carEdit', name='carEdit'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/delete/$', 'carDelete', name='carDelete'),
     # Journal views: posts
-    url(r'^journal/car/(?P<carId>\d+)/post/new/$', 'postNew', name='postNew'),
-    url(r'^journal/car/(?P<carId>\d+)/post/(?P<postId>\d+)/view/$', 'postView', name='postView'),
-    url(r'^journal/car/(?P<carId>\d+)/post/(?P<postId>\d+)/edit/$', 'postEdit', name='postEdit'),
-    url(r'^journal/post/(?P<postId>\d+)/delete/$', 'postDelete', name='postDelete'),
-    url(r'^journal/car/(?P<carId>\d+)/post/(?P<postId>\d+)/like/$', 'like', name='like'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/post/add/$', 'postNew', name='postNew'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/post/(?P<postId>\d+)/$', 'postView', name='postView'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/post/(?P<postId>\d+)/edit/$', 'postEdit', name='postEdit'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/post/(?P<postId>\d+)/delete/$', 'postDelete', name='postDelete'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/post/(?P<postId>\d+)/newcomment/$', 'postComment', name='postComment'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/post/(?P<postId>\d+)/comment/(?P<commentId>\d+)/delete/$', 'postCommentDelete', name='postCommentDelete'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/post/(?P<postId>\d+)/next$', 'postNext', name='postNext'),
     # Journal views: mods
-    url(r'^journal/car/(?P<carId>\d+)/mod/add/$', 'modAdd', name='modAdd'),
-    url(r'^journal/car/(?P<carId>\d+)/mod/view/$', 'modView', name='modView'),
-    url(r'^journal/car/(?P<carId>\d+)/mod/(?P<modId>\d+)/edit/$', 'modEdit', name='modEdit'),
-    url(r'^journal/mod/(?P<modId>\d+)/delete/$', 'modDelete', name='modDelete'),
+    url(r'^details/mod/(?P<modId>\d+)/$', 'modDetails', name='modDetails'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/mod/add/$', 'modAdd', name='modAdd'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/mod/$', 'modView', name='modView'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/mod/(?P<modId>\d+)/edit/$', 'modEdit', name='modEdit'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/mod/(?P<modId>\d+)/delete/$', 'modDelete', name='modDelete'),
     # Journal views: photos
-    url(r'^journal/car/(?P<carId>\d+)/album/(?P<albumId>\d+)/add/$', 'albumAdd', name='albumAdd'),
-    url(r'^journal/car/(?P<carId>\d+)/album/(?P<albumId>\d+)/view/$', 'albumView', name='albumView'),
-    url(r'^journal/car/(?P<carId>\d+)/album/(?P<albumId>\d+)/edit/$', 'albumEdit', name='albumEdit'),
-    url(r'^journal/photo/(?P<photoId>\d+)/delete/$', 'photoDelete', name='photoDelete'),
-                       
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/photo/add/$', 'photoAdd', name='photoAdd'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/photo/$', 'photoView', name='photoView'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/photo/(?P<photoId>\d+)/delete/$', 'photoDelete', name='photoDelete'),
+    # Visitor views
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/follow/$', 'follow', name='follow'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/unfollow/$', 'unfollow', name='unfollow'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/vote/(?P<voteType>\w+)/$', 'vote', name='vote'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/car/(?P<carId>\d+)/post/(?P<postId>\d+)/like/$', 'like', name='like'),
+    url(r'^journal/(?P<name>[-A-Za-z0-9_]+)/message/$', 'message', name='message'),
+    # Typeahead views
+    url(r'^carmake/$', 'carMake', name='carMake'),
+    url(r'^carmodel/$', 'carModel', name='carModel'),
+    url(r'^modtype/$', 'modType', name='modType'),
+                           
     # tools
     url(r'^ckeditor/', include('ckeditor.urls')),
-    url(r'^comments/delete/(?P<commentId>\d+)/$', 'commentDelete', name='commentDelete'),
-    url(r'^comments/', include('django.contrib.comments.urls')),
     url(r'^captcha/', include('captcha.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

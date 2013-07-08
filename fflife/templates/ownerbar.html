@@ -1,0 +1,86 @@
+<div class="profile">
+    <h3>{{owner.get_profile.display_name}}</h3>
+    <div>
+    {% if owner.get_profile.original_image  %}
+        <img src='{{ owner.get_profile.display_image.url }}' />
+    {% else %}
+        <img src="/static/images/default.png" />
+    {% endif %}
+    {% if owner.get_profile.motto %}
+        <p><strong>"{{owner.get_profile.motto}}"</strong></p>
+    {% endif %}
+    </div>
+    <div class="clearfix"></div>
+    <address>
+    {% if owner.get_profile.city %}
+        {{owner.get_profile.city}}
+    {% endif %}
+    {% if owner.get_profile.state and owner.get_profile.city %}
+        , {{owner.get_profile.state}}
+    {% elif owner.get_profile.state %}
+        {{owner.get_profile.state}}
+    {% endif %}
+    {% if owner.get_profile.country %}
+         {{owner.get_profile.country }}
+    {% endif %}
+    </address>
+    <p><strong>Followers: <span id="followcount">{{followCount}}</span></strong></p>
+    {% if not isOwner  %}
+    <p>
+        <a id="messageLink" class="btn btn-mini" data="{{owner.username}}" href="#sendMsg" data-toggle="modal">Send Message</a>
+        {% if isFollower %}
+        <a href="#" class="btn btn-mini btn-primary followLink" data="{{owner.username}}" style="display:none;">Follow This Owner</a>
+        <a href="#" class="btn btn-mini btn-danger unFollowLink" data="{{owner.username}}" >Stop Following</a>
+        {% else %}
+        <a href="#" class="btn btn-mini btn-primary followLink" data="{{owner.username}}">Follow This Owner</a>
+        <a href="#" class="btn btn-mini btn-danger unFollowLink" data="{{owner.username}}" style="display:none;">Stop Following</a>
+        {% endif %}
+    </p>
+    {% endif %}
+</div>
+
+<div id="garagelist" class="garage">
+    <h3>Garage</h3>
+    <ul>
+    {% if cars %}
+        {% for car in cars %}
+        <li id='car/{{car.pk}}'><a href="/journal/{{owner.username}}/car/{{car.pk}}/">{{car.year}} {{car.make}} {{car.model}}</a></li>
+        {% endfor %}
+        {% if isOwner %}
+            <li id="car/new"><a href="#addCar" data-toggle="modal">Add New Car</a></li>
+        {% endif %}
+    {% else %}
+        {% if isOwner %}
+            <li id="car/new"><a href="#addCar" data-toggle="modal">Add New Car</a></li>
+        {% else %}
+            <li class="nocars">No cars added</li>
+        {% endif %}
+    {% endif %}
+    </ul>
+</div>
+
+<div class="groups">
+    <h3>Groups</h3>
+    <ul>
+        {% if memberships %}
+        {% for m in memberships %}
+        <li><a href="/groups/{{m.group.id}}/view/">{{m.group.title}}</a></li>
+        {% endfor %}
+        {% else %}
+        <li>No groups</li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="follows">
+    <h3>Follows</h3>
+    <ul>
+        {% if followed %}
+        {% for f in followed %}
+        <li><a href="/journal/{{f.followed.username}}/">{{f.followed.get_profile.display_name}}</a></li>
+        {% endfor %}
+        {% else %}
+        <li>Not following anyone</li>
+        {% endif %}
+    </ul>
+</div>

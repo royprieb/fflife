@@ -1,10 +1,40 @@
-{% extends "carview.html" %}
+{% extends "base.html" %}
 
-{% block posts %}
-<form id="newpost" class="journalform" enctype="multipart/form-data" action="/journal/car/{{car.pk}}/post/new/" method="post"> {% csrf_token %}
-<p class="instructions">Create your new post below:</p>
-{{ form.as_p}}
-<input class="submit" type="submit" value="submit">
-<a class="cancel" href="/journal/car/{{car.pk}}/view/">Cancel</a>
-</form>
+{% block body %}
+<body>
+
+<div class="container">
+
+{% include "navbar.html" %}
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div class="row-fluid content-block">
+    <div class="span3">
+        {% include "ownerbar.html" %}
+    </div>
+    <div class="span9">
+        <div class="postform">
+        <h3>New Post</h3>
+        <form enctype="multipart/form-data"  action="/journal/{{owner.username}}/car/{{car.pk}}/post/add/" method="post">
+            {% csrf_token %}
+            {{ form.title }}
+            {{ form.tags }}
+            {{ form.body }}
+        <a class="btn btn-primary" type="submit">Submit</a>
+        <a class="btn" href='/journal/{{owner.username}}/car/{{car.pk}}/'>Cancel</a>
+        </form>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% include "jscript.html" %}
+
+</body>
 {% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+
+{% include "navbar.html" %}
+
+<div class="row">
+    <div id="deleteAlert" class="alert alert-danger hide">
+        <a href="#" id="cancelDelete" class="close">&times;</a>
+        <h3>Warning! Are You Sure You Want To Do This?</h3>
+        <p><strong>You are about to disband your discussion group.</strong> All topics and comments associated with this group will be deleted. Please click confirm to proceed.</p>
+        <a class="btn btn-primary" href="/groups/{{currentGroup.id}}/delete">Yes, Delete This Group</a>
+    </div>
+</div>
+
+<div class="row">
+    <div id="topicDeleteAlert" class="alert alert-warning hide">
+        <a href="#" id="cancelTopicDelete" class="close">&times;</a>
+        <h3>Warning! Are You Sure You Want To Do This?</h3>
+        <p><strong>You are about to delete this topic.</strong> All comments associated with this topic will be deleted. Please click confirm to proceed.</p>
+        <a class="btn btn-primary" href="/groups/{{currentGroup.id}}/topic/{{currentTopic.id}}/delete/">Yes, Delete This Topic</a>
+    </div>
+</div>
+
+<div class="row">
+    <div id="groupLeaveAlert" class="alert alert-info hide">
+        <a href="#" id="cancelGroupLeave" class="close">&times;</a>
+        <h3>Warning! Are You Sure You Want To Do This?</h3>
+        <p><strong>You are about to leave this group.</strong> All topics and comments you contributed will be deleted. Please click confirm to proceed.</p>
+        <a class="btn btn-primary" href="/groups/{{currentGroup.id}}/leave/">Yes, Leave This Group</a>
+    </div>
+</div>
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div class="row">
+    <div class="span3">
+        {% include "groupprofile.html" %}
+    </div>
+    <div class="span9">
+        <div class="topicform">
+            <form id="topicForm" action="/groups/{{currentGroup.id}}/topic/add" method="post">
+                {% csrf_token %}
+                {{topicform.body}}
+                <button type="submit" class="btn btn-primary span3 pull-right">Add Your Topic</button>
+            </form>
+            <div class="clearfix"></div>
+        </div>
+        <div class="topics">
+            <ul>
+                {% if topics%}
+                {% for topic in topics %}
+                <li>
+                {% if isModerator %}
+                    <a id="deleteTopic" class="close" href="#">&times;</a>
+                {% endif %}
+                    <img src="{{topic.owner.get_profile.display_image.url}}" style="width:100px;height:auto;"/>
+                    <div class="topic_body">
+                    <p>Posted by <a href="/journal/{{topic.owner.username}}/">{{topic.owner.get_profile.display_name}}</a> on {{topic.pub_date}} <strong>Responses: {{topic.num_responses}}</strong></p>
+                    <h5>{{topic.body}}</h5>
+                    <a class="btn btn-mini pull-right" href="/groups/{{currentGroup.id}}/topic/{{topic.id}}/view/">View Topic</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+                {% endfor %}
+                {% else %}
+                <li>
+                    No topics posted.
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+{% endblock %}

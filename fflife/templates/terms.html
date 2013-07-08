@@ -1,11 +1,28 @@
-{% extends "base.html" %}
-{% block body %}
+{% extends "base-carbon.html" %}
 
-<div class="grid_12 aboutcontent">
+{% block body %}
+<body>
+<div class="container-fluid">
+
+{% include "navbar.html" %}
+
+<div class="row-fluid">
+
+<div class="span8 static-left-col">
 <h1>Terms</h1>
-<div class="aboutbody">{{content.body|safe}}</div>
 </div>
 
-<div class="clear">&nbsp;</div>
+<div class="span4 static-right-col">
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis tincidunt risus in pulvinar. Vivamus vehicula pretium lacus, eu aliquam est tempus et. Mauris porta sapien lacus, quis interdum tellus fermentum et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec sodales tellus orci, eget viverra libero congue vitae. Proin ac nunc tempor, iaculis sem sit amet, aliquam erat.
+</p>
+</div>
 
+</div>
+
+</div>
+
+{% include "jscript.html" %}
+
+</body>
 {% endblock %}

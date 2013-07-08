@@ -1,17 +1,38 @@
-{% extends "base.html" %}
+{% extends "base-carbon.html" %}
 
 {% block body %}
-<div class="grid_12 fullpageform">
-<h1>Your Account Settings</h1>
-<p class="instructions">Change your account settings below:</p>
-<form id="editaccount" class="fullpageform" enctype="multipart/form-data" action="/account/edit/" method="post"> {% csrf_token %}
-{{ form.as_p }}
-<input class="submit" type="submit" value="Submit">
-<p><a class="resetpw" href="/account/password/change">Change Password</a></p>
-<p><a class="red deleteacct" href="/account/delete">Delete Account</a></p>
+<body>
+<div class="container-fluid">
+
+{% include "navbar.html" %}
+
+<div class="row-fluid">
+<div class="span8 static-left-col">
+<h1>Edit Your Account</h1>
+<a class="btn btn-danger" href="/account/delete">Delete Account</a>
+</div>
+<div class="span4 static-right-col">
+<form enctype="multipart/form-data" action="/account/edit/" method="post">
+{% csrf_token %}
+{{ form.username }}
+{{ form.email }}
+<p><strong>Profile Photo</strong> {{ form.photo }}</p>
+{{ form.motto }}
+{{ form.city }}
+{{ form.state }}
+{{ form.country }}
+<input class="btn btn-primary" type="submit" value="Submit" />
+<a class="btn" href="/home/">Cancel</a>
 </form>
+<a class="resetpw" href="/account/password/change">Change Password</a>
+
+
+</div>    
+</div>
 
 </div>
 
-<div class="clear">&nbsp;</div>
+{% include "jscript.html" %}
+
+</body>
 {% endblock %}

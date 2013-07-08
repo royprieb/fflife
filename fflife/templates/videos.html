@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+
+{% include "navbar.html" %}
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div class="row">
+    <div class="span12">
+        <ul id="videos">
+        {% if videos %}
+            {% for video in videos %}
+            <li>{{video.embedCode|safe}}</li>
+            {% endfor %}
+        {% else %}
+            <li>No videos</li>
+        {% endif %}
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+</body>
+{% endblock %}

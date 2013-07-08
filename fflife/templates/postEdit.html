@@ -2,10 +2,10 @@
 
 {% block posts %}
 <h1> Edit Post</h1>
-<form id="editpost" class="journalform" enctype="multipart/form-data" action="/journal/car/{{car.pk}}/post/{{post.id}}/edit/" method="post"> {% csrf_token %}
+<form id="editpost" class="journalform" enctype="multipart/form-data" action="{{post.get_absolute_url}}edit/" method="post"> {% csrf_token %}
 {{ form.as_p }}
 <input class="submit" type="submit" value="submit">
-<a class="cancel" href="/journal/car/{{car.pk}}/post/{{post.id}}/view/">Cancel</a>
+<a class="cancel" href="{{post.get_absolute_url}}">Cancel</a>
 </form>
 
 {% endblock %}

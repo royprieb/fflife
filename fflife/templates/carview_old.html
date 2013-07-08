@@ -14,7 +14,7 @@
             <h1>{{car.name|upper}}</h1>
             <div id="vitals">
             {% block car_vitals %}
-            <p>Make: <b>{{car.make}}</b> | Model: <b>{{car.model}}</b> | Year: <b>{{car.year}}</b> | <a  href='/journal/car/{{car.pk}}/edit/'>Edit</a></p> 
+            <p>Make: <b>{{car.make}}</b> | Model: <b>{{car.model}}</b> | Year: <b>{{car.year}}</b> | <a  href='{{car.get_absolute_url}}edit/'>Edit</a></p> 
 
             <div id="tags">
                 {% if tags %}
@@ -34,15 +34,15 @@
             <div id="votes">
             <ul>
             <li>
-                <a href="/visit/car/{{car.id}}/vote/fast/?next={{next}}" >+</a>
+                <a href="/{{journal.owner.username}}/car/{{car.id}}/vote/fast/?next={{next}}" >+</a>
                 Fast: {{fastvotecount}}
             </li>
             <li>
-                <a href="/visit/car/{{car.id}}/vote/fresh/?next={{next}}">+</a>
+                <a href="/{{journal.owner.username}}/car/{{car.id}}/vote/fresh/?next={{next}}">+</a>
                 Fresh: {{freshvotecount}}
             </li>
             <li>
-                <a href="/visit/car/{{car.id}}/vote/boss/?next={{next}}">+</a>
+                <a href="/{{journal.owner.username}}/car/{{car.id}}/vote/boss/?next={{next}}">+</a>
                 Boss: {{bossvotecount}}
             </li>
             </ul>
@@ -50,12 +50,12 @@
 
             <div id="posts">
             <h2>Recent Posts</h2>
-            <a id="createpost" class="rounded-corners" href='/journal/car/{{car.pk}}/post/new/'>+ Create Post</a>{% if posts %}<span><a class="sortposts" href="/journal/car/{{car.pk}}/view/?sort=oldest">Oldest</a><a class="sortposts" href="/journal/car/{{car.pk}}/view/?sort=newest">Newest</a></span>{% endif %}
+            <a id="createpost" class="rounded-corners" href='/journal/{{journal.owner.username}}/car/{{car.pk}}/post/add/'>+ Create Post</a>{% if posts %}<span><a class="sortposts" href="/journal/{{journal.owner.username}}/car/{{car.pk}}/?sort=oldest">Oldest</a><a class="sortposts" href="/journal/{{journal.owner.username}}/car/{{car.pk}}/?sort=newest">Newest</a></span>{% endif %}
             {% if posts %}
             <ul>
             {% for post in posts %}
             <li class="post">
-                <h3><a href="/journal/car/{{car.pk}}/post/{{post.pk}}/view">{{post.title}}</a></h3>
+                <h3><a href="{{post.get_absolute_url}}">{{post.title}}</a></h3>
                 <p>{{post.body|safe|striptags|truncatewords:10}}</p>
             </li>
             {% endfor %}
@@ -74,7 +74,7 @@
         <div id="mod" class="content">
             <h1>Modifications</h1>
             {% block mod %}
-            <a id="addmod" class="rounded-corners" href="/journal/car/{{car.pk}}/mod/add">+ Add Mod</a>
+            <a id="addmod" class="rounded-corners" href="/journal/{{journal.owner.username}}/car/{{car.pk}}/mod/add/">+ Add Mod</a>
 
             {% if mods %}
             <ul>
@@ -84,7 +84,7 @@
             {% if mod.modType.category == "Engine" %}
             <li class="{{mod.modType.category}}">
                 <span>{{ mod.brand }} | {{ mod.part }}</span>
-                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+                <span id="editmod"><a href="{{mod.get_absolute_url}}edit/">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
             </li>
             {% endif %}
             {% endfor %}
@@ -94,7 +94,7 @@
             {% if mod.modType.category == "Interior" %}
             <li class="{{mod.modType.category}}">
                 <span>{{ mod.brand }} | {{ mod.part }}</span>
-                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+                <span id="editmod"><a href="{{mod.get_absolute_url}}edit/">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
             </li>
             {% endif %}
             {% endfor %}
@@ -104,7 +104,7 @@
             {% if mod.modType.category == "Exterior" %}
             <li class="{{mod.modType.category}}">
                 <span>{{ mod.brand }} | {{ mod.part }}</span>
-                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+                <span id="editmod"><a href="{{mod.get_absolute_url}}edit/">Edit</a> | <a href="{{mod.get_absolute_url}}delete/">Delete</a></span>
             </li>
             {% endif %}
             {% endfor %}
@@ -114,7 +114,7 @@
             {% if mod.modType.category == 'Suspension' %}
             <li class="{{mod.modType.category}}">
                 <span>{{ mod.brand }} | {{ mod.part }}</span>
-                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+                <span id="editmod"><a href="{{mod.get_absolute_url}}edit/">Edit</a> | <a href="{{mod.pk}}delete/">Delete</a></span>
             </li>
             {% endif %}
             {% endfor %}
@@ -124,7 +124,7 @@
             {% if mod.modType.category == 'Wheels' %}
             <li class="{{mod.modType.category}}"> 
                 <span>{{ mod.brand }} | {{ mod.part }}</span>
-                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+                <span id="editmod"><a href="{{mod.get_absolute_url}}edit/">Edit</a> | <a href="{{mod.get_absolute_url}}delete/">Delete</a></span>
             </li>
             {% endif %}
             {% endfor %}
@@ -134,7 +134,7 @@
             {% if mod.modType.category == 'Audio' %}
             <li class="{{mod.modType.category}}"> 
                 <span>{{ mod.brand }} | {{ mod.part }}</span>
-                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+                <span id="editmod"><a href="{{mod.get_absolute_url}}edit"/>Edit</a> | <a href="{{mod.get_absolute_url}}delete/">Delete</a></span>
             </li>
             {% endif %}
             {% endfor %}
@@ -144,7 +144,7 @@
             {% if mod.modType.category == "Tires" %}
             <li class="{{mod.modType.category}}"> 
                 <span>{{ mod.brand }} | {{ mod.part }}</span>
-                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+                <span id="editmod"><a href="{{mod.get_absolute_url}}edit/">Edit</a> | <a href="{{mod.get_absolute_url}}delete/">Delete</a></span>
             </li>
             {% endif %}
             {% endfor %}
@@ -154,7 +154,7 @@
             {% if mod.modType.category == 'Other' %}
             <li class="{{mod.modType.category}}"> 
                 <span>{{ mod.brand }} | {{ mod.part }}</span>
-                <span id="editmod"><a href="/journal/car/{{car.pk}}/mod/{{mod.pk}}/edit">Edit</a> | <a href="/journal/mod/{{mod.pk}}/delete">Delete</a></span>
+                <span id="editmod"><a href="{{mod.get_absolute_url}}edit">Edit</a> | <a href="{{mod.get_absolute_url}}delete">Delete</a></span>
             </li>
             {% endif %}
             {% endfor %}
@@ -173,14 +173,14 @@
         <div id="gallery" class="content">
         <h1>Photo Gallery</h1>
         {% block album %}
-        <a id="addphoto" class="rounded-corners" href="/journal/car/{{car.pk}}/album/{{album.pk}}/add/">+ Add Photo</a>
+        <a id="addphoto" class="rounded-corners" href="{{album.get_absolute_url}}add/">+ Add Photo</a>
             {% if photos %}
-            <a id="editalbum" href="/journal/car/{{car.pk}}/album/{{album.pk}}/edit/">Edit Album</a>
+            <a id="editalbum" href="{{album.get_absolute_url}}edit/">Edit Album</a>
 
             <ul>
             {% for photo in photos %}
             <li>
-            <a class="lightbox" href='{{photo.display_image.url}}' title='{{photo.caption}}'><img alt='{{photo.caption}}' src='{{ photo.thumb_image.url }}'/></a>
+            <a class="lightbox" href='{{photo.display_image.url}}' source='{{photo.original_image.url}}' title='{{photo.caption}}'><img alt='{{photo.caption}}' src='{{ photo.thumb_image.url }}'/></a>
             {% endfor %}
             </ul>
 
@@ -190,7 +190,7 @@
             $(function(){
                  $('a.lightbox').lightBox({
                      getCaption: function(jQueryObject){
-                         return '<h5>'+jQueryObject.attr('title')+'</h5><a href="'+jQueryObject.attr('href')+'">Download file</a>';
+                         return '<h5>'+jQueryObject.attr('title')+'</h5><a href="'+jQueryObject.attr('source')+'">Download file</a>';
                      }
                  }); // select all links with lightbox class
             });
@@ -201,7 +201,7 @@
 </div>
 {% else %}
 <h1>Your journal is ready!</h1>
-<p>Time to add a car. <a href="/journal/car/new/">Click here</a></p>
+<p>Time to add a car. <a href="/journal/{{journal.owner.username}}/car/add/">Click here</a></p>
 {% endif %}
 
 </div>

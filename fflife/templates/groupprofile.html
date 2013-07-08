@@ -1,0 +1,21 @@
+    <div class="groupProfile">
+    <h3><a class="groupTitle" href="/groups/{{currentGroup.id}}/view">{{currentGroup.title}}</a></h3>
+    <p class="description">"{{currentGroup.description}}"</p>
+    <p>Created on {{currentGroup.pub_date}} Moderated by <strong><a href="/journal/{{currentGroup.moderator.username}}/">{{currentGroup.moderator.get_profile.display_name}}</a></strong></p>
+    <p><strong>Members: {{memberCount}} | Topics: {{topicCount}}</strong></p>
+    {% if isModerator %}
+        <a class="btn btn-danger cta" id="deleteGroup">Disband Group</a>
+    {% else %}
+        {% if isMember %}
+            <a id="groupLeave" class="btn btn-warning cta">Leave Group</a>
+        {% else %}
+            <a class="btn btn-primary cta" href="/groups/{{currentGroup.id}}/join/" class="btn btn-primary span2">Join Group</a>
+        {% endif %}
+    {% endif %}
+    </div>
+    <div class="rules">
+    <h4>Group Rules</h4>
+        <p><small>Moderators can remove  topics or comments they deem inappropriate.</small></p>
+        <p><small>You automatically join a group when you submit topics and comments</small></p>
+        <p><small>Topic's owner can remove comments from their discussions.</small></p>
+    </div>

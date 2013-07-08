@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+<body>
+
+<div class="container">
+
+{% include "navbar.html" %}
+
+{% include "newcarform.html" %}
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div class="row">
+    <div class="span3">
+        {% include "ownerbar.html" %}
+    </div>
+    <div class="span9">
+        {% include "updates.html" %}
+    </div>
+</div>
+
+</div>
+
+</body>
+{% endblock %}

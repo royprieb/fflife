@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+
+{% include "navbar.html" %}
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div id="exploreform" class="row">
+    <div class="span12">
+        <h3>Search all cars by:</h3>
+        <form class="form-inline" action="/explore/" method="post">
+            {% csrf_token %}
+            <input name="make" type="text" class="input-large" placeholder="Car Make">
+            <input name="model" type="text" class="input-large" placeholder="Car Model">
+            <input name="startyear" type="text" class="input-medium" placeholder="Start Year">
+            <input name="endyear" type="text" class="input-medium" placeholder="End Year">
+            <button class="btn" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span12">
+        {% if searchDone %}
+        <div class="results">
+        <h3>Results</h3>
+        {% if results %}
+        {% for result in results %}
+            <p class="car"><a class="car" href="/journal/{{result.owner.username}}/car/{{result.pk}}/">{{result.year}} {{result.make}} {{result.model}} - {{result.name}}</a> owned by <strong>{{result.owner.username}}</strong>. Total votes: {{result.num_votes}}.</p>
+        {% endfor %}
+        {% else %}
+            <p>No results found</p>
+        {% endif %}
+        </div>
+        {% else %}
+        <h3>Today's <a id="topblogslink" href="#">Top Blogs</a> | <a id="recentpostslink" href="#">Recent Posts</a></h3>
+        <table id="topblogslist">
+            <tbody>
+                {% if topBlogs %}
+                {% for b in topBlogs %}
+                <tr>
+                    <th class="span2">
+                    <a href="/journal/{{b.username}}/" class="bloglistlink">
+                        {% if b.get_profile.original_image  %}
+                        <img src='{{ b.get_profile.display_image.url }}' />
+                        {% else %}
+                        <img src="/static/images/default.png" />
+                        {% endif %}
+                    </a>
+                    </th>
+                    <th class="span10 blogdetails">
+                        <h3>{{b.get_profile.display_name }}</h3>
+                        {% if b.get_profile.motto %}
+                        <p><strong>"{{b.get_profile.motto}}"</strong></p>
+                        {% endif %}
+                        <p>
+                        {% if b.get_profile.city %}
+                            {{b.get_profile.city}}
+                        {% endif %}
+                        {% if b.get_profile.state and b.get_profile.city %}
+                            , {{b.get_profile.state}}
+                        {% elif b.get_profile.state %}
+                            {{b.get_profile.state}}
+                        {% endif %}
+                        {% if b.get_profile.country %}
+                             {{b.get_profile.country }}
+                        {% endif %}
+                        </p>
+                        <p>Followers: {{b.num_followers}}</p>
+                    </th>
+                </a>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <th class="span12">No blogs</th>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <table id="recentpostslist" class="hide">
+            <tbody>
+            {% if topPosts %}
+            {% for p in topPosts %}
+            <tr>
+                <th class="span12">
+                <a href="/journal/{{p.car.owner.username}}/car/{{p.car.id}}/post/{{p.id}}">
+                    <h3>{{p.title}}</h3>
+                    <p>Published on {{p.pub_date}} by {{p.car.owner.get_profile.display_name}}</p>
+                    <p>{{ p.body|safe|striptags|truncatewords:10 }}</p>
+                </a>
+                </th>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <th class="span12">No posts</th>
+            </tr>
+            {% endif %}    
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+{% endblock %}

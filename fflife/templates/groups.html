@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+
+{% include "navbar.html" %}
+
+{% include "newgroupform.html" %}
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div class="row">
+    <div class="span12">
+        <h3>Discussion Groups</h3>
+        <p><a id="mostmemberslink" href="#">Most Members</a> | <a id="mostrecentlink" href="#">Most Recent</a></p>
+        <a class="btn btn-primary" href="#addGroup" data-toggle="modal">Create Group</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span12">
+        <ul id="mostmemberslist">
+            {% for group in popularGroups %}
+            <li>
+                <h4><a href="/groups/{{group.id}}/view/">{{group.title}}</a></h4>
+                <p>{{group.description}}</p>
+                <p><strong>Members: {{group.num_members}}</strong></p>
+            </li>
+            {% endfor %}
+        </ul>
+        <ul id="mostrecentlist" class="hide">
+            {% for group in recentGroups %}
+            <li>
+                <h4><a href="/groups/{{group.id}}/view/">{{group.title}}</a></h4>
+                <p>{{group.description}}</p>
+                <p><strong>Members: {{group.num_members}}</strong></p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+</body>
+{% endblock %}

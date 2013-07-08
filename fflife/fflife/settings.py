@@ -130,12 +130,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     # Installed apps
-    'south',
+#    'south',
     'ckeditor',
-    'django.contrib.comments',
     'imagekit',
     'taggit',
-    'taggit_templatetags',
     'haystack',
     'captcha',
     # Handrolled apps
@@ -171,7 +169,7 @@ LOGGING = {
     }
 }
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/'
 AUTH_PROFILE_MODULE = 'blog.UserProfile'
 
 try:

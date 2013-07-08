@@ -1,0 +1,20 @@
+<div class="updates">
+    <h3>Message Board</h3>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>
+                <a class="close" href="/message/{{message.id}}/delete">&times;</a>
+                <h5>{{message.title}}</h5>
+                <small class='pub_date'>{{message.pub_date}} from {{message.sender}}</small>
+                <p>{{message.body|safe}}</p>
+                {% if message.action %}
+                <a class="btn" href="{{message.action}}">{{message.label}}</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No messages</p>
+    {% endif %}
+</div>

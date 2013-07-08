@@ -2,8 +2,7 @@
 {{ object.make }}
 {{ object.model }}
 {{ object.year }}
-{{ object.journal.title }}
-{{ object.journal.owner.username }}
+{{ object.owner.get_profile.display_name }}
 {% for tag in object.tags.all %}
 {{ tag.name }}
 {% endfor %}

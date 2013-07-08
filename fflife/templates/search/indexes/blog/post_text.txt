@@ -1,5 +1,4 @@
-{{ object.car.journal.title }}
-{{ object.car.journal.owner.username}}
+{{ object.car.owner.get_profile.display_name}}
 {{ object.pub_date }}
 {{ object.title }}
 {{ object.car.name }}

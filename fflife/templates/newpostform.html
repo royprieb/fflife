@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+
+{% include "navbar.html" %}
+
+{% include "messageform.html" %}
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div class="row">
+    <div class="span3">
+        {% include "ownerbar.html" %}
+    </div>
+    <div class="span9">
+        <div class="postform">
+        <a type="button" href="{{cancelUrl}}" class="close">&times;</a>
+        <h3>Create New Post</h3>
+        <form id="newPostForm" action="/journal/{{owner.username}}/car/{{car.id}}/post/add/" method="post">
+            {% csrf_token %}
+            {{ postform.title }}
+            {{ postform.p_tags }}
+            {{ postform.body }}
+        <input type="submit" class="btn btn-primary postButton" value="Save Post">
+        </form>
+        </div>
+    </div>
+</div>
+
+</body>
+{% endblock %}
+
+
+

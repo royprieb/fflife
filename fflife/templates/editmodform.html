@@ -1,0 +1,17 @@
+<div id="editMod" class="modal hide fade">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Edit Modification</h3>
+    </div>
+    <div class="modal-body">
+        <form id="editModForm" method="post">
+            {% csrf_token %}
+            {{ modform.modType_edit }}
+            {{ modform.brand_edit }}
+            {{ modform.part_edit }}
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Save Edits">
+        </form>
+    </div>
+</div>

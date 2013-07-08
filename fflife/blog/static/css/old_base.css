@@ -1,0 +1,74 @@
+.rounded-corners {
+     -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;
+}
+.white {
+    background-color: #FFF;
+}
+body{
+    background-color: #000;
+    background-image: url(http://fastfreshlife.royprieb.webfactional.com/static/images/wsCarbonFiber.jpeg);
+}
+#bodyblock{
+    min-height: 800px;
+}
+#logo img{
+    width: 400px;
+}
+#loginnav {
+    text-align: right;
+}
+#loginnav a{
+    padding: 10px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #333333;
+}
+#navbar{
+    background-color: #666666;
+}
+#navbar ul{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+#navbar li{
+    float: left;
+    padding: 5px 20px;
+    margin: 0px;
+}
+#navbar li:hover{
+    background-color: #333333;
+}
+#navbar li.isSelected{
+    background-color: #FF0000;
+}
+#navbar a{
+    font-size: 20px;
+    text-decoration: none;
+    color: #FFF;
+}
+#footer{
+    border-top: solid #000 1px;
+    margin-top: 5px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+#footer ul{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+#footer li{
+    float: left;
+    margin: 1px;
+    padding: 5px 20px;
+}
+#footer a{
+    font-size: 16px;
+    text-decoration: none;
+    color: #333333;
+}

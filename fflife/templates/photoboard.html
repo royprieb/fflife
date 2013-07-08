@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+
+{% include "navbar.html" %}
+
+{% include "newboardphotoform.html" %}
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+
+<div class="row">
+    <div id="boardNavbar" class="span12">
+        {% if boards %}
+        <h3 id="boardTitle">{{current_board.title}}</h3>
+        <a href="#newPhoto" class="btn btn-primary" data-toggle="modal">+ Upload</a>
+        <select id="boardSelect" class="pull-right">
+            {% for board in boards %}
+            {% ifequal board.pk current_board.pk %}
+            <option data="{{board.pk}}" selected>{{board.title}}</option>
+            {% else %}
+            <option data="{{board.pk}}">{{board.title}}</option>
+            {% endifequal %}
+            {% endfor %}
+        </select>
+        {% else %}
+        <h3>No photo boards</h3>
+    {% endif %}
+    </span>
+</div>
+
+<div class="row">
+    <div class="span12">
+    {% if boardphotos %}
+    <ul id="boardphotos">
+        {% for board in boardphotos %}
+        <li>
+            <a href="/photoboard/{{current_board.pk}}/photo/{{board.id}}/"><img src="{{board.thumbnail_image.url}}"/></a>
+            <p class="text-right"><a class="likeBoardPhoto" href="#" data="/photoboard/{{current_board.id}}/photo/{{board.id}}/like/"><i class="icon-heart"></i> {{board.num_likes}}</a></p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    </div>
+</div>
+
+</body>
+{% endblock %}

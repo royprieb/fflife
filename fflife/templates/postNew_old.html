@@ -1,0 +1,10 @@
+{% extends "carview.html" %}
+
+{% block posts %}
+<form id="newpost" class="journalform" enctype="multipart/form-data" action="/journal/{{journal.owner.username}}/car/{{car.pk}}/post/add/" method="post"> {% csrf_token %}
+<p class="instructions">Create your new post below:</p>
+{{ form.as_p}}
+<input class="submit" type="submit" value="submit">
+<a class="cancel" href="{{car.get_absolute_url}}">Cancel</a>
+</form>
+{% endblock %}

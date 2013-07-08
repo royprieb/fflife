@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+
+{% include "navbar.html" %}
+
+<div class="row">
+    <div id="deleteBoardPhotoAlert" class="alert hide">
+        <a href="#" id="cancelBoardPhotoDelete" class="close">&times;</a>
+        <h3>Warning! Are You Sure You Want To Do This?</h3>
+        <p><strong>You are about to delete your photo.</strong> Any comments associated with this photo will be deleted as well. Please click confirm to proceed.</p>
+        <a class="btn btn-primary" href="/photoboard/{{photo.board.pk}}/photo/{{photo.id}}/delete">Yes, Delete This Photo</a>
+    </div>
+</div>
+
+{% include "newboardphotoform.html" %}
+
+<div class="branding">
+    <img src="/static/images/ffl_logo.jpg"/>
+</div>
+
+{% include "usernav.html" %}
+<div id="boardPhotoNavbar">
+{% if isUploader %}
+<a class="close" href="#" id="deleteBoardPhoto">&times;</a>
+{% endif %}
+<p>Posted by <a href="/journal/{{photo.uploader.username}}/"><strong>{{photo.uploader.get_profile.display_name}}</strong></a> on {{photo.post_date}} <a class="likeBoardPhoto" href="#" data="/photoboard/{{photo.board.pk}}/photo/{{photo.pk}}/like/"><i class="icon-heart"></i> {{likescount}}</a> | Go back to </strong><a href="/photoboard?b={{photo.board.pk}}"><strong>{{photo.board.title}}</strong></a></p>
+</div>
+
+<div id="boardPhotoDisplay" class="text-center">
+<img src="{{photo.display_image.url}}"/>
+<h3>{{photo.caption}}</h3>
+</div>
+
+<div id="boardPhotoComments" class="row">
+    <div class="span10 offset1">
+        <p class="text-center"><strong>Comments: {{ comments|length }}</strong></p>
+        <div id="commentBox">
+            <form id="commentForm" method="post" action="/photoboard/{{photo.board.pk}}/photo/{{photo.id}}/newcomment/">
+            {% csrf_token %}
+            {{form.body}}
+            <input type="submit" class="btn btn-mini pull-right" value="Submit" />
+            </form>
+        </div>
+        <div class="clearfix"></div>
+        {% if comments %}
+        <div class="commentList">
+            <ul>
+                {% for comment in comments %}
+                <li class="rounded-corners">
+                    {% if isUploader %}
+                    <a href="/photoboard/{{photo.board.pk}}/photo/{{photo.id}}/comment/{{comment.id}}/delete/" class="close">&times;</a>
+                    {% endif %}
+                    <p class="commentbody">{{comment.body}}</p>
+                    <p class="byline">Posted by <a href="/journal/{{comment.user.username}}/"><strong>{{comment.user.get_profile.display_name}}</strong></a> on {{comment.pub_date}}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+</body>
+{% endblock %}

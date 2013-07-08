@@ -1,0 +1,20 @@
+<div id="addCar" class="modal hide fade">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Add New Car</h3>
+    </div>
+    <div class="modal-body">
+        <form id="newCarForm" enctype="multipart/form-data" action="/journal/{{owner.username}}/car/add/" method="post">
+            {% csrf_token %}
+            {{ carform.name }}
+            {{ carform.image }}
+            {{ carform.make }}
+            {{ carform.model }}
+            {{ carform.year }}
+            {{ carform.c_tags }}
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Add">
+        </form>
+    </div>
+</div>

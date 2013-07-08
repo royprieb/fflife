@@ -1,0 +1,16 @@
+<div id="newPhoto" class="modal hide fade">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Add Photo</h3>
+    </div>
+    <div class="modal-body">
+        <form id="newPhotoForm" enctype="multipart/form-data" action="/journal/{{owner.username}}/car/{{car.id}}/photo/add/" method="post">
+            {% csrf_token %}
+            {{ photoform.caption }}
+            {{ photoform.photo }}
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Add">
+        </form>
+    </div>
+</div>

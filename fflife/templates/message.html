@@ -3,7 +3,7 @@
 {% block content_window %}
 <div class="grid_8">
 <h1>Send Message</h1>
-<form id="messageform" class="journalform" method="post" action="/message/{{ journal.owner.pk }}/">
+<form id="messageform" class="journalform" method="post" action="/{{journal.owner.username}}/message/{{ journal.owner.pk }}/">
 {% csrf_token %}
 <p class="instructions">Compose your message to the owner below:</p>
 {{form.as_p}}

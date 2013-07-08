@@ -30,22 +30,22 @@
             <div id="votes">
             <ul>
             <li>
-                <a href="/visit/car/{{car.id}}/vote/fast/?next={{next}}" >+</a>
+                <a href="/{{journal.owner.username}}/car/{{car.id}}/vote/fast/?next={{next}}" >+</a>
                 Fast: {{fastvotecount}}
             </li>
             <li>
-                <a href="/visit/car/{{car.id}}/vote/fresh/?next={{next}}">+</a>
+                <a href="/{{journal.owner.username}}/car/{{car.id}}/vote/fresh/?next={{next}}">+</a>
                 Fresh: {{freshvotecount}}
             </li>
             <li>
-                <a href="/visit/car/{{car.id}}/vote/boss/?next={{next}}">+</a>
+                <a href="/{{journal.owner.username}}/car/{{car.id}}/vote/boss/?next={{next}}">+</a>
                 Boss: {{bossvotecount}}
             </li> 
             <li>
                 {% if followStatus %}
-                <a id="stopfollow" href="/visit/car/{{car.id}}/stopfollow">Stop Follow</a>
+                <a id="stopfollow" href="/{{journal.owner.username}}/car/{{car.id}}/stopfollow">Stop Follow</a>
                 {% else %}
-                <a href="/visit/car/{{car.id}}/follow">Follow Car</a>
+                <a href="/{{journal.owner.username}}/car/{{car.id}}/follow">Follow Car</a>
                 {% endif %}
             </li>
             
@@ -55,11 +55,11 @@
             <div id="posts">
             <h2>Most Recent Posts</h2>
             {% if posts %}
-            <span><a class="sortposts" href="/visit/car/{{car.pk}}/?sort=oldest">Oldest</a><a class="sortposts" href="/visit/car/{{car.pk}}/?sort=newest">Newest</a></span>
+            <span><a class="sortposts" href="/{{journal.owner.username}}/car/{{car.pk}}/?sort=oldest">Oldest</a><a class="sortposts" href="/{{journal.owner.username}}/car/{{car.pk}}/?sort=newest">Newest</a></span>
             <ul>
             {% for post in posts %}
             <li class="post">
-                <h3><a href="/visit/car/{{car.pk}}/post/{{post.pk}}">{{post.title}}</a></h3>
+                <h3><a href="/{{journal.owner.username}}/car/{{car.pk}}/post/{{post.pk}}">{{post.title}}</a></h3>
                 <p>{{post.body|safe|striptags|truncatewords:10}}</p>
             </li>
             {% endfor %}
@@ -173,7 +173,7 @@
             <ul>
             {% for photo in photos %}
             <li>
-            <a class="lightbox" href='{{photo.display_image.url}}' title='{{photo.caption}}'><img alt='{{photo.caption}}' src='{{ photo.thumb_image.url }}'/></a>
+            <a class="lightbox" href='{{photo.display_image.url}}' source='{{photo.original_image.url}}' title='{{photo.caption}}'><img alt='{{photo.caption}}' src='{{ photo.thumb_image.url }}'/></a>
             </li>
             {% endfor %}
             </ul>
@@ -186,7 +186,7 @@
             $(function(){
                  $('a.lightbox').lightBox({
                      getCaption: function(jQueryObject){
-                         return '<h5>'+jQueryObject.attr('title')+'</h5><a href="'+jQueryObject.attr('href')+'">Download file</a>';
+                         return '<h5>'+jQueryObject.attr('title')+'</h5><a href="'+jQueryObject.attr('source')+'">Download file</a>';
                      }
                  }); // select all links with lightbox class
             });

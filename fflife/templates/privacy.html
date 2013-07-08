@@ -1,13 +1,28 @@
-{% extends "base.html" %}
+{% extends "base-carbon.html" %}
+
 {% block body %}
+<body>
+<div class="container-fluid">
 
-<div class="grid_12 aboutcontent">
-<h1>Privacy Policy</h1>
-<div class="aboutbody">
-{{content.body|safe}}
+{% include "navbar.html" %}
+
+<div class="row-fluid">
+
+<div class="span8 static-left-col">
+<h1>Privacy</h1>
 </div>
+
+<div class="span4 static-right-col">
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis tincidunt risus in pulvinar. Vivamus vehicula pretium lacus, eu aliquam est tempus et. Mauris porta sapien lacus, quis interdum tellus fermentum et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec sodales tellus orci, eget viverra libero congue vitae. Proin ac nunc tempor, iaculis sem sit amet, aliquam erat.
+</p>
 </div>
 
-<div class="clear">&nbsp;</div>
+</div>
 
+</div>
+
+{% include "jscript.html" %}
+
+</body>
 {% endblock %}

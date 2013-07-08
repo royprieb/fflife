@@ -1,15 +1,29 @@
-{% extends "base.html" %}
+{% extends "base-carbon.html" %}
 
 {% block body %}
-<div class="grid_12 fullpageform">
-<h1>Password Change</h1>
-<p class="instructions">Please enter your old password, for security's sake, and then enter your new password twice so we can verify you typed it in correctly.</p>
-<form id="pwchange" class="fullpageform" method="post" action="/account/password/change/"> {% csrf_token %}
-{{ form.as_p }}
-<input class="submit" type="submit" value="Submit">
-</form>
+<body>
+<div class="container-fluid">
+
+{% include "navbar.html" %}
+
+<div class="row-fluid">
+ <div class="span8 static-left-col">
+ <h1>Password Change</h1>
+ </div>
+ <div class="span4 static-right-col">
+    <p class="instructions">Please enter your old password, for security's sake, and then enter your new password twice so we can verify you typed it in correctly.</p>
+    <form id="pwchange" class="fullpageform" method="post" action="/account/password/change/"> {% csrf_token %}
+    {{ form.as_p }}
+    <input class="submit btn btn-primary" type="submit" value="Submit">
+    <a class="btn" href="/home/">Cancel</a>
+    </form>
+ </div>    
+</div>
+
 
 </div>
 
-<div class="clear">&nbsp;</div>
+{% include "jscript.html" %}
+
+</body>
 {% endblock %}
