@@ -730,10 +730,10 @@ def carModel(request):
     if make == 'all':
         models = CarModel.objects.all()
     else:
-        try:
+        if CarMake.objects.filter(name=make).exists():
             makeObject = CarMake.objects.get(name=make)
             models = CarModel.objects.filter(carmaker=makeObject)
-        except CarMake.DoesNotExist():
+        else:
             models = CarModel.objects.all()
     options = []
     for model in models:

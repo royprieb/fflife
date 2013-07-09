@@ -353,7 +353,7 @@ def SignalHandler_Like(sender, **kwargs):
 def SignalHandler_Vote(sender, **kwargs):
     userprofile = UserProfile.objects.get(user=sender.user)
     m = Message(
-        recipient=c.owner,
+        recipient=sender.car.owner,
         sender='FastFreshLife',
         viewed=False,
         title='%s gave your car a %s vote!' % (userprofile.display_name, sender.type),

@@ -61,6 +61,10 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    jQuery.validator.addMethod("noSpace", function(value,element){
+        return value.indexOf(" ") < 0 && value != "";
+        },"Spaces are not allowed");
+    
    $('#newCarForm').validate({
     rules:{
         name: "required",
@@ -142,7 +146,10 @@ $(document).ready(function() {
     });
    $('#newAccountForm').validate({
     rules:{
-        username: "required",
+        username: {
+            required: true,
+            noSpace: true,
+            },
         email: "required",
         password: "required",
         photo: "required",
