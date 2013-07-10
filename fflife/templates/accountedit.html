@@ -12,7 +12,7 @@
 <a class="btn btn-danger" href="/account/delete">Delete Account</a>
 </div>
 <div class="span4 static-right-col">
-<form enctype="multipart/form-data" action="/account/edit/" method="post">
+<form id="editAccountForm" enctype="multipart/form-data" action="/account/edit/" method="post">
 {% csrf_token %}
 {{ form.username }}
 {{ form.email }}

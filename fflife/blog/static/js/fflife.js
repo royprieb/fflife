@@ -71,7 +71,10 @@ $(document).ready(function() {
         image: "required",
         make: "required",
         model: "required",
-        year: "required",
+        year: {
+            required: true,
+            number: true,
+        },
     }
     });
    $('#editCarForm').validate({
@@ -79,7 +82,10 @@ $(document).ready(function() {
         name: "required",
         make: "required",
         model: "required",
-        year: "required",
+        year: {
+            required: true,
+            number: true,
+        },
     }
     });
    $('#newPostForm').validate({
@@ -150,9 +156,25 @@ $(document).ready(function() {
             required: true,
             noSpace: true,
             },
-        email: "required",
+        email: {
+            required: true,
+            email: true,
+            },
         password: "required",
         photo: "required",
+        motto: "required",
+    }
+    });
+   $('#editAccountForm').validate({
+    rules:{
+        username: {
+            required: true,
+            noSpace: true,
+            },
+        email: {
+            required: true,
+            email: true,
+            },
         motto: "required",
     }
     });

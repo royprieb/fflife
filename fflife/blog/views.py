@@ -1434,7 +1434,7 @@ def modDelete(request, name, carId, modId):
     m = Mod.objects.get(pk=modId)
     c = Car.objects.get(pk=carId)
     m.delete()
-    return HttpResponseRedirect('/journal/%s/car/%s/mod' % (owner.username. c.pk))
+    return HttpResponseRedirect('/journal/%s/car/%s/mod' % (owner.username, c.id))
 
 @login_required
 def modDetails(request, modId):
