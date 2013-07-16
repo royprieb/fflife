@@ -207,9 +207,6 @@ class Mod(models.Model):
     def send_mod(self):
         mod_created.send(sender=self)
 
-#    def get_absolute_url(self):
-#        return reverse('blog.views.modView', args=[str(self.car.journal.owner.username), str(self.car.id), str(self.id)])
-
 class Circle(models.Model):
     moderator = models.ForeignKey(User)
     title = models.CharField(max_length=100, null=True, blank=True)

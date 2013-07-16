@@ -250,7 +250,7 @@ def explore(request):
         
         endyear = request.POST['endyear']
         if endyear != ''  and canBeInt(endyear):
-            s4 = cars.filter(year__lte=int(endyear))
+            s4 = cars.filter(year__lte=int(float(endyear)))
         else:
             s4 = cars
         
