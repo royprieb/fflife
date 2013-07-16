@@ -1,0 +1,58 @@
+[
+    {
+        "pk": 1, 
+        "model": "blog.modtype", 
+        "fields": {
+            "category": "Engine"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "blog.modtype", 
+        "fields": {
+            "category": "Interior"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "blog.modtype", 
+        "fields": {
+            "category": "Exterior"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "blog.modtype", 
+        "fields": {
+            "category": "Suspension"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "blog.modtype", 
+        "fields": {
+            "category": "Wheels"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "blog.modtype", 
+        "fields": {
+            "category": "Audio"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "blog.modtype", 
+        "fields": {
+            "category": "Tires"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "blog.modtype", 
+        "fields": {
+            "category": "Other"
+        }
+    }
+]
