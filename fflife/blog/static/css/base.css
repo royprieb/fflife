@@ -21,7 +21,7 @@ div.static-left-col img{
 div.static-left-col h1{
      color: #FFF;
 }
-div.static-right-col p, h3, li{
+div.static-right-col p, div.static-right-col h3, div.static-right-col p{
      color: #FFF;
 }
 div.static{
