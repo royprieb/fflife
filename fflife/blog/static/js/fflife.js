@@ -299,10 +299,11 @@ $(document).ready(function() {
             $("#freshvotecount").text(count['freshcount']);
             });
     });
-    $("#likelink").click(function(){
+    $(".likelink").click(function(){
         var url = $(this).attr('data');
+        var targetid = $(this).attr('targetid');
         $.getJSON(url, function(count){
-            $("#likecount").text(count['likecount']);
+            $(targetid).text(count['likecount']);
             });
     });
     $("#deleteGroup").click(function(){

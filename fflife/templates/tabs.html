@@ -44,7 +44,7 @@
                         {% endif %}
                         <h3>{{post.title}}</h3>
                         <p>
-                        Published on {{ post.pub_date }} by {{ post.author }} | Likes: <span id="likecount">{{post.likecount}}</span> <a id="likelink" href="#" data="/journal/{{owner.username}}/car/{{car.id}}/post/{{post.id}}/like/"><i class="icon-thumbs-up"></i></a>
+                        Published on {{ post.pub_date }} by {{ post.author }} | Likes: <span id="likecount_{{post.id}}">{{post.likecount}}</span> <a class="likelink" href="#!" targetid="#likecount_{{post.id}}" data="/journal/{{owner.username}}/car/{{car.id}}/post/{{post.id}}/like/"><i class="icon-thumbs-up"></i></a>
                         </p>
                         {% if post.tags %}
                             <ul class="tags">
