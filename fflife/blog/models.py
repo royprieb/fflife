@@ -18,7 +18,7 @@ def get_gallery_image_path(instance, filename):
 #def get_car_profile_cache_path(instance, filename):
 #    return os.path.join('car_profile/',str(instance.id), filename)
 
-# profile signals
+# owner signals
 profile_created = django.dispatch.Signal(providing_args=[])
 follow_created = django.dispatch.Signal(providing_args=[])
 like_created = django.dispatch.Signal(providing_args=[])
@@ -31,6 +31,9 @@ photo_created = django.dispatch.Signal(providing_args=[])
 # group signals
 topic_created = django.dispatch.Signal(providing_args=[])
 response_created = django.dispatch.Signal(providing_args=[])
+# post comment signal
+post_comment_created = django.dispatch.Signal(providing_args=[])
+photo_comment_created = django.dispatch.Signal(providing_args=[])
 
 # models below
 class UserProfile(models.Model):
@@ -88,9 +91,6 @@ class Car(models.Model):
     def send_car(self):
         car_created.send(sender=self)
 
-#    def get_absolute_url(self):
-#        return reverse('blog.views.carView', args=[str(self.journal.owner.username), str(self.id)])
-
 class Vote(models.Model):
     FAST = 'fast'
     FRESH = 'fresh'
@@ -144,14 +144,17 @@ class Post(models.Model):
     def send_post(self):
         post_created.send(sender=self)
 
-#    def get_absolute_url(self):
-#        return reverse('blog.views.postView', args=[str(self.car.journal.owner.username), str(self.car.id), str(self.id)])
-
 class PostComment(models.Model):
     post = models.ForeignKey(Post)
     user = models.ForeignKey(User)
     pub_date = models.DateTimeField('date published')
     body = models.TextField(null=True, blank=True)
+
+    def __unicode__(self):
+        return self.post.title
+
+    def send_post_comment(self):
+        post_comment_created.send(sender=self)
 
 class Like(models.Model):
     user = models.ForeignKey(User)
@@ -304,7 +307,13 @@ class PhotoComment(models.Model):
     user = models.ForeignKey(User)
     pub_date = models.DateTimeField('date published')
     body = models.TextField(null=True, blank=True)
-    
+
+    def __unicode__(self):
+        return self.user.username
+
+    def send_photo_comment(self):
+        photo_comment_created.send(sender=self)
+
 # define signal handlers
 @receiver(profile_created)
 def SignalHandler_UserProfile(sender, **kwargs):
@@ -483,3 +492,77 @@ def SignalHandler_Response(sender, **kwargs):
             action = '/groups/%s/topic/%s/view' % (sender.topic.group.pk, sender.topic.pk)
             )
         m.save()
+        
+@receiver(post_comment_created)
+def SignalHandler_PostComment(sender, **kwargs):
+    current_post = sender.post
+    
+    # get commenters, exclude post author and comment author
+    current_post_comments = PostComment.objects.filter(post=current_post)
+    commenters = []
+    for c in current_post_comments:
+        if c.user != current_post.car.owner and c.user != sender.user and c.user not in commenters:
+            commenters.append(c.user)
+
+    for commenter in commenters:
+        m = Message(
+            recipient=commmenter,
+            sender='FastFreshLife',
+            viewed = False,
+            title = 'New comment on: %s' % current_post.title,
+            body='<p><strong>%s</strong></p>' % sender.body,
+            pub_date = datetime.now(),
+            label = 'View Post',
+            action = '/journal/%s/car/%s/post/%s' % (current_post.car.owner.username, current_post.car.pk, current_post.pk)
+        )
+        m.save()
+    
+    # send message to post author
+    m = Message(
+        recipient = current_post.car.owner,
+        sender='FastFreshLife',
+        viewed = False,
+        title = 'New comment on: %s' % current_post.title,
+        body='<p><strong>%s</strong></p>' % sender.body,
+        pub_date = datetime.now(),
+        label = 'View Post',
+        action = '/journal/%s/car/%s/post/%s' % (current_post.car.owner.username, current_post.car.pk, current_post.pk)        
+    )
+    m.save()
+
+@receiver(photo_comment_created)
+def SignalHandler_PhotoComment(sender, **kwargs):
+    current_photo = sender.photo
+    
+    # get commenters
+    current_photo_comments = PhotoComment.objects.filter(photo=current_photo)
+    commenters = []
+    for c in current_photo_comments:
+        if c.user != current_photo.uploader and c.user != sender.user and c.user not in commenters:
+            commenters.append(c.user)
+    
+    for commenter in commenters:
+        m = Message(
+            recipient=commenter,
+            sender='FastFreshLife',
+            viewed = False,
+            title = 'New photo comment',
+            body='<p><strong>%s</strong></p>' % sender.body,
+            pub_date = datetime.now(),
+            label = 'View Photo',
+            action = '/photoboard/%s/photo/%s' % (current_photo.board.pk, current_photo.pk)
+        )
+        m.save()
+        
+    # send message to photo uploader
+    m = Message(
+        recipient = current_photo.uploader,
+        sender='FastFreshLife',
+        viewed = False,
+        title = 'New photo comment',
+        body='<p><strong>%s</strong></p>' % sender.body,
+        pub_date = datetime.now(),
+        label = 'View Photo',
+        action = '/photoboard/%s/photo/%s' % (current_photo.board.pk, current_photo.pk)
+    )
+    m.save()    

@@ -322,7 +322,8 @@ def groupView(request, groupId):
     isMember = False
     if Join.objects.filter(group=currentGroup, member=user).exists():
         isMember = True
-    memberCount = Join.objects.filter(group=currentGroup).count()
+    groupMembers = Join.objects.filter(group=currentGroup)
+    memberCount = groupMembers.count()
     topics = Topic.objects.filter(group=currentGroup).annotate(num_responses=Count('response')).order_by('-pub_date')
     topicCount = topics.count()
     topicform = topicForm()
@@ -331,6 +332,7 @@ def groupView(request, groupId):
         'currentGroup': currentGroup,
         'isModerator': isModerator,
         'isMember': isMember,
+        'groupMembers': groupMembers,
         'memberCount': memberCount,
         'topics':topics,
         'topicCount': topicCount,
@@ -414,7 +416,8 @@ def topicView(request, groupId, topicId):
     isMember = False
     if Join.objects.filter(member=user).exists():
         isMember = True
-    memberCount = Join.objects.filter(group=currentGroup).count()
+    groupMembers = Join.objects.filter(group=currentGroup)
+    memberCount = groupMembers.count()
     topicCount = Topic.objects.filter(group=currentGroup).count()
     topicform = topicForm()
     responses = Response.objects.filter(topic=currentTopic).order_by('-pub_date')
@@ -424,6 +427,7 @@ def topicView(request, groupId, topicId):
         'isModerator': isModerator,
         'isOwner': isOwner,
         'isMember': isMember,
+        'groupMembers': groupMembers,
         'memberCount': memberCount,
         'topicCount': topicCount,
         'topicform':topicform,
@@ -608,6 +612,7 @@ def boardPhotoComment(request, boardId, photoId):
                 body = body,
             )
             c.save()
+            c.send_photo_comment()
             
         return HttpResponseRedirect('/photoboard/%s/photo/%s/' % (board.id, photo.id))
     else:
@@ -622,12 +627,6 @@ def boardPhotoCommentDelete(request, boardId, photoId, commentId):
         comment.delete()
     return HttpResponseRedirect('/photoboard/%s/photo/%s/' % (board.id, photo.id))
                 
-#def blog(request):
-#    owner = request.user
-#    return render(request,'blog.html',{
-#        'owner':owner,
-#        })
-
 def journal(request, name):
     messageSent = False
     if request.GET.get('action') == 'message':
@@ -694,7 +693,8 @@ def accountEdit(request):
             
             # redirect to next
             return HttpResponseRedirect('/journal/%s/' % owner.username)
-    
+        else:
+            return HttpResponse('form is invalid')
     else:
         # provide the form for editing
         form = accountForm(initial={
@@ -908,7 +908,6 @@ def carView(request, name, carId):
             'c_tags': c_tags_string,
         }
     )
-#    postform = postForm()
     modform = modForm()
     photoform = photoForm()
     messageform = messageForm()
@@ -936,7 +935,6 @@ def carView(request, name, carId):
         'freshvotecount':freshvotecount,
         'carform': carform,
         'editcarform': editcarform,
-#        'postform': postform,
         'modform': modform,
         'photoform': photoform,
         'messageform': messageform,
@@ -1200,7 +1198,8 @@ def postComment(request, name, carId, postId):
                 body = body,
                 )
             c.save()
-            
+            c.send_post_comment()
+
             comments = PostComment.objects.filter(post=post).order_by('-pub_date')
 
             return render(request, 'postcomments.html', {
@@ -1372,7 +1371,6 @@ def modView(request, name, carId):
             'c_tags': c_tags_string,
         }
     )
-#    postform = postForm()
     modform = modForm()
     photoform = photoForm()
     messageform = messageForm()
@@ -1399,7 +1397,6 @@ def modView(request, name, carId):
         'freshvotecount':freshvotecount,
         'carform': carform,
         'editcarform': editcarform,
-#        'postform': postform,
         'modform': modform,
         'photoform': photoform,
         'messageform': messageform,
@@ -1410,6 +1407,8 @@ def modView(request, name, carId):
 def modEdit(request, name, carId, modId):
     owner = request.user
     car = Car.objects.get(pk=carId)
+    if request.user.username != name:
+        return HttpResponseRedirect('/journal/%s/car/%s/mod/' % (owner.username, car.id))
     mod = Mod.objects.get(pk=modId)    
     if request.method == 'POST':
         form = modForm(request.POST)
@@ -1543,7 +1542,6 @@ def photoView(request, name, carId):
             'c_tags': c_tags_string,
         }
     )
-#    postform = postForm()
     modform = modForm()
     photoform = photoForm()
     messageform = messageForm()
@@ -1571,7 +1569,6 @@ def photoView(request, name, carId):
         'freshvotecount':freshvotecount,
         'carform': carform,
         'editcarform': editcarform,
-#        'postform': postform,
         'modform': modform,
         'photoform': photoform,
         'messageform': messageform,
@@ -1691,7 +1688,3 @@ def message(request, name):
     else:
         return HttpResponseRedirect('/journal/%s/' % recipient.username)
             
-# old code below -------------------------------------
-
-#    navSearchForm = SearchForm()
-    

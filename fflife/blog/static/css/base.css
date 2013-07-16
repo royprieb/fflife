@@ -14,10 +14,14 @@ div.static-right-col{
      padding-right: 30px;
      padding-top: 100px;
 }
+div.static-left-col img{
+     margin-top: -200px;
+     margin-left: -120px;
+}
 div.static-left-col h1{
      color: #FFF;
 }
-div.static-right-col p{
+div.static-right-col p, h3, li{
      color: #FFF;
 }
 div.static{
@@ -473,8 +477,22 @@ div.groupProfile a.cta{
      margin-top: 10px;
      margin-bottom:10px;
 }
+div.members{
+     padding: 5px;     
+     margin-bottom: 20px;
+}
+div.members ul{
+     list-style: none;
+     padding: 0px;
+     margin: 0px;
+}
+div.members li{
+     margin-right: 5px;
+     float: left;
+}
 div.rules{
      padding: 5px;
+     margin-bottom: 10px;
 }
 div.rules p{
      margin-top: 20px;

@@ -60,7 +60,7 @@
                     {{ post.body|safe }}
                     </div>
                     <div id="postComments_{{post.id}}">
-                        <p><a class="commentListToggle" targetid="#commentbox_{{post.id}}" state="off" href="#"><strong>Comments: {{post.comments|length}}</strong></a></p>
+                        <p><a class="commentListToggle" targetid="#commentbox_{{post.id}}" state="off" href="#!"><strong>Comments: {{post.comments|length}}</strong></a></p>
                         <div id="commentbox_{{post.id}}" class="hide">
                         <div>
                             <form id="commentform_{{post.id}}">
@@ -116,7 +116,10 @@
                         <td>{{mod.modType}}</td>
                         <td>{{mod.brand}}</td>
                         <td>{{mod.part}}</td>
-                        <td><span class="pull-right"><a class="editModLink" href="#editMod" data="{{mod.id}}" data-toggle= "modal">Edit</a> | <a href="/journal/{{owner.username}}/car/{{car.id}}/mod/{{mod.id}}/delete/">Delete</a></span></td>
+                        <td>
+                            {% if isOwner %}
+                            <span class="pull-right"><a class="editModLink" href="#editMod" data="{{mod.id}}" data-toggle= "modal">Edit</a> | <a href="/journal/{{owner.username}}/car/{{car.id}}/mod/{{mod.id}}/delete/">Delete</a></span></td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -13,6 +13,18 @@
         {% endif %}
     {% endif %}
     </div>
+    <div class="members">
+    <h4>Group Members</h4>
+    <ul>
+        {% if groupMembers %}
+            {% for member in groupMembers %}
+            <li><a href="/journal/{{member.member.username}}/">{{member.member.username}}</a></li>
+            {% endfor %}
+        {% else %}
+            <li>No members</li>
+        {% endif %}
+    </ul>
+    </div>
     <div class="rules">
     <h4>Group Rules</h4>
         <p><small>Moderators can remove  topics or comments they deem inappropriate.</small></p>
