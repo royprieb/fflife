@@ -74,10 +74,12 @@ class carForm(forms.Form):
     make = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Choose A Make',
         'class': 'carMakeTypeahead input-block-level',
+        'autocomplete': 'off',
         }))
     model = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Choose A Model',
         'class': 'carModelTypeahead input-block-level',
+        'autocomplete': 'off',
         }))
 #    make = forms.ModelChoiceField(required=True, queryset=CarMake.objects.all().order_by('name'), widget=forms.Select(attrs={
 #        'placeholder': 'Select Make',

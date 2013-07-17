@@ -4,7 +4,7 @@
     <h3>Add New Car</h3>
     </div>
     <div class="modal-body">
-        <form id="newCarForm" enctype="multipart/form-data" action="/journal/{{owner.username}}/car/add/" method="post">
+        <form id="newCarForm" enctype="multipart/form-data" action="/journal/{{owner.username}}/car/add/" method="post" autocomplete="off">
             {% csrf_token %}
             {{ carform.name }}
             {{ carform.image }}

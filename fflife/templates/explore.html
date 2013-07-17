@@ -14,10 +14,10 @@
 <div id="exploreform" class="row">
     <div class="span12">
         <h3>Search all cars by:</h3>
-        <form class="form-inline" action="/explore/" method="post">
+        <form class="form-inline" action="/explore/" method="post" autocomplete="off">
             {% csrf_token %}
-            <input name="make" type="text" class="input-large carMakeTypeahead" placeholder="Car Make">
-            <input name="model" type="text" class="input-large carModelTypeahead" placeholder="Car Model">
+            <input name="make" type="text" class="input-large carMakeTypeahead" placeholder="Car Make" autocomplete="off">
+            <input name="model" type="text" class="input-large carModelTypeahead" placeholder="Car Model" autocomplete="off">
             <input name="startyear" type="text" class="input-medium" placeholder="Start Year">
             <input name="endyear" type="text" class="input-medium" placeholder="End Year">
             <button class="btn" type="submit">Search</button>

@@ -4,7 +4,7 @@
     <h3>Edit Car</h3>
     </div>
     <div class="modal-body">
-        <form id="editCarForm" action="/journal/{{owner.username}}/car/{{car.id}}/edit/" enctype="multipart/form-data" method="post">
+        <form id="editCarForm" action="/journal/{{owner.username}}/car/{{car.id}}/edit/" enctype="multipart/form-data" method="post" autocomplete="off">
             {% csrf_token %}
             {{ editcarform.name }}
             {{ editcarform.image }}
