@@ -81,14 +81,6 @@ class carForm(forms.Form):
         'class': 'carModelTypeahead input-block-level',
         'autocomplete': 'off',
         }))
-#    make = forms.ModelChoiceField(required=True, queryset=CarMake.objects.all().order_by('name'), widget=forms.Select(attrs={
-#        'placeholder': 'Select Make',
-#        'class': 'input-block-level',
-#        }))
-#    model = forms.ModelChoiceField(required=True, queryset=CarModel.objects.all().order_by('name'), widget=forms.Select(attrs={
-#        'placeholder': 'Select Model',
-#        'class': 'input-block-level',
-#        }))
     year =  forms.IntegerField(required=False, widget=forms.TextInput(attrs={
         'placeholder':' Select Year',
         'class': 'input-block-level',

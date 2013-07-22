@@ -67,10 +67,19 @@ $(document).ready(function() {
     
    $('#newCarForm').validate({
     rules:{
-        name: "required",
+        name: {
+            required: true,
+            maxlength: 100,
+            },
         image: "required",
-        make: "required",
-        model: "required",
+        make: {
+            required: true,
+            maxlength:100,
+            },
+        model: {
+            required: true,
+            maxlength: 100,
+            },
         year: {
             required: true,
             number: true,
@@ -79,9 +88,18 @@ $(document).ready(function() {
     });
    $('#editCarForm').validate({
     rules:{
-        name: "required",
-        make: "required",
-        model: "required",
+        name: {
+            required: true,
+            maxlength: 100,
+            },
+        make: {
+            required: true,
+            maxlength: 100,
+            },
+        model: {
+            required: true,
+            maxlength: 100,
+            },
         year: {
             required: true,
             number: true,
@@ -90,36 +108,66 @@ $(document).ready(function() {
     });
    $('#newPostForm').validate({
     rules:{
-        title: "required",
+        title:{
+            required: true,
+            maxlength: 100,
+            },
     }
     });
    $('#editPostForm').validate({
     rules:{
-        title: "required",
+        title:{
+            required: true,
+            maxlength: 100,
+            },
     }
     });
    $('#newModForm').validate({
     rules:{
-        modType: "required",
-        brand: "required",
-        part: "required",
+        modType: {
+            required: true,
+            maxlength: 100,
+            },
+        brand: {
+            required: true,
+            maxlength: 100,
+            },
+        part: {
+            required: true,
+            maxlength: 100,
+            },
     }
     });
    $('#editModForm').validate({
     rules:{
-        modType: "required",
-        brand: "required",
-        part: "required",
+        modType: {
+            required: true,
+            maxlength: 100,
+            },
+        brand: {
+            required: true,
+            maxlength: 100,
+            },
+        part: {
+            required: true,
+            maxlength: 100,
+            },
     }
     });
    $('#newPhotoForm').validate({
     rules:{
+        caption:{
+            maxlength: 100,
+            },
         photo: "required",
     }
     });
    $('#msgForm').validate({
     rules:{
-        subject: "required",
+        subject: {
+            required: true,
+            maxlength: 100,
+            },
         message: "required",
     }
     });
@@ -130,7 +178,10 @@ $(document).ready(function() {
     });
    $('#newGroupForm').validate({
     rules:{
-        title: "required",
+        title: {
+            required: true,
+            maxlength: 100,
+            },
         description: "required",
     }
     });
@@ -150,11 +201,21 @@ $(document).ready(function() {
         password: "required",
     }
     });
+   $('.feedback').validate({
+    rules:{
+        msg_title:{
+            required: true,
+            maxlength: 30,
+            },
+        msg_body:"required",
+    }
+    });
    $('#newAccountForm').validate({
     rules:{
         username: {
             required: true,
             noSpace: true,
+            maxlength: 50,
             },
         email: {
             required: true,
@@ -162,7 +223,19 @@ $(document).ready(function() {
             },
         password: "required",
         photo: "required",
-        motto: "required",
+        motto:{
+            required: true,
+            maxlength: 50,
+            },
+        city:{
+            maxlength: 50,
+            },
+        state:{
+            maxlength: 50,
+            },
+        country:{
+            maxlength: 50,
+            },
     }
     });
    $('#editAccountForm').validate({
@@ -170,12 +243,25 @@ $(document).ready(function() {
         username: {
             required: true,
             noSpace: true,
+            maxlength: 50,
             },
         email: {
             required: true,
             email: true,
             },
-        motto: "required",
+        motto: {
+            required: true,
+            maxlength: 50,
+            },
+        city:{
+            maxlength: 50,
+            },
+        state:{
+            maxlength: 50,
+            },
+        country:{
+            maxlength: 50,
+            },
     }
     });
 });
