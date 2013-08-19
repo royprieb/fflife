@@ -15,19 +15,35 @@
 
 <div class="row">
     <div class="span3">
-        {% include "ownerbar.html" %}
+        {% if isVendor %}
+            {% include "vendorbar.html" %}
+        {% else %}
+            {% include "ownerbar.html" %}
+        {% endif %}
     </div>
     <div class="span9">
         <div class="postform">
-        <a type="button" href="/journal/{{owner.username}}/car/{{car.id}}/post/{{post.id}}/" class="close">&times;</a>
+        {% if isVendor %}
+            <a type="button" href="/journal/{{owner.username}}/post/{{post.id}}/" class="close">&times;</a>
+        {% else %}
+            <a type="button" href="/journal/{{owner.username}}/car/{{car.id}}/post/{{post.id}}/" class="close">&times;</a>
+        {% endif %}
         <h3>Edit Post</h3>
-        <form id="editPostForm" action="/journal/{{owner.username}}/car/{{car.id}}/post/{{post.id}}/edit/" method="post">
+        {% if isVendor %}
+        <form id="editPostForm" action="/journal/{{owner.username}}/post/{{post.id}}/edit/" method="post">
+        {% else %}
+        <form id="editPostForm" action="/journal/{{owner.username}}/car/{{car.id}}/post/{{post.id}}/edit/" method="post">            
+        {% endif %}
             {% csrf_token %}
             {{ editpostform.title }}
             {{ editpostform.p_tags }}
             {{ editpostform.body }}
         <input type="submit" class="btn btn-primary postButton" value="Save Post">
-        <a id="deletePost" href="/journal/{{post.car.owner.username}}/car/{{post.car.id}}/post/{{post.id}}/delete/" class="btn btn-danger">Delete</a>
+        {% if isVendor %}
+        <a id="deletePost" href="/journal/{{owner.username}}/post/{{post.id}}/delete/" class="btn btn-danger">Delete</a>        
+        {% else %}
+        <a id="deletePost" href="/journal/{{owner.username}}/car/{{post.car.id}}/post/{{post.id}}/delete/" class="btn btn-danger">Delete</a>
+        {% endif %}
         </form>
         </div>
     </div>

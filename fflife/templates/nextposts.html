@@ -1,13 +1,13 @@
 {% if posts %}
+{% for post in posts %}
 <div class="post">
-    {% for post in posts %}
     {% if isOwner %}
         <a class="btn btn-mini pull-right" href="/journal/{{post.username}}/car/{{post.carid}}/post/{{post.id}}/edit/">Edit Post</a>
     {% endif %}
 
     <h3>{{post.title}}</h3>
     <p>
-    Published on {{ post.pub_date }} by {{ post.author }} | Likes: <span id="likecount">{{post.likecount}}</span> <a id="likelink" href="#" data="/journal/{{owner.username}}/car/{{car.id}}/post/{{post.id}}/like/"><i class="icon-thumbs-up"></i></a>
+    Published on {{ post.pub_date }} by {{ post.author }} | Likes: <span id="likecount_{{post.id}}">{{post.likecount}}</span> <a class="likelink_nextposts" href="#!" targetid="#likecount_{{post.id}}" data="/journal/{{owner.username}}/car/{{car.id}}/post/{{post.id}}/like/"><i class="icon-thumbs-up"></i></a>
     </p>
     {% if post.tags %}
     <ul class="tags">
@@ -23,7 +23,7 @@
     {{ post.body|safe }}
 </div>
 <div id="postComments_{{post.id}}">
-    <p><a class="commentListToggle_nextposts" targetid="#commentbox_{{post.id}}" state="off" href="#"><strong>Comments: {{post.comments|length}}</strong></a></p>
+    <p><a class="commentListToggle_nextposts" targetid="#commentbox_{{post.id}}" state="off" href="#!"><strong>Comments: {{post.comments|length}}</strong></a></p>
     <div id="commentbox_{{post.id}}" class="hide">
     <div>
         <form id="commentform_{{post.id}}">
@@ -50,11 +50,10 @@
     </div>
 </div>
 
-{% endfor %}
 </div>
+{% endfor %}
 
 <script type="text/javascript">
-$(document).ready(function() {
     $(".postCommentSubmit_nextposts").click(function(){
         var targetid = $(this).attr('targetid');
         var formid = $(this).attr('formid');
@@ -90,10 +89,16 @@ $(document).ready(function() {
             $(targetid).hide()
             }else{
             $(this).attr('state','on')
-            $(targetid).show()                
+            $(targetid).show()
             }
     });
-});
+    $(".likelink_nextposts").click(function(){
+        var url = $(this).attr('data');
+        var targetid = $(this).attr('targetid');
+        $.getJSON(url, function(count){
+            $(targetid).text(count['likecount']);
+            });
+    });
 </script>
 
 {% endif %}

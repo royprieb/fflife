@@ -1,0 +1,65 @@
+<p><a class="vendorCommentListToggle_updated" targetid="#vendorCommentbox_{{post.id}}" state="on" href="#!"><strong>Comments: {{comments|length}}</strong></a></p>
+<div id="vendorCommentbox_{{post.id}}">
+<div>
+    <form id="vendorCommentform_{{post.id}}">
+        {% csrf_token %}
+        {{ postcommentform.body }}
+        <a class="btn btn-mini vendorPostCommentSubmit_updated" targetid="#vendorPostComments_{{post.id}}" formid="#vendorCommentform_{{post.id}}" formurl="/journal/{{post.vendor.username}}/post/{{post.id}}/newcomment/">Submit</a>
+    </form>
+</div>
+{% if comments %}
+<div class="commentList">
+    <ul>
+        {% for c in comments %}
+        <li class="rounded-corners">
+            {% if isOwner %}
+            <a targetid="#vendorPostComments_{{post.id}}" data="/journal/{{post.vendor.username}}/post/{{post.id}}/comment/{{c.id}}/delete/" class="close vendorPostCommentDelete_updated">&times;</a>
+            {% endif %}
+            <p class="commentbody">{{c.body}}</p>
+            <p class="byline" >Posted by {{c.user.get_profile.display_name}} on {{c.pub_date}}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+</div>
+<script type="text/javascript">
+$(".vendorPostCommentSubmit_updated").click(function(){
+    var targetid = $(this).attr('targetid');
+    var formid = $(this).attr('formid');
+    var formurl = $(this).attr('formurl');
+    $.ajax({
+        url: formurl,
+        type: 'post',
+        dataType: 'html',
+        data: $(formid).serialize(),
+        success: function(html){
+            $(targetid).html(html);
+        }
+    }); 
+});
+$(".vendorPostCommentDelete_updated").click(function(){
+    var targetid = $(this).attr('targetid');
+    var url = $(this).attr('data');
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function(html){
+            if(html){
+                $(targetid).html(html);
+            }
+        }
+    });
+});
+$(".vendorCommentListToggle_updated").click(function(){
+    var targetid = $(this).attr('targetid');
+    var state = $(this).attr('state');
+    if (state == 'on'){
+        $(this).attr('state','off')
+        $(targetid).hide()
+        }else{
+        $(this).attr('state','on')
+        $(targetid).show()                
+    }
+});
+</script>

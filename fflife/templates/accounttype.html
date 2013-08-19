@@ -1,0 +1,25 @@
+{% extends "base-carbon.html" %}
+
+{% block body %}
+<body>
+<div class="container-fluid">
+
+{% include "navbar.html" %}
+
+<div class="row-fluid">
+<div class="span8 static-left-col">
+<h1>Select Your Account Type</h1>
+</div>
+<div class="span4 static-right-col">
+<p>
+<a href="/account/new/owner/" class="btn btn-large acct_type">Owner</a> or <a href="/account/new/vendor/" class="btn btn-large acct_type">Vendor</a>
+</p>
+</div>    
+</div>
+
+</div>
+
+{% include "jscript.html" %}
+
+</body>
+{% endblock %}

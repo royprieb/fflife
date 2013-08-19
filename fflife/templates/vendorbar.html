@@ -6,12 +6,15 @@
     {% else %}
         <img src="/static/images/default.png" />
     {% endif %}
-    {% if owner.get_profile.motto %}
-        <p><strong>"{{owner.get_profile.motto}}"</strong></p>
+    {% if owner.get_profile.website %}
+        <p><a href="{{owner.get_profile.website}}"><strong>{{owner.get_profile.website}}</strong></a></p>
     {% endif %}
     </div>
     <div class="clearfix"></div>
     <address>
+    {% if owner.get_profile.street_address %}
+        {{owner.get_profile.street_address}}</br>
+    {% endif %}
     {% if owner.get_profile.city %}
         {{owner.get_profile.city}}
     {% endif %}
@@ -21,7 +24,7 @@
         {{owner.get_profile.state}}
     {% endif %}
     {% if owner.get_profile.country %}
-        </br>{{owner.get_profile.country }}
+         </br>{{owner.get_profile.country }}
     {% endif %}
     </address>
     <p><strong>Followers: <span id="followcount">{{followCount}}</span></strong></p>
@@ -39,25 +42,14 @@
     {% endif %}
 </div>
 
+{% if isOwner %}
 <div id="garagelist" class="garage">
-    <h3>Garage</h3>
+    <h3>Content</h3>
     <ul>
-    {% if cars %}
-        {% for car in cars %}
-        <li id='car/{{car.pk}}'><a href="/journal/{{owner.username}}/car/{{car.pk}}/">{{car.year}} {{car.make}} {{car.model}}</a></li>
-        {% endfor %}
-        {% if isOwner %}
-            <li id="car/new"><a href="#addCar" data-toggle="modal">Add New Car</a></li>
-        {% endif %}
-    {% else %}
-        {% if isOwner %}
-            <li id="car/new"><a href="#addCar" data-toggle="modal">Add New Car</a></li>
-        {% else %}
-            <li class="nocars">No cars added</li>
-        {% endif %}
-    {% endif %}
+        <li><a href="/journal/{{owner.username}}/vendorpost/add/">Add Post</a></li>
     </ul>
 </div>
+{% endif %}
 
 <div class="groups">
     <h3>Groups</h3>

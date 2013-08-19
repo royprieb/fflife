@@ -15,13 +15,21 @@
 
 <div class="row">
     <div class="span3">
-        {% include "ownerbar.html" %}
+        {% if isVendor %}
+            {% include "vendorbar.html" %}
+        {% else %}
+            {% include "ownerbar.html" %}
+        {% endif %}
     </div>
     <div class="span9">
         <div class="postform">
         <a type="button" href="{{cancelUrl}}" class="close">&times;</a>
         <h3>Create New Post</h3>
+        {% if isVendor %}
+        <form id="newPostForm" action="/journal/{{owner.username}}/vendorpost/add/" method="post">
+        {% else %}
         <form id="newPostForm" action="/journal/{{owner.username}}/car/{{car.id}}/post/add/" method="post">
+        {% endif %}
             {% csrf_token %}
             {{ postform.title }}
             {{ postform.p_tags }}

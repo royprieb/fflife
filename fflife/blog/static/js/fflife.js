@@ -1,4 +1,5 @@
 // app specific jquery functions
+
 $(document).ready(function() {
     $('#carTab').click(function() {
         $('#modItem').removeClass("active");
@@ -267,6 +268,17 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    $('.vendorCategoryTypeahead').typeahead({    
+        source: function(query,process){
+            return $.getJSON(
+                             '/vendorcategory',
+                             { query: query },
+                             function (data){
+                                return process(data);
+                             }
+                             );
+        }
+    });
     $('.carMakeTypeahead').typeahead({
         source: function(query,process){
             return $.getJSON(
@@ -520,7 +532,7 @@ $(document).ready(function() {
             $(targetid).hide()
             }else{
             $(this).attr('state','on')
-            $(targetid).show()                
+            $(targetid).show()
             }
     });
 });

@@ -30,10 +30,18 @@
 
 <div class="row">
     <div class="span3">
-        {% include "ownerbar.html" %}
+        {% if isVendor %}
+            {% include "vendorbar.html" %}
+        {% else %}
+            {% include "ownerbar.html" %}
+        {% endif %}
     </div>
     <div class="span9">
-        {% include "cars.html" %}
+        {% if isVendor %}
+            {% include "vendorposts.html" %}
+        {% else %}
+            {% include "cars.html" %}
+        {% endif %}
     </div>
 </div>
 

@@ -8,19 +8,21 @@
 
 <div class="row-fluid">
 <div class="span8 static-left-col">
-<h1>Create Owner Account</h1>
+<h1>Create Vendor Account</h1>
 </div>
 <div class="span4 static-right-col">
 <p>
 Welcome to FastFreshlife! Please fill in all fields below. 
 </p>
-<form id="newAccountForm" enctype="multipart/form-data" action="/account/new/owner/" method="post">
+<form id="newAccountForm" enctype="multipart/form-data" action="/account/new/vendor/" method="post">
 {% csrf_token %}
 {{ form.username }}
 {{ form.email }}
 {{ form.password }}
 <p><strong>Profile Photo</strong> {{ form.photo }}</p>
-{{ form.motto }}
+{{ form.vendor_category }}
+{{ form.website }}
+{{ form.street_address }}
 {{ form.city }}
 {{ form.state }}
 {{ form.country }}<br>

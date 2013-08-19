@@ -65,6 +65,47 @@ class accountForm(forms.Form):
         }))
     captcha = CaptchaField()
 
+class vendorAccountForm(forms.Form):
+    username = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={
+        'placeholder': 'Username',
+        'class':'input-xlarge',
+        }))
+    email = forms.EmailField(required=False,widget=forms.TextInput(attrs={
+        'placeholder': 'Email',
+        'class': 'input-xlarge',
+        }))
+    password = forms.CharField(required=False, widget=forms.PasswordInput(attrs={
+        'placeholder': 'Password',
+        'class':'input-xlarge',
+        }))
+    photo = forms.FileField(required=False, widget=forms.FileInput)
+    vendor_category = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        'placeholder': 'Vendor Type',
+        'class':'vendorCategoryTypeahead input-xlarge',
+        'autocomplete':'off',
+        }))
+    website = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={
+        'placeholder': 'Website URL',
+        'class':'input-xlarge',
+        }))
+    street_address = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={
+        'placeholder': 'Street Address',
+        'class':'input-xlarge',
+        }))
+    city = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={
+        'placeholder': 'City',
+        'class':'input-xlarge',
+        }))
+    state = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={
+        'placeholder': 'State',
+        'class':'input-xlarge',
+        }))
+    country = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={
+        'placeholder': 'Country',
+        'class':'input-xlarge',
+        }))
+    captcha = CaptchaField()
+
 class carForm(forms.Form):
     name = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Choose A Name',

@@ -23,6 +23,10 @@ from blog.models import Board
 from blog.models import BoardPhoto
 from blog.models import PhotoLike
 from blog.models import PhotoComment
+from blog.models import VendorCategory
+from blog.models import VendorPost
+from blog.models import VendorPostComment
+from blog.models import VendorPostLike
 
 #class PhotoAdmin(admin.ModelAdmin):
     #list_display = ('__str__', 'admin_thumbnail')
@@ -51,3 +55,7 @@ admin.site.register(Board)
 admin.site.register(BoardPhoto)
 admin.site.register(PhotoLike)
 admin.site.register(PhotoComment)
+admin.site.register(VendorCategory)
+admin.site.register(VendorPost)
+admin.site.register(VendorPostComment)
+admin.site.register(VendorPostLike)

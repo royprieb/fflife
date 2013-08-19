@@ -28,6 +28,11 @@ div.static{
      color: #FFF;
      margin-top: 50px;
 }
+a.acct_type{
+     padding:20px;
+     margin-right: 20px;
+     margin-left: 20px;
+}
 div.branding img{
      width: 50%;
      margin-left: 0%;
@@ -643,4 +648,28 @@ p.commentbody{
 p.byline{
      color: #CCC;
      margin: 0px;
+}
+tr.Engine{
+    background-color: #eee;
+}
+tr.Interior{
+    background-color:#FFFFCC;     
+}
+tr.Exterior{
+    background-color:#FFCCCC;     
+}
+tr.Suspension{
+    background-color:#FFCCFF;
+}
+tr.Wheels{
+    background-color:#FF99CC;     
+}
+tr.Audio{
+    background-color:#CCFFCC;
+}
+tr.Tires{
+    background-color:#CCFFFF;
+}
+tr.Other{
+    background-color:#FFCC99;
 }

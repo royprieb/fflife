@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.db import IntegrityError
 # imports from forms.py
 from blog.forms import accountForm
+from blog.forms import vendorAccountForm
 from blog.forms import loginForm
 from blog.forms import carForm
 from blog.forms import modForm
@@ -51,6 +52,10 @@ from blog.models import Board
 from blog.models import BoardPhoto
 from blog.models import PhotoLike
 from blog.models import PhotoComment
+from blog.models import VendorCategory
+from blog.models import VendorPost
+from blog.models import VendorPostLike
+from blog.models import VendorPostComment
 # other
 from datetime import datetime
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -125,6 +130,9 @@ def contact(request):
         })
 
 def newAccount (request):
+    return render(request,'accounttype.html', {})
+
+def newOwner (request):
     if request.method == 'POST':
         form = accountForm(request.POST, request.FILES)
         if form.is_valid():
@@ -157,6 +165,7 @@ def newAccount (request):
             # create user profile
             p = UserProfile(
                             user=owner,
+                            account_type='owner',
                             display_name = display_username,
                             motto=motto,
                             city=city,
@@ -171,6 +180,9 @@ def newAccount (request):
                 image_file = request.FILES['photo']
                 p.original_image.save(image_file.name, image_file)
                 p.save()
+            else:
+                p.original_image = 'user_profiles/default.png'
+                p.save()
                         
             return HttpResponseRedirect('/home/')
     
@@ -182,9 +194,88 @@ def newAccount (request):
                   'msg':'',
                   })
 
+def vendorCategory (request):
+    categories = VendorCategory.objects.all()
+    options = []
+    for category in categories:
+        options.append(category.name)
+    data = simplejson.dumps(options) 
+    return HttpResponse(data, content_type='application/json')
+
+def newVendor (request):
+    if request.method == 'POST':
+        form = vendorAccountForm(request.POST, request.FILES)
+        if form.is_valid():
+            display_username = form.cleaned_data['username']
+            username = display_username.lower()
+            email = form.cleaned_data['email']
+            pw = form.cleaned_data['password']
+            vendor_category = form.cleaned_data['vendor_category']
+            website = form.cleaned_data['website']
+            street_address = form.cleaned_data['street_address']
+            city = form.cleaned_data['city']
+            state = form.cleaned_data['state']
+            country = form.cleaned_data['country']
+            
+            # create a new user
+            try:
+                owner = User.objects.create_user(
+                                                 username,
+                                                 email,
+                                                 pw,
+                                                 )
+            except IntegrityError, e:
+                 return render(request,'newvendor.html', {
+                      'form':form,
+                      'msg':'Username or email already in use. Please try again.',
+                      })
+            
+            # login user
+            user = authenticate(username=username, password=pw)
+            login(request, user)
+            
+            # create user profile
+            p = UserProfile(
+                            user=owner,
+                            account_type='vendor',
+                            display_name = display_username,
+                            vendor_category=vendor_category,
+                            website=website,
+                            street_address=street_address,
+                            city=city,
+                            state=state,
+                            country=country,
+                            )
+            p.save()
+            p.send_profile()
+            
+            # save profile photo
+            if request.FILES:
+                image_file = request.FILES['photo']
+                p.original_image.save(image_file.name, image_file)
+                p.save()
+            else:
+                p.original_image = 'user_profiles/default.png'
+                p.save()
+                        
+            return HttpResponseRedirect('/home/')
+    
+    else:
+        form = vendorAccountForm()
+    
+    return render(request,'newvendor.html', {
+                  'form':form,
+                  'msg':'',
+                  })
+
 def home(request):
     owner = request.user
     isOwner = True
+    profile = UserProfile.objects.get(user=owner)
+    isVendor = False
+    if profile.account_type == 'vendor':
+        isVendor = True
+
     followCount = len(Follow.objects.filter(followed=owner))
     isFollower = False
     if Follow.objects.filter(followed=owner, follower=request.user).exists():
@@ -202,6 +293,7 @@ def home(request):
     return render(request,'home.html',{
         'owner':owner,
         'isOwner':isOwner,
+        'isVendor': isVendor,
         'followCount': followCount,
         'isFollower': isFollower,
         'followed': followed,
@@ -485,7 +577,7 @@ def responseDelete(request, groupId, topicId, responseId):
     return HttpResponseRedirect('/groups/%s/topic/%s/view/' % (groupId, topicId))
     
 def videos(request):
-    videos = Video.objects.all()
+    videos = Video.objects.order_by('-submit_date').all()
     return render(request,'videos.html',{
         'videos':videos,
         })
@@ -632,6 +724,10 @@ def journal(request, name):
     if request.GET.get('action') == 'message':
         messageSent = True
     owner = User.objects.get(username=name)
+    profile = UserProfile.objects.get(user=owner)
+    isVendor = False
+    if profile.account_type == 'vendor':
+        isVendor = True
     isOwner = False
     if request.user.username == name:
         isOwner = True
@@ -644,10 +740,35 @@ def journal(request, name):
     memberships = Join.objects.filter(member=owner)
     carform = carForm()
     messageform = messageForm()
+
+    # vendorpost data
+    posts = []
+    last_post= ''
+    all_posts = VendorPost.objects.filter(vendor=owner).order_by('-pub_date')
+    if all_posts:
+        select_posts = all_posts
+        if all_posts.count() > 3:
+            select_posts = all_posts[:3]
+        last_post = select_posts[(len(select_posts) - 1)]
+        for p in select_posts:
+            post = {}
+            post['id'] = p.id
+            post['pub_date'] = p.pub_date
+            post['author'] = profile.display_name
+            post['username'] = owner.username
+            post['title'] = p.title
+            post['body'] = p.body
+            post['likecount'] = VendorPostLike.objects.filter(vendorpost=p).count()
+            post['tags'] = p.tags.all()
+            post['comments'] = VendorPostComment.objects.filter(vendorpost=p).order_by('-pub_date')
+            posts.append(post)
+
+    postcommentform = commentForm()
         
     return render(request,'journal.html',{
         'owner':owner,
         'isOwner':isOwner,
+        'isVendor':isVendor,
         'followCount':followCount,
         'isFollower': isFollower,
         'followed': followed,
@@ -656,7 +777,319 @@ def journal(request, name):
         'carform':carform,
         'messageform':messageform,
         'messageSent':messageSent,
+        'posts':posts,
+        'last_post': last_post,
+        'postcommentform':postcommentform,
         })
+
+@login_required
+def vendorPostNew(request, name):
+    owner = User.objects.get(username=name)
+    if request.user.username != name:
+        return HttpResponseRedirect('/journal/%s/')
+    isOwner = True
+    profile = UserProfile.objects.get(user=owner)
+    isVendor = False
+    if profile.account_type == 'vendor':
+        isVendor = True
+    followCount = len(Follow.objects.filter(followed=owner))
+    isFollower = False
+    followed = Follow.objects.filter(follower=owner)
+    memberships = Join.objects.filter(member=owner)
+    cancelUrl = "/journal/%s/" % owner.username
+    if VendorPost.objects.filter(vendor=owner).exists():
+        most_recent_post = VendorPost.objects.filter(vendor=owner).order_by('-pub_date')[0]
+        cancelUrl = "/journal/%s/post/%s" % (owner.username, most_recent_post.id)
+
+    if request.method == 'POST':
+        form = postForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            body = form.cleaned_data['body']
+            p_tags = form.cleaned_data['p_tags']
+            
+            # create vendor post object
+            p = VendorPost(
+                vendor = owner,
+                pub_date = datetime.now(),
+                title=title,
+                body=body,
+                )
+            p.save()
+            p.send_vendorpost()
+
+            #add tags to the post
+            for tag in p_tags:
+                p.tags.add(tag)
+
+        return HttpResponseRedirect('/journal/%s/post/%s/' % (owner.username, p.id))
+
+    else:
+        postform = postForm()
+        
+        return render(request, 'newpostform.html', {
+            'owner':owner,
+            'isVendor': isVendor,
+            'isOwner': isOwner,
+            'followCount': followCount,
+            'isFollower':isFollower,
+            'followed': followed,
+            'memberships': memberships,
+            'cancelUrl': cancelUrl,
+            'postform': postform,
+            })
+
+@login_required
+def vendorPostView(request, name, postId):
+    owner = User.objects.get(username=name)
+    profile = UserProfile.objects.get(user=owner)
+    isVendor = False
+    if profile.account_type == 'vendor':
+        isVendor = True
+    owner_display_name = UserProfile.objects.get(user=owner).display_name
+    isOwner = False
+    if request.user.username == name:
+        isOwner = True
+    followCount = len(Follow.objects.filter(followed=owner))
+    isFollower = False
+    if Follow.objects.filter(followed=owner, follower=request.user).exists():
+        isFollower = True
+    followed = Follow.objects.filter(follower=owner)
+    memberships = Join.objects.filter(member=owner)
+    # vendor post data
+    posts = []
+    last_post = ''
+    current_post = VendorPost.objects.get(id=postId)
+    all_posts = VendorPost.objects.filter(vendor=owner).filter(pub_date__lte=current_post.pub_date).order_by('-pub_date')
+    if all_posts:
+        select_posts = all_posts
+        if all_posts.count() > 3:
+            select_posts = all_posts[:3]
+        last_post = select_posts[(len(select_posts)-1)]
+        for p in select_posts:
+            post = {}
+            post['id'] = p.id
+            post['pub_date'] = p.pub_date
+            post['author'] = owner_display_name
+            post['username'] = owner.username
+            post['title'] = p.title
+            post['body'] = p.body
+            post['likecount'] = VendorPostLike.objects.filter(vendorpost=p).count()
+            post['tags'] = p.tags.all()
+            post['comments'] = VendorPostComment.objects.filter(vendorpost=p).order_by('-pub_date')
+            posts.append(post)
+        
+    messageform = messageForm()
+    postcommentform = commentForm()
+
+    return render(request, 'journalView.html', {
+        'owner':owner,
+        'isVendor':isVendor,
+        'isOwner':isOwner,
+        'followCount':followCount,
+        'isFollower': isFollower,
+        'followed': followed,
+        'memberships': memberships,
+        'current_post':current_post,
+        'posts':posts,
+        'last_post':last_post,
+        'messageform': messageform,
+        'postcommentform':postcommentform,
+    })
+
+@login_required
+def vendorPostEdit(request, name, postId):
+    owner = User.objects.get(username=name)
+    if request.user.username != name:
+        return HttpResponseRedirect('/journal/%s/car/%s/')
+    isOwner = True
+    profile = UserProfile.objects.get(user=owner)
+    isVendor = False
+    if profile.account_type == 'vendor':
+        isVendor = True
+    followCount = len(Follow.objects.filter(followed=owner))
+    isFollower = False
+    followed = Follow.objects.filter(follower=owner)
+    memberships = Join.objects.filter(member=owner)
+    p = VendorPost.objects.get(pk=postId)
+    p_tags = p.tags.all()
+    p_taglist = []
+    for tag in p_tags:
+        p_taglist.append(tag.name)
+    p_tags_string = ', '.join(p_taglist)
+
+    if request.method == 'POST':
+        form = postForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            body = form.cleaned_data['body']
+            tags = form.cleaned_data['p_tags']
+            
+            # save changes to post object
+            p.title = title
+            p.body = body
+            p.save()
+            
+            # set with new tags
+            p.tags.clear()
+            for tag in tags:
+                p.tags.add(tag)
+                
+            return HttpResponseRedirect('/journal/%s/post/%s' % (owner.username, p.pk))
+        
+    else:
+        editpostform = postForm(
+            initial = {
+                'title': p.title,
+                'p_tags': p_tags_string,
+                'body': p.body,
+                }            
+        )
+        
+        return render(request, 'editpostform.html', {
+            'owner':owner,
+            'isOwner': isOwner,
+            'isVendor': isVendor,
+            'followCount': followCount,
+            'isFollower':isFollower,
+            'followed': followed,
+            'memberships': memberships,
+            'post':p,
+            'editpostform': editpostform,
+            })
+
+@login_required
+def vendorPostDelete(request, name, postId):
+    owner = request.user
+    p = VendorPost.objects.get(pk=postId)
+    p.delete()
+    # find most recent post to go to
+    posts = VendorPost.objects.filter(vendor=owner).order_by('-pub_date')
+    if len(posts) > 0:
+        u = '/journal/%s/post/%s' % (owner.username, posts[0].pk)
+    else:
+        u = '/journal/%s/' % (owner.username) 
+    return HttpResponseRedirect(u)
+
+def vendorPostComment(request, name, postId):
+    user = request.user
+    owner = User.objects.get(username=name)
+    post = VendorPost.objects.get(pk=postId)
+    isOwner = False
+    if user == owner:
+        isOwner=True
+    postcommentform = commentForm()
+    
+    if request.method == 'POST':
+        form = commentForm(request.POST)
+        if form.is_valid():
+            body = form.cleaned_data['body']
+
+            # create post comment object
+            c = VendorPostComment(
+                vendorpost = post,
+                user = user,
+                pub_date = datetime.now(),
+                body = body,
+                )
+            c.save()
+            c.send_vendorpost_comment()
+
+            comments = VendorPostComment.objects.filter(vendorpost=post).order_by('-pub_date')
+
+            return render(request, 'vendorpostcomments.html', {
+                'isOwner': isOwner,
+                'post':post,
+                'postcommentform':postcommentform,
+                'comments':comments,
+            })
+            
+    else:
+        return HttpResponseRedirect('/journal/%s/post/%s/' % (owner.username, post.id))
+
+def vendorPostCommentDelete(request, name, postId, commentId):
+    owner = User.objects.get(username=name)
+    post = VendorPost.objects.get(pk=postId)
+    isOwner = False
+    if request.user.username == name:
+        isOwner=True
+    if not isOwner:
+        return HttpResponseRedirect('/journal/%s/post/%s/' % (owner.username, post.id))
+    comment = VendorPostComment.objects.get(id=commentId)
+    comment.delete()
+    
+    postcommentform = commentForm()
+    comments = VendorPostComment.objects.filter(vendorpost=post).order_by('-pub_date')
+
+    return render(request, 'vendorpostcomments.html', {
+        'isOwner': isOwner,
+        'post':post,
+        'postcommentform':postcommentform,
+        'comments':comments,
+        })
+
+@login_required
+def vendorPostLike(request, name, postId):
+    u = request.user
+    p = VendorPost.objects.get(pk=postId)
+    if not VendorPostLike.objects.filter(user = u.pk, vendorpost=p).exists():
+        l = VendorPostLike(
+                 user = u,
+                 vendorpost = p,
+                 )
+        l.save()
+        l.send_vendorpost_like()
+        
+    likecount = len(VendorPostLike.objects.filter(vendorpost=p))
+    c = {}
+    c['likecount'] = str(likecount)
+    like_json = simplejson.dumps(c)
+    return HttpResponse(like_json)
+
+def vendorPostNext(request, name, postId):
+    owner = User.objects.get(username=name)
+    owner_display_name = UserProfile.objects.get(user=owner).display_name
+    isOwner = False
+    if request.user.username == name:
+        isOwner = True
+    page = request.GET.get('p')
+    posts_per_page = 3
+    lower_bound = posts_per_page * (int(page)-1) 
+    upper_bound = lower_bound + posts_per_page
+#    car = Car.objects.get(id=carId)
+    index_post = VendorPost.objects.get(id=postId)
+    prev_posts = VendorPost.objects.filter(vendor=owner).filter(pub_date__lt=index_post.pub_date).order_by('-pub_date')
+    posts = []
+    if prev_posts.count() > lower_bound:
+        if prev_posts.count() > upper_bound:
+            select_posts = prev_posts[lower_bound:upper_bound]
+        else:
+            select_posts = prev_posts[lower_bound:prev_posts.count()]
+        # set up the data dictionary
+        for p in select_posts:
+            post = {}
+            post['id'] = p.id
+#            post['carid'] = p.car.id
+            post['pub_date'] = p.pub_date
+            post['author'] = owner_display_name
+            post['username'] = owner.username
+            post['title'] = p.title
+            post['body'] = p.body
+            post['likecount'] = VendorPostLike.objects.filter(vendorpost=p).count()
+            post['tags'] = p.tags.all()
+            post['comments'] = VendorPostComment.objects.filter(vendorpost=p)
+            posts.append(post)
+    
+        postcommentform = commentForm()
+
+        return render(request, 'nextvendorposts.html', {
+            'owner': owner,
+            'isOwner': isOwner,
+            'posts':posts,
+            'postcommentform': postcommentform,
+            });
+    else:
+        return HttpResponse('')
 
 @login_required
 def accountEdit(request):
@@ -1118,7 +1551,6 @@ def postEdit(request, name, carId, postId):
     for tag in p_tags:
         p_taglist.append(tag.name)
     p_tags_string = ', '.join(p_taglist)
-
 
     if request.method == 'POST':
         form = postForm(request.POST)

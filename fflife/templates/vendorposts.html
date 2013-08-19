@@ -1,0 +1,136 @@
+<div id="postsContent">
+              
+<div id="postScroll">
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post">
+            {% if isOwner %}
+            <a class="btn btn-mini pull-right" href="/journal/{{post.username}}/post/{{post.id}}/edit/" >Edit Post</a>
+            {% endif %}
+            <h3>{{post.title}}</h3>
+            <p>
+            Published on {{ post.pub_date }} by {{ post.author }} | Likes: <span id="vendorpostlikecount_{{post.id}}">{{post.likecount}}</span> <a class="vendorpostlikelink" href="#!" targetid="#vendorpostlikecount_{{post.id}}" data="/journal/{{owner.username}}/post/{{post.id}}/like/"><i class="icon-thumbs-up"></i></a>
+            </p>
+            {% if post.tags %}
+                <ul class="tags">
+                    {% for tag in post.tags %}
+                        <li>{{tag}}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No tags</p>
+            {% endif %}
+            </div>
+            
+            <div class="body">
+                {{ post.body|safe }}
+            </div>
+            
+            <div id="vendorPostComments_{{post.id}}">
+            <p><a class="vendorCommentListToggle" targetid="#vendorCommentbox_{{post.id}}" state="off" href="#!"><strong>Comments: {{post.comments|length}}</strong></a></p>
+            <div id="vendorCommentbox_{{post.id}}" class="hide">
+                <div>
+                    <form id="vendorCommentform_{{post.id}}">
+                    {% csrf_token %}
+                    {{ postcommentform.body }}
+                    <a class="btn btn-mini vendorPostCommentSubmit" targetid="#vendorPostComments_{{post.id}}" formid="#vendorCommentform_{{post.id}}" formurl="/journal/{{post.username}}/post/{{post.id}}/newcomment/">Submit</a>
+                    </form>
+                </div>
+                {% if post.comments %}
+                <div class="commentList">
+                    <ul>
+                        {% for c in post.comments %}
+                            <li class="rounded-corners">
+                                {% if isOwner %}
+                                <a targetid="#vendorPostComments_{{post.id}}" data="/journal/{{post.username}}/post/{{post.id}}/comment/{{c.id}}/delete/" class="close vendorPostCommentDelete">&times;</a>
+                                {% endif %}
+                                <p class="commentbody">{{c.body}}</p>
+                                <p class="byline" >Posted by {{c.user.get_profile.display_name}} on {{c.pub_date}}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            </div>
+                   
+        {% endfor %}
+        
+    {% else %}
+        <h3>No Vendor Posts!</h3>
+    {% endif %}
+    </div>
+    <div id="vendorpost_loadmoreajaxloader" style="display:none" data="/journal/{{owner.username}}/post/{{last_post.id}}/next" page="1"><center>Loading</center></div>
+</div>
+
+<script type="text/javascript">
+    $(".vendorCommentListToggle").click(function(){
+        var targetid = $(this).attr('targetid');
+        var state = $(this).attr('state');
+        if (state == 'on'){
+                $(this).attr('state','off');
+                $(targetid).hide()
+            }else{
+                $(this).attr('state','on');
+                $(targetid).show()
+            }
+        });
+    $(".vendorPostCommentDelete").click(function(){
+        var targetid = $(this).attr('targetid');
+        var url = $(this).attr('data');
+        $.ajax({
+            url: url,
+            dataType: 'html',
+            success: function(html){
+                if(html){
+                    $(targetid).html(html);
+                }
+            }
+        });
+    });
+    $(".vendorPostCommentSubmit").click(function(){
+        var targetid = $(this).attr('targetid');
+        var formid = $(this).attr('formid');
+        var formurl = $(this).attr('formurl');
+        $.ajax({
+            url: formurl,
+            type: 'post',
+            dataType: 'html',
+            data: $(formid).serialize(),
+            success: function(html){
+                $(targetid).html(html);
+            }
+            });
+        });
+    $(".vendorpostlikelink").click(function(){
+        var url = $(this).attr('data');
+        var targetid = $(this).attr('targetid');
+        $.getJSON(url, function(count){
+            $(targetid).text(count['likecount']);
+            });
+    });
+    $(window).scroll(function(){
+        if($(window).scrollTop() == $(document).height() - $(window).height()){
+            $('div#vendorpost_loadmoreajaxloader').show();
+            var data = $('div#vendorpost_loadmoreajaxloader').attr('data'); 
+            var page = $('div#vendorpost_loadmoreajaxloader').attr('page');
+            var url = data + '?p=' + page;
+            /* set up next page */
+            var nextnum = +page + 1;
+            var nextpage = nextnum.toString();
+            $('div#vendorpost_loadmoreajaxloader').attr('page', nextpage);
+            /* load data set */
+            $.ajax({
+                url: url,
+                success: function(html){
+                    if(html){
+                        $("#postScroll").append(html);
+                        $('div#vendorpost_loadmoreajaxloader').hide();
+                    } else {
+                        $("div#vendorpost_loadmoreajaxloader").html('<center><small>No more posts</small></center>');
+                    }
+                }
+            });
+        }
+    });
+</script>

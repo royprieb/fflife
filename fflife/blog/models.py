@@ -22,10 +22,12 @@ def get_gallery_image_path(instance, filename):
 profile_created = django.dispatch.Signal(providing_args=[])
 follow_created = django.dispatch.Signal(providing_args=[])
 like_created = django.dispatch.Signal(providing_args=[])
+vendorpost_like_created = django.dispatch.Signal(providing_args=[])
 vote_created = django.dispatch.Signal(providing_args=[])
 # follower signals
 car_created = django.dispatch.Signal(providing_args=[])
 post_created = django.dispatch.Signal(providing_args=[])
+vendorpost_created = django.dispatch.Signal(providing_args=[])
 mod_created = django.dispatch.Signal(providing_args=[])
 photo_created = django.dispatch.Signal(providing_args=[])
 # group signals
@@ -33,12 +35,31 @@ topic_created = django.dispatch.Signal(providing_args=[])
 response_created = django.dispatch.Signal(providing_args=[])
 # post comment signal
 post_comment_created = django.dispatch.Signal(providing_args=[])
+vendorpost_comment_created = django.dispatch.Signal(providing_args=[])
 photo_comment_created = django.dispatch.Signal(providing_args=[])
 
 # models below
+class VendorCategory(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.name
+    
 class UserProfile(models.Model):
+    # account types
+    OWNER = 'owner'
+    VENDOR = 'vendor'
+    ACCOUNT_TYPE_CHOICES = (
+        (OWNER, 'owner'),
+        (VENDOR, 'vendor'),
+    )
+    # fields
     user = models.OneToOneField(User)
+    account_type = models.CharField(max_length=10, choices=ACCOUNT_TYPE_CHOICES)
+    vendor_category = models.CharField(max_length=50, null=True, blank=True)
     display_name = models.CharField(max_length=50, null=True, blank=True)
+    website = models.URLField(max_length=200, null=True, blank=True)
+    street_address = models.CharField(max_length=50, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
     state = models.CharField(max_length=50, null=True, blank=True)
     country = models.CharField(max_length=50, null=True, blank=True)
@@ -166,6 +187,41 @@ class Like(models.Model):
     def send_like(self):
         like_created.send(sender=self)
 
+class VendorPost(models.Model):
+    vendor = models.ForeignKey(User)
+    pub_date = models.DateTimeField('date published')
+    title = models.CharField(max_length=100)
+    body = RichTextField(null=True, blank=True)
+    tags = TaggableManager(blank=True)
+    
+    def __unicode__(self):
+        return self.title
+
+    def send_vendorpost(self):
+        vendorpost_created.send(sender=self)
+
+class VendorPostComment(models.Model):
+    vendorpost = models.ForeignKey(VendorPost)
+    user = models.ForeignKey(User)
+    pub_date = models.DateTimeField('date published')
+    body = models.TextField(null=True, blank=True)
+
+    def __unicode__(self):
+        return self.vendorpost.title
+
+    def send_vendorpost_comment(self):
+        vendorpost_comment_created.send(sender=self)
+
+class VendorPostLike(models.Model):
+    user = models.ForeignKey(User)
+    vendorpost = models.ForeignKey(VendorPost)
+    
+    def __unicode__(self):
+        return self.post.title
+
+    def send_vendorpost_like(self):
+        vendorpost_like_created.send(sender=self)
+
 class Photo(models.Model):
     car = models.ForeignKey(Car)
     caption = models.CharField(max_length=100, null=True, blank=True)
@@ -184,7 +240,7 @@ class Photo(models.Model):
         )
     
     def __unicode__(self):
-        return self.caption
+        return self.car.name
 
     def send_photo(self):
         photo_created.send(sender=self)
@@ -260,6 +316,7 @@ class Feedback(models.Model):
 class Video(models.Model):
     title = models.CharField(max_length=30)
     embedCode = models.TextField(null=True, blank=True)
+    submit_date = models.DateTimeField('date submitted')
 
     def __unicode__(self):
         return self.title
@@ -315,15 +372,26 @@ class PhotoComment(models.Model):
 @receiver(profile_created)
 def SignalHandler_UserProfile(sender, **kwargs):
     userprofile = UserProfile.objects.get(user=sender.user)
-    m = Message(
-        recipient=sender.user,
-        sender='FastFreshLife',
-        viewed=False,
-        title='Welcome %s!' % userprofile.display_name,
-        body='<p>This is your FastFreshLife! Click <strong>"Add New Car"</strong> to start logging your latest ride.</p>',
-        pub_date = datetime.now()
-    )
-    m.save()
+    if userprofile.account_type == 'owner':
+        m = Message(
+            recipient=sender.user,
+            sender='FastFreshLife',
+            viewed=False,
+            title='Welcome %s!' % userprofile.display_name,
+            body='<p>This is your FastFreshLife! Click <strong>"Add New Car"</strong> to start logging your latest ride.</p>',
+            pub_date = datetime.now()
+            )
+        m.save()
+    if userprofile.account_type == 'vendor':
+        m = Message(
+            recipient=sender.user,
+            sender='FastFreshLife',
+            viewed=False,
+            title='Welcome %s!' % userprofile.display_name,
+            body='<p>This is your FastFreshLife! Click <strong>"Add Post"</strong> to start adding content to your account.</p>',
+            pub_date = datetime.now()
+            )
+        m.save()
 
 @receiver(follow_created)
 def SignalHandler_Follow(sender, **kwargs):
@@ -348,13 +416,28 @@ def SignalHandler_Like(sender, **kwargs):
         sender='FastFreshLife',
         viewed=False,
         title='%s liked your post!' % userprofile.display_name,
-        body='<p><strong>Congratulations!</strong> %s liked your post titled "%s".</p>' % (sender.user.username, sender.post.title),
+        body='<p><strong>Congratulations!</strong> %s liked your post titled "%s".</p>' % (userprofile.display_name, sender.post.title),
         pub_date = datetime.now(),
         label = 'View Profile',
         action = '/journal/%s/' % sender.user.username
     )
     m.save()
 
+@receiver(vendorpost_like_created)
+def SignalHandler_VendorPost_Like(sender, **kwargs):
+    userprofile = UserProfile.objects.get(user=sender.user)
+    m = Message(
+        recipient=sender.vendorpost.vendor,
+        sender='FastFreshLife',
+        viewed=False,
+        title='%s liked your post!' % userprofile.display_name,
+        body='<p><strong>Congratulations!</strong> %s liked your post titled "%s".</p>' % (userprofile.display_name, sender.vendorpost.title),
+        pub_date = datetime.now(),
+        label = 'View Profile',
+        action = '/journal/%s/' % sender.user.username
+    )
+    m.save()
+    
 @receiver(vote_created)
 def SignalHandler_Vote(sender, **kwargs):
     userprofile = UserProfile.objects.get(user=sender.user)
@@ -401,6 +484,23 @@ def SignalHandler_Post(sender, **kwargs):
             pub_date = datetime.now(),
             label = 'View Post',
             action = '/journal/%s/car/%s/post/%s' % (sender.car.owner.username, sender.car.pk, sender.pk)
+            )
+        m.save()
+
+@receiver(vendorpost_created)
+def SignalHandler_VendorPost(sender, **kwargs):
+    userprofile_vendor = UserProfile.objects.get(user=sender.vendor)
+    followers = Follow.objects.filter(followed=sender.vendor)
+    for f in followers:
+        m = Message(
+            recipient=f.follower,
+            sender='FastFreshLife',
+            viewed=False,
+            title='%s added a new post!' % userprofile_vendor.display_name,
+            body='<p><strong>Take a look!</strong> %s added a new post, %s.</p>' % (userprofile_vendor.display_name, sender.title),
+            pub_date = datetime.now(),
+            label = 'View Post',
+            action = '/journal/%s/post/%s' % (sender.vendor.username, sender.pk)
             )
         m.save()
 
@@ -527,6 +627,43 @@ def SignalHandler_PostComment(sender, **kwargs):
     )
     m.save()
 
+@receiver(vendorpost_comment_created)
+def SignalHandler_PostComment(sender, **kwargs):
+    current_vendorpost = sender.vendorpost
+    
+    # get commenters, exclude post author and comment author
+    current_vendorpost_comments = VendorPostComment.objects.filter(vendorpost=current_vendorpost)
+    commenters = []
+    for c in current_vendorpost_comments:
+        if c.user != current_vendorpost.vendor and c.user != sender.user and c.user not in commenters:
+            commenters.append(c.user)
+
+    for commenter in commenters:
+        m = Message(
+            recipient=commmenter,
+            sender='FastFreshLife',
+            viewed = False,
+            title = 'New comment on: %s' % current_vendorpost.title,
+            body='<p><strong>%s</strong></p>' % sender.body,
+            pub_date = datetime.now(),
+            label = 'View Post',
+            action = '/journal/%s/post/%s' % (current_vendorpost.vendor.username, current_vendorpost.pk)
+        )
+        m.save()
+    
+    # send message to post author
+    m = Message(
+        recipient = current_vendorpost.vendor,
+        sender='FastFreshLife',
+        viewed = False,
+        title = 'New comment on: %s' % current_vendorpost.title,
+        body='<p><strong>%s</strong></p>' % sender.body,
+        pub_date = datetime.now(),
+        label = 'View Post',
+        action = '/journal/%s/post/%s' % (current_vendorpost.vendor.username, current_vendorpost.pk)        
+    )
+    m.save()
+    
 @receiver(photo_comment_created)
 def SignalHandler_PhotoComment(sender, **kwargs):
     current_photo = sender.photo
