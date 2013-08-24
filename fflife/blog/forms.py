@@ -6,6 +6,8 @@ from blog.models import Post, Message
 from blog.models import Feedback
 from ckeditor.widgets import CKEditorWidget
 from taggit.forms import *
+from django.forms.widgets import RadioSelect
+from django.forms.widgets import Select
 
 # form classes here
 class loginForm(forms.Form):
@@ -65,6 +67,15 @@ class accountForm(forms.Form):
         }))
     captcha = CaptchaField()
 
+VENDOR_CHOICES = [
+    ['Photographer','Photographer'],
+    ['Videographer','Videographer'],
+    ['Clothing Vendor','Clothing Vendor'],
+    ['Performance Shop ','Performance Shop'],
+    ['Parts Vendor','Parts Vendor'],
+    ['Other','Other'],
+]
+
 class vendorAccountForm(forms.Form):
     username = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={
         'placeholder': 'Username',
@@ -79,13 +90,16 @@ class vendorAccountForm(forms.Form):
         'class':'input-xlarge',
         }))
     photo = forms.FileField(required=False, widget=forms.FileInput)
-    vendor_category = forms.CharField(required=False, widget=forms.TextInput(attrs={
-        'placeholder': 'Vendor Type',
-        'class':'vendorCategoryTypeahead input-xlarge',
-        'autocomplete':'off',
-        }))
+    vendor_category = forms.ChoiceField(
+        required = False,
+        widget=Select(attrs={
+            'label':'vendor type',
+            'class':'input-xlarge',
+            }),
+        choices=VENDOR_CHOICES,
+    )
     website = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={
-        'placeholder': 'Website URL',
+        'placeholder': 'Website (http://fastfreshlife.com)',
         'class':'input-xlarge',
         }))
     street_address = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={

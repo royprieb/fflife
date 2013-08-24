@@ -194,14 +194,6 @@ def newOwner (request):
                   'msg':'',
                   })
 
-def vendorCategory (request):
-    categories = VendorCategory.objects.all()
-    options = []
-    for category in categories:
-        options.append(category.name)
-    data = simplejson.dumps(options) 
-    return HttpResponse(data, content_type='application/json')
-
 def newVendor (request):
     if request.method == 'POST':
         form = vendorAccountForm(request.POST, request.FILES)

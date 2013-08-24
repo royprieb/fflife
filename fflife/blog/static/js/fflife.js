@@ -224,6 +224,10 @@ $(document).ready(function() {
             },
         password: "required",
         photo: "required",
+        vendor_category: "required",
+        website:{
+            url: true,
+            },
         motto:{
             required: true,
             maxlength: 50,
@@ -268,17 +272,6 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('.vendorCategoryTypeahead').typeahead({    
-        source: function(query,process){
-            return $.getJSON(
-                             '/vendorcategory',
-                             { query: query },
-                             function (data){
-                                return process(data);
-                             }
-                             );
-        }
-    });
     $('.carMakeTypeahead').typeahead({
         source: function(query,process){
             return $.getJSON(

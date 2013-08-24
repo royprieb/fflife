@@ -20,7 +20,7 @@ Welcome to FastFreshlife! Please fill in all fields below.
 {{ form.email }}
 {{ form.password }}
 <p><strong>Profile Photo</strong> {{ form.photo }}</p>
-{{ form.vendor_category }}
+<p><strong>Vendor Type</strong> {{ form.vendor_category }}</p>
 {{ form.website }}
 {{ form.street_address }}
 {{ form.city }}
@@ -37,8 +37,6 @@ Welcome to FastFreshlife! Please fill in all fields below.
 </div>
 
 </div>
-
-{% include "jscript.html" %}
 
 </body>
 {% endblock %}

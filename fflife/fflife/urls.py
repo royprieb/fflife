@@ -91,7 +91,6 @@ urlpatterns = patterns('blog.views',
     url(r'^carmake/$', 'carMake', name='carMake'),
     url(r'^carmodel/$', 'carModel', name='carModel'),
     url(r'^modtype/$', 'modType', name='modType'),
-    url(r'^vendorcategory/$', 'vendorCategory', name='vendorCategory'),
     
     # tools
     url(r'^ckeditor/', include('ckeditor.urls')),
