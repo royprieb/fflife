@@ -182,7 +182,7 @@ def newOwner (request):
                 p.original_image.save(image_file.name, image_file)
                 p.save()
             else:
-                p.original_image = 'user_profiles/default.png'
+                p.original_image = 'user_profiles/FASTFRESHLIFE_DEFAULT.jpg'
                 p.save()
                         
             return HttpResponseRedirect('/home/')
@@ -195,6 +195,7 @@ def newOwner (request):
                   'msg':'',
                   })
 
+# new vendor
 def newVendor (request):
     if request.method == 'POST':
         form = vendorAccountForm(request.POST, request.FILES)
@@ -248,7 +249,7 @@ def newVendor (request):
                 p.original_image.save(image_file.name, image_file)
                 p.save()
             else:
-                p.original_image = 'user_profiles/default.png'
+                p.original_image = 'user_profiles/FASTFRESHLIFE_DEFAULT.jpg'
                 p.save()
                         
             return HttpResponseRedirect('/home/')

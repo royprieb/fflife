@@ -11,7 +11,7 @@
 <h1>Create Owner Account</h1>
 </div>
 <div class="span4 static-right-col">
-<p>
+<p class="instruction">
 Welcome to FastFreshlife! Please fill in all fields below. 
 </p>
 <form id="newAccountForm" enctype="multipart/form-data" action="/account/new/owner/" method="post">
@@ -19,13 +19,13 @@ Welcome to FastFreshlife! Please fill in all fields below.
 {{ form.username }}
 {{ form.email }}
 {{ form.password }}
-<p><strong>Profile Photo</strong> {{ form.photo }}</p>
+<p class="instruction"><strong>Profile Photo</strong> {{ form.photo }}</p>
 {{ form.motto }}
 {{ form.city }}
 {{ form.state }}
 {{ form.country }}<br>
 {{ form.captcha }}
-<p>By clicking submit, you agree to the <a href="/terms/">terms of service</a>.</p>
+<p class="instruction">By clicking submit, you agree to the <a href="/terms/">terms of service</a>.</p>
 <input class="btn btn-primary" type="submit" value="Submit" />
 {% if msg %}
 <p><strong><label class="warning">{{msg}}</label></strong></p>

@@ -21,8 +21,11 @@ div.static-left-col img{
 div.static-left-col h1{
      color: #FFF;
 }
-div.static-right-col p, div.static-right-col h3, div.static-right-col p{
+div.static-right-col p, div.static-right-col h3, div.static-right-col p.instruction{
      color: #FFF;
+}
+input.error, select.error, textarea.error{
+     border: 3px solid red;
 }
 div.static{
      color: #FFF;

@@ -223,7 +223,6 @@ $(document).ready(function() {
             email: true,
             },
         password: "required",
-        photo: "required",
         vendor_category: "required",
         website:{
             url: true,
