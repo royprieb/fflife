@@ -182,7 +182,7 @@ def newOwner (request):
                 p.original_image.save(image_file.name, image_file)
                 p.save()
             else:
-                p.original_image = 'user_profiles/FASTFRESHLIFE_DEFAULT.jpg'
+                p.original_image = 'user_profiles/default_profile.jpg'
                 p.save()
                         
             return HttpResponseRedirect('/home/')
@@ -249,7 +249,7 @@ def newVendor (request):
                 p.original_image.save(image_file.name, image_file)
                 p.save()
             else:
-                p.original_image = 'user_profiles/FASTFRESHLIFE_DEFAULT.jpg'
+                p.original_image = 'user_profiles/default_profile.jpg'
                 p.save()
                         
             return HttpResponseRedirect('/home/')
